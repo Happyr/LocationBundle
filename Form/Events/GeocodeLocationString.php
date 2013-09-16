@@ -48,48 +48,41 @@ class GeocodeLocationString
     public function geocodeLocation(FormEvent $event)
     {
         $location=$event->getData();
-        $addressObject=$this->geocoder->geocode($location->getLocationStr(),true);
-        if(!$addressObject){
+        $result=$this->geocoder->geocode($location->getLocationStr());
+        if(!$result){
             return;
         }
 
-        $addressParts=$addressObject[0]->address_components;
-        $streetAddress='';
+        $defaults=array(
+            'fullLocation'=>'',
+            'streetNumber'=>'',
+            'street'=>'',
+            'city'=>null,
+            'country'=>null,
+            'municipality'=>null,
+            'region'=>null,
+            'zipCode'=>null,
+            'state'=>null,
+            'lat'=>null,
+            'lng'=>null,
+        );
 
-        $location->clear();
+        //merge the result with the defaults
+        $result+=$defaults;
 
-        //parse through the address components
-        foreach ($addressParts as $addressPart) {
-            if (in_array('street_number', $addressPart->types)) {
-                $streetAddress.=' '.$addressPart->long_name;
-            }
-            elseif (in_array('route', $addressPart->types)) {
-                $streetAddress=$addressPart->long_name.$streetAddress;
-            }
-            elseif (in_array('locality', $addressPart->types)) {
-                $location->setCity($this->lm->getObject('City',$addressPart->long_name));
-            }
-            elseif (in_array('administrative_area_level_2', $addressPart->types)) {
-                if($location->getCity()==null){
-                    $location->setCity($this->lm->getObject('City', $addressPart->long_name));
-                }
-            }
-            elseif (in_array('country', $addressPart->types)) {
-                $location->setCountry($this->lm->getObject('Country', $addressPart->short_name));
-            }
-            elseif (in_array('postal_code', $addressPart->types)) {
-                $location->setZipCode($this->lm->getObject('ZipCode', $addressPart->long_name));
-            }
-            elseif (in_array('postal_town', $addressPart->types)) {
-                $location->setRegion($this->lm->getObject('Region', $addressPart->long_name));
-            }
+        $streetAddress=$result['street'].' '.$result['streetNumber'];
+        $location->setAddress(trim($streetAddress));
 
-        }
+        $location->setCity($this->lm->getObject('City', $result['city']));
+        $location->setCountry($this->lm->getObject('Country', $result['country']));
+        $location->setZipCode($this->lm->getObject('ZipCode', $result['zipCode']));
+        $location->setRegion($this->lm->getObject('Region', $result['region']));
+        $location->setMunicipality($this->lm->getObject('Municipality', $result['municipality']));
+        $location->setState($this->lm->getObject('State', $result['state']));
 
-        $location->setCoordLong($addressObject[0]->geometry->location->lng);
-        $location->setCoordLat($addressObject[0]->geometry->location->lat);
-        $location->setLocation($addressObject[0]->formatted_address);
-        $location->setAddress($streetAddress);
+        $location->setCoordLat($result['lat']);
+        $location->setCoordLong($result['lng']);
+        $location->setLocation($result['fullLocation']);
 
         $event->setData($location);
 

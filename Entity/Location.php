@@ -72,14 +72,14 @@ class Location
     /**
      *
      *
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="decimal", scale=6)
      */
     private $lng='';
 
      /**
      *
      *
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="decimal", scale=6)
      */
     private $lat='';
 
@@ -95,8 +95,8 @@ class Location
         $this->region=null;
         $this->zipCode=null;
         $this->address='';
-        $this->lng='';
-        $this->lat='';
+        $this->lng=null;
+        $this->lat=null;
     }
 
       /**
