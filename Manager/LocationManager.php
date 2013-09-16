@@ -2,147 +2,165 @@
 
 namespace HappyR\LocationBundle\Manager;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use HappyR\LocationBundle\Entity\LocationObject;
-use HappyR\LocationBundle\Entity\Location;
-use Symfony\Component\Form\FormError;
+use HappyR\LocationBundle\Services\SlugifierInterface;
 
 /**
- * A manager to handle the general Location object
  *
- * All the other manager extends the LocationObjectManager class but the are not accessed by the service container.
- * This class holds the other managers an initialize them when needed.
- *
+ * All the other manager extends this class but the are not accessed by the service container.
+ * This class does all the work
  *
  * @author tobias
  *
  */
 class LocationManager
 {
-    private $em;
-    private $slugifier;
+    /**
+     * @var \Doctrine\Common\Persistence\ObjectManager em
+     *
+     *
+     */
+    protected $om;
 
-    private $city=null;
-    private $country=null;
-    private $municipality=null;
-    private $region=null;
-    private $zipCode=null;
+    /**
+     * @var \HappyR\LocationBundle\Services\SlugifierInterface slugifier
+     *
+     *
+     */
+    protected $slugifier;
 
-    public function __construct($em,$slugifier)
+    /**
+     * @var string typePrefix
+     *
+     *
+     */
+    protected $typePrefix='HappyRLocationBundle:';
+
+
+    /**
+     * @param ObjectManager $em
+     * @param SlugifierInterface $slugifier
+     */
+    public function __construct(ObjectManager $em, SlugifierInterface $slugifier)
     {
         $this->em=$em;
         $this->slugifier=$slugifier;
     }
 
     /**
-     * @return CityManager
-     */
-    public function getCityManager()
-    {
-        if($this->city==null)
-            $this->city=new CityManager($this->em, $this->slugifier);
-
-        return $this->city;
-    }
-
-     /**
-     * @return CountryManager
-     */
-    public function getCountryManager()
-    {
-        if($this->country==null)
-            $this->country=new CountryManager($this->em, $this->slugifier);
-
-        return $this->country;
-    }
-
-     /**
-     * @return MunicipalityManager
-     */
-    public function getMunicipalityManager()
-    {
-        if($this->municipality==null)
-            $this->municipality=new MunicipalityManager($this->em, $this->slugifier);
-
-        return $this->municipality;
-    }
-
-     /**
-     * @return RegionManager
-     */
-    public function getRegionManager()
-    {
-        if($this->region==null)
-            $this->region=new RegionManager($this->em, $this->slugifier);
-
-        return $this->region;
-    }
-
-     /**
-     * @return ZipCodeManager
-     */
-    public function getZipCodeManager()
-    {
-        if($this->zipCode==null)
-            $this->zipCode=new ZipCodeManager($this->em, $this->slugifier);
-
-        return $this->zipCode;
-    }
-
-     /**
-     * Make sure that all the strings from form post will be an object
+     * Returns a object of $type. This will always return a object. A new object will be created if it does not exsist.
      *
-     * @param  Location $location
-     * @return Location with objects as references
+     * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
+     * @param string $name. The name of the type.
      */
-    /*public function handleFormPost(Location &$location, $form){
-        $allSuccess=true;
+    protected function getObject($entity, $name)
+    {
+        $entity=$this->typePrefix.$entity;
+        $name=$this->beautifyName($name);
+        $slug=$this->slugifier->slugify($name);
 
-        $this->handleObjectPost($location, $form, 'City', $allSuccess);
-        $this->handleObjectPost($location, $form, 'Country', $allSuccess);
-        $this->handleObjectPost($location, $form, 'Municipality', $allSuccess);
-        $this->handleObjectPost($location, $form, 'Region', $allSuccess);
-        $this->handleObjectPost($location, $form, 'ZipCode', $allSuccess);
+        //fetch object
+        $object=$this->em->getRepository($entity)->findOneBy(array('slug'=>$slug));
 
-        return $allSuccess;
-    }
-    */
-    /**
-     * handle post for one object
-     */
-    /*protected function handleObjectPost(Location &$location, $form, $type, &$allSuccess){
-        $getObject='get'.$type;
-        $setObject='set'.$type;
-        $getManager=$getObject.'Manager';
+        //if object is not found
+        if (!$object) {
+            $entityName=explode(':', $entity);
+            $entityNamespace='HappyR\LocationBundle\Entity\\'.$entityName[1];
 
-        $object=$location->$getObject();
-        if ($object!=null && !($object instanceof LocationObject)) { //if string
-            //convert to a real object
-            $object=$this->$getManager()->$getObject($object);
+            //create
+            $object=new $entityNamespace($name,$slug);
 
-            if ($object==null) {//no object found and we are not allowed to create
-                $allSuccess=false; $errorAdded=false;
-                $lowerType=strtolower($type);
-                $formError=new FormError('location.form.error.'.$lowerType);
+            $this->em->persist($object);
+            $this->em->flush();
 
-                if ($form->has($lowerType)) {
-                    //add it to the correct type
-                    $form->get($lowerType)->addError($formError);
-                } elseif ($form->has('location')) {
-                    //check if there is a child called location
-                    $child=$form->get('location');
-                    if ($child->has($lowerType)) {
-                        $child->get($lowerType)->addError($formError);
-                    }
-                } else {
-                    //add it to the form
-                    $form->addError($formError);
-                }
-
-            } else {//if we really got an object
-                $location->$setObject($object);//set the object
-            }
         }
+
+        return $object;
     }
-    */
+
+    /**
+     * Return an object by slug.
+     *
+     * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
+     * @param  String $slug
+     * @return Object or Null
+     */
+    protected function findOneObjectBySlug($entity, $slug)
+    {
+        return $this->em->getRepository($entity)->findOneBy(array('slug'=>$slug));
+    }
+
+    /**
+     * Return an object by name
+     * This function slugifys the name and runs findOneObjectBySlug
+     *
+     * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
+     * @param $name
+     *
+     * @return Object
+     */
+    protected function findOneObjectByName($entity, $name)
+    {
+        return $this->findOneObjectBySlug($entity,$this->slugifier->slugify($name));
+    }
+
+    /**
+     * Rename a object
+     *
+     * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
+     * @param LocationObject $object
+     * @param String         $name
+     */
+    protected function renameObject($entity, LocationObject &$object, $name)
+    {
+        $name=$this->beautifyName($name);
+        $object->setName($name);
+        $object->setSlug($this->slugifier->slugify($name));
+
+        $this->em->persist($object);
+        $this->em->flush();
+    }
+
+    /**
+     * Remove a Location object
+     *
+     * @param LocationObject $object
+     */
+    protected function removeObject(LocationObject &$object)
+    {
+        $this->em->remove($object);
+        $this->em->flush();
+    }
+
+    /**
+     * Merge two Location Objects into one.
+     * This will move all Location's references from $copy to $org
+     * This will remove the copy Object.
+     *
+     * @param String         $databaseName. The $databaseName will be inserted in a query. Must be safe
+     * @param LocationObject $org
+     * @param LocationObject $copy
+     */
+    protected function mergeObjects($databaseName, LocationObject &$org, LocationObject &$copy)
+    {
+        $this->em->createQuery('UPDATE EastitLegoLocationBundle:Location e SET e.'.$databaseName.'=:org_id WHERE e.'.$databaseName.'=:copy_id')
+            ->setParameter('org_id',$org->getId())
+            ->setParameter('copy_id',$copy->getId())
+            ->execute();
+
+        $this->removeObject($copy);
+
+    }
+
+    /**
+     * Makes name beautiful before using it.
+     *
+     * @param String $name
+     */
+    protected function beautifyName($name)
+    {
+        return mb_convert_case(mb_strtolower(trim($name),'UTF-8'), MB_CASE_TITLE, 'UTF-8');
+    }
 
 }

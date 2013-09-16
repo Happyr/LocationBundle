@@ -27,7 +27,7 @@ class Location
      *
      * @ORM\Column(type="string", length=255, nullable=false)
      */
-    protected $locationStr='';
+    protected $location='';
 
     /**
      *
@@ -285,12 +285,12 @@ class Location
         return $this->lat;
     }
 
-    public function getLocationStr()
+    public function getLocation()
     {
         return $this->locationStr;
     }
 
-    public function setLocationStr($str)
+    public function setLocation($str)
     {
         if($str!=null){
             $this->locationStr=$str;

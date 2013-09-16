@@ -5,13 +5,21 @@ namespace HappyR\LocationBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * LocationObjectRepository
+ * Class LocationObjectRepository
+ *
+ * @author Tobias Nyholm
  *
  *
  */
 class LocationObjectRepository extends EntityRepository
 {
-
+    /**
+     *
+     *
+     * @param $name
+     *
+     * @return array
+     */
     public function searchByName($name)
     {
         return $this->getEntityManager()

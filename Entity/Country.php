@@ -3,7 +3,7 @@
 namespace HappyR\LocationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Locale\Locale as Locale;
+use Symfony\Component\Locale\Locale;
 
 /**
  * HappyR\LocationBundle\Entity\Country
@@ -19,7 +19,7 @@ class Country extends LocationObject
     }
 
     /**
-     * Returns the name of the counry with the current locale.
+     * Returns the name of the country with the current locale.
      * If you using twig you may also use the country filter
      */
     public function getName()
