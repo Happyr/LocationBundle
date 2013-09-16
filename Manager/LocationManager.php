@@ -7,6 +7,8 @@ use HappyR\LocationBundle\Entity\Component;
 use HappyR\LocationBundle\Entity\LocationObject;
 use HappyR\LocationBundle\Services\SlugifierInterface;
 
+use Cocur\Slugify\Slugify;
+
 /**
  *
  * All the other manager extends this class but the are not accessed by the service container.
@@ -43,7 +45,7 @@ class LocationManager
      * @param ObjectManager $em
      * @param SlugifierInterface $slugifier
      */
-    public function __construct(ObjectManager $em, SlugifierInterface $slugifier)
+    public function __construct(ObjectManager $em, Slugify $slugifier)
     {
         $this->em=$em;
         $this->slugifier=$slugifier;

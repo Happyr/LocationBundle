@@ -17,7 +17,7 @@ interface GeocodeInterface
      *
      * @param string $address
      *
-     * @return array
+     * @return mixed
      */
     public function geocode($address);
 }

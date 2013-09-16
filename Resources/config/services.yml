@@ -3,12 +3,7 @@ parameters:
 services:
   darwin.location_manager:
     class: HappyR\LocationBundle\Manager\LocationManager
-    arguments: [@doctrine.orm.entity_manager,@darwin.slugifier]
-
-
-  darwin.user_location:
-    class: HappyR\LocationBundle\Services\UserLocationService
-    arguments: [@doctrine.orm.entity_manager,@darwin.util_geoip]
+    arguments: [@doctrine.orm.entity_manager,@zenstruck.slugify]
 
 
   darwin.location_type:
