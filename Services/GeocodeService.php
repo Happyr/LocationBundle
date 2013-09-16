@@ -37,6 +37,8 @@ class GeocodeService implements GeocodeInterface
     {
         $result=$this->geocoder->geocodeAddress($address, true);
 
+        die(print_r($result,true));
+
         $defaults=array(
             'fullLocation'=>'',
             'streetNumber'=>'',
