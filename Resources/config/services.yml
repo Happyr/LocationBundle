@@ -18,9 +18,3 @@ services:
       - { name: form.type, alias: location }
 
 
-  darwin.location.event_listener.locate_user:
-    class: HappyR\LocationBundle\EventListeners\LocateUser
-    arguments: [@darwin.user_location]
-    tags:
-      - { name: kernel.event_listener, event: user.register, method: registrationListener }
-      - { name: kernel.event_listener, event: security.interactive_login, method: loginListener }
