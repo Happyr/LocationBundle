@@ -15,7 +15,7 @@ interface GeocodeInterface
     /**
      * Geocode the address
      *
-     * @param $address
+     * @param string $address
      *
      * @return mixed
      */

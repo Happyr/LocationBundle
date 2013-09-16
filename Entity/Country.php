@@ -13,6 +13,9 @@ use Symfony\Component\Locale\Locale;
  */
 class Country extends LocationObject
 {
+    /**
+     * @param $name
+     */
     public function __construct($name)
     {
         parent::__construct(strtoupper($name),strtolower($name));
@@ -21,6 +24,9 @@ class Country extends LocationObject
     /**
      * Returns the name of the country with the current locale.
      * If you using twig you may also use the country filter
+     *
+     *
+     * @return mixed
      */
     public function getName()
     {

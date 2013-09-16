@@ -100,7 +100,8 @@ class LocationType extends AbstractType
     /**
      * Set all parts to default false
      *
-     * @param array $options
+     * @param array &$options
+     *
      * @return array
      */
     protected function mergeActiveParts(array &$options){
@@ -176,7 +177,7 @@ class LocationType extends AbstractType
     /**
      * Merge user attributes with the default ones
      *
-     * @param array $user
+     * @param array $priority
      * @param array $default
      *
      *
@@ -199,8 +200,8 @@ class LocationType extends AbstractType
     /**
      * Add all the active parts for this instance
      *
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param FormBuilderInterface &$builder
+     * @param array &$options
      *
      */
     protected function addActiveParts(FormBuilderInterface &$builder, array &$options)
@@ -253,8 +254,8 @@ class LocationType extends AbstractType
     /**
      *
      *
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param FormBuilderInterface &$builder
+     * @param array &$options
      *
      */
     protected function addLocation(FormBuilderInterface &$builder, array &$options)

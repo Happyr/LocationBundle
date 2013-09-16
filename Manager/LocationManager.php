@@ -147,7 +147,8 @@ class LocationManager
      */
     public function mergeObjects($databaseName, Component &$org, Component &$copy)
     {
-        $this->em->createQuery('UPDATE EastitLegoLocationBundle:Location e SET e.'.$databaseName.'=:org_id WHERE e.'.$databaseName.'=:copy_id')
+        $this->em->createQuery('UPDATE EastitLegoLocationBundle:Location e SET e.'
+                .$databaseName.'=:org_id WHERE e.'.$databaseName.'=:copy_id')
             ->setParameter('org_id',$org->getId())
             ->setParameter('copy_id',$copy->getId())
             ->execute();

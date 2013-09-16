@@ -16,7 +16,7 @@ class ComponentRepository extends EntityRepository
     /**
      *
      *
-     * @param $name
+     * @param string $name
      *
      * @return array
      */

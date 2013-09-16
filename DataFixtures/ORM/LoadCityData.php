@@ -23,7 +23,8 @@ class LoadCityData extends BaseFixture
      */
     public function load(ObjectManager $manager)
     {
-        $this->basePath = $this->container->get('kernel')->getRootDir().'/../src/Eastit/Darwin/LocationBundle/Resources/data/';
+        $this->basePath = $this->container->get('kernel')->getRootDir().
+            '/../src/Eastit/Darwin/LocationBundle/Resources/data/';
 
         $file = $this->parseYml('cities.yml');
         $cities = $file['cities'];

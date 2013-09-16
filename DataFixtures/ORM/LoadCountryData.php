@@ -24,16 +24,14 @@ class LoadCountryData extends BaseFixture
      */
     public function load(ObjectManager $manager)
     {
-        $this->basePath = $this->container->get('kernel')->getRootDir().'/../src/Eastit/Darwin/LocationBundle/Resources/data/';
+        $this->basePath = $this->container->get('kernel')->getRootDir().
+            '/../src/Eastit/Darwin/LocationBundle/Resources/data/';
 
         $file = $this->parseYml('countries.yml');
         $countries = $file['countries'];
 
-        $cm=$this->container->get('darwin.location_manager')->getCountryManager();
-
         foreach ($countries as $code) {
             $obj = new Country($code);
-
             $manager->persist($obj);
         }
         $manager->flush();

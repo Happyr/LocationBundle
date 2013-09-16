@@ -126,12 +126,23 @@ class Location
     }
 
 
-
+    /**
+     *
+     *
+     *
+     * @return array
+     */
     public function getCoordinates()
     {
         return array('lng'=>$this->lng, 'lat'=>$this->lat);
     }
 
+    /**
+     *
+     *
+     *
+     * @return bool
+     */
     public function hasCoordinates()
     {
         return $this->lng!='' && $this->lat!='';
@@ -146,7 +157,12 @@ class Location
     }
 
 
-
+    /**
+     *
+     *
+     * @param $str
+     *
+     */
     public function setLocation($str)
     {
         if($str!=null){

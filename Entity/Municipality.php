@@ -44,6 +44,10 @@ class Municipality extends LocationObject
 
     /**
      * Get the short code for the municipality. The short code is the last 4 digits.
+     *
+     *
+     *
+     * @return string
      */
     public function getShortCode()
     {

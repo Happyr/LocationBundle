@@ -15,7 +15,7 @@ interface SlugifierInterface
     /**
      * Slugify the $string
      *
-     * @param $string
+     * @param string $string
      *
      * @return mixed
      */
