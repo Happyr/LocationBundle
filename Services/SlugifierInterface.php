@@ -10,7 +10,14 @@ namespace HappyR\LocationBundle\Services;
  * @author Tobias Nyholm
  *
  */
-interface SlugifierInterface 
+interface SlugifierInterface
 {
-    public function slugify($name);
+    /**
+     * Slugify the $string
+     *
+     * @param $string
+     *
+     * @return mixed
+     */
+    public function slugify($string);
 }

@@ -4,13 +4,22 @@ namespace HappyR\LocationBundle\Form\DataTransformer;
 use Symfony\Component\Form\DataTransformerInterface;
 use Acme\TaskBundle\Entity\country;
 
+/**
+ * Class CountryTransformer
+ *
+ * @author Tobias Nyholm
+ *
+ *
+ */
 class CountryTransformer implements DataTransformerInterface
 {
     /**
      * Transforms an object (country) to a string (code).
      *
-     * @param  country|null $country
-     * @return string
+     *
+     * @param mixed $country
+     *
+     * @return mixed|string
      */
     public function transform($country)
     {
@@ -22,7 +31,11 @@ class CountryTransformer implements DataTransformerInterface
     }
 
     /**
-     * We dont need any reverse transform
+     * We don't need any reverse transform
+     *
+     * @param mixed $code
+     *
+     * @return mixed
      */
     public function reverseTransform($code)
     {

@@ -10,7 +10,14 @@ namespace HappyR\LocationBundle\Services;
  * @author Tobias Nyholm
  *
  */
-interface GeocodeInterface 
+interface GeocodeInterface
 {
+    /**
+     * Geocode the address
+     *
+     * @param $address
+     *
+     * @return mixed
+     */
     public function geocode($address);
 }

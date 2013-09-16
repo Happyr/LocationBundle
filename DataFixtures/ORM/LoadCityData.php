@@ -6,9 +6,21 @@ use Eastit\Darwin\CommonBundle\DataFixtures\BaseFixture;
 
 use HappyR\LocationBundle\Entity\City;
 
+/**
+ * Class LoadCityData
+ *
+ * @author Tobias Nyholm
+ *
+ *
+ */
 class LoadCityData extends BaseFixture
 {
-
+    /**
+     *
+     *
+     * @param ObjectManager $manager
+     *
+     */
     public function load(ObjectManager $manager)
     {
         $this->basePath = $this->container->get('kernel')->getRootDir().'/../src/Eastit/Darwin/LocationBundle/Resources/data/';
@@ -27,6 +39,13 @@ class LoadCityData extends BaseFixture
         $manager->flush();
     }
 
+
+    /**
+     *
+     *
+     *
+     * @return int
+     */
     public function getOrder()
     {
         return 100;

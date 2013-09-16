@@ -29,7 +29,7 @@ class GeocodeLocationString
 
 
     /**
-     * @param LocationManager $this->lm
+     * @param LocationManager $lm
      * @param GeocodeInterface $geocoder
      */
     function __construct(LocationManager $lm, GeocodeInterface $geocoder)

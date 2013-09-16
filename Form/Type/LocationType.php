@@ -210,27 +210,43 @@ class LocationType extends AbstractType
         }
 
         if ($options['components']['country']) {
-            $this->addCountry($builder, $options);
+            $builder->add(
+                $builder->create('country', 'country', $options['field']['country'])
+                    ->addModelTransformer(new CountryTransformer())
+                    ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'Country'))
+            );
         }
 
         if($options['components']['city']){
-            $this->addCity($builder, $options);
+            $builder->add(
+                $builder->create('city', 'text', $options['field']['city'])
+                    ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'City'))
+            );
         }
 
         if($options['components']['municipality']){
-            $this->addMunicipality($builder, $options);
+            $builder->add(
+                $builder->create('municipality', 'text', $options['field']['municipality'])
+                    ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'Municipality'))
+            );
         }
 
         if($options['components']['address']){
-            $this->addAddress($builder, $options);
+            $builder->add('address', 'text', $options['field']['address']);
         }
 
         if($options['components']['zipCode']){
-            $this->addZipCode($builder, $options);
+            $builder->add(
+                $builder->create('zipCode', 'text', $options['field']['zipCode'])
+                    ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'ZipCode'))
+            );
         }
 
         if($options['components']['region']){
-            $this->addRegion($builder, $options);
+            $builder->add(
+                $builder->create('region', 'text', $options['field']['zipCode'])
+                    ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'Region'))
+            );
         }
     }
 
@@ -257,58 +273,6 @@ class LocationType extends AbstractType
         $builder->add($locationForm);
     }
 
-    /**
-     * Add country
-     *
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     *
-     */
-    protected function addCountry(FormBuilderInterface &$builder, array &$options)
-    {
-        $builder->add(
-            $builder->create('country', 'country', $options['field']['country'])
-                ->addModelTransformer(new CountryTransformer())
-                ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'Country'))
-        );
-    }
-
-    protected function addCity(FormBuilderInterface &$builder, array &$options)
-    {
-        $builder->add(
-            $builder->create('city', 'text', $options['field']['city'])
-                ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'City'))
-        );
-    }
-
-    protected function addMunicipality(FormBuilderInterface &$builder, array &$options)
-    {
-        $builder->add(
-            $builder->create('municipality', 'text', $options['field']['municipality'])
-                ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'Municipality'))
-        );
-    }
-
-    protected function addAddress(FormBuilderInterface &$builder, array &$options)
-    {
-        $builder->add('address', 'text', $options['field']['address']);
-    }
-
-    protected function addZipCode(FormBuilderInterface &$builder, array &$options)
-    {
-        $builder->add(
-            $builder->create('zipCode', 'text', $options['field']['zipCode'])
-                ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'ZipCode'))
-        );
-    }
-
-    protected function addRegion(FormBuilderInterface &$builder, array &$options)
-    {
-        $builder->add(
-            $builder->create('region', 'text', $options['field']['zipCode'])
-                ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'Region'))
-        );
-    }
 
     /**
      *

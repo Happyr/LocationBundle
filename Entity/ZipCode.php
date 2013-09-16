@@ -12,16 +12,31 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ZipCode extends LocationObject
 {
+    /**
+     * @param $code
+     */
     public function __construct($code)
     {
         parent::__construct($code,$code);
     }
 
+    /**
+     *
+     *
+     *
+     * @return mixed
+     */
     public function getCode()
     {
         return $this->getName();
     }
 
+    /**
+     *
+     *
+     * @param $code
+     *
+     */
     public function setCode($code)
     {
         $this->setName($code);

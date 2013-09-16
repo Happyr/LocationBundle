@@ -3,6 +3,7 @@
 namespace HappyR\LocationBundle\Manager;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use HappyR\LocationBundle\Entity\Component;
 use HappyR\LocationBundle\Entity\LocationObject;
 use HappyR\LocationBundle\Services\SlugifierInterface;
 
@@ -52,7 +53,9 @@ class LocationManager
      * Returns a object of $type. This will always return a object. A new object will be created if it does not exsist.
      *
      * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
-     * @param string $name. The name of the type.
+     * @param string $name The name of the type.
+     *
+     * @return mixed
      */
     public function getObject($entity, $name)
     {
@@ -83,8 +86,8 @@ class LocationManager
      * Return an object by slug.
      *
      * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
-     * @param  String $slug
-     * @return Object or Null
+     * @param string $slug
+     * @return mixed|null
      */
     public function findOneObjectBySlug($entity, $slug)
     {
@@ -96,7 +99,7 @@ class LocationManager
      * This function slugifys the name and runs findOneObjectBySlug
      *
      * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
-     * @param $name
+     * @param string $name
      *
      * @return Object
      */
@@ -109,27 +112,27 @@ class LocationManager
      * Rename a object
      *
      * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
-     * @param LocationObject $object
+     * @param Component &$component
      * @param String         $name
      */
-    public function renameObject($entity, LocationObject &$object, $name)
+    public function renameObject($entity, Component &$component, $name)
     {
         $name=$this->beautifyName($name);
-        $object->setName($name);
-        $object->setSlug($this->slugifier->slugify($name));
+        $component->setName($name);
+        $component->setSlug($this->slugifier->slugify($name));
 
-        $this->em->persist($object);
+        $this->em->persist($component);
         $this->em->flush();
     }
 
     /**
      * Remove a Location object
      *
-     * @param LocationObject $object
+     * @param Component &$component
      */
-    public function removeObject(LocationObject &$object)
+    public function removeObject(Component &$component)
     {
-        $this->em->remove($object);
+        $this->em->remove($component);
         $this->em->flush();
     }
 
@@ -138,11 +141,11 @@ class LocationManager
      * This will move all Location's references from $copy to $org
      * This will remove the copy Object.
      *
-     * @param String         $databaseName. The $databaseName will be inserted in a query. Must be safe
-     * @param LocationObject $org
-     * @param LocationObject $copy
+     * @param String $databaseName  The $databaseName will be inserted in a query. Must be safe
+     * @param Component &$org
+     * @param Component &$copy
      */
-    public function mergeObjects($databaseName, LocationObject &$org, LocationObject &$copy)
+    public function mergeObjects($databaseName, Component &$org, Component &$copy)
     {
         $this->em->createQuery('UPDATE EastitLegoLocationBundle:Location e SET e.'.$databaseName.'=:org_id WHERE e.'.$databaseName.'=:copy_id')
             ->setParameter('org_id',$org->getId())
@@ -156,7 +159,9 @@ class LocationManager
     /**
      * Makes name beautiful before using it.
      *
-     * @param String $name
+     * @param string $name
+     *
+     * @return string
      */
     protected function beautifyName($name)
     {

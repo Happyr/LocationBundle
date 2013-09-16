@@ -125,127 +125,7 @@ class Location
         return $this->getCountry()->getCode();
     }
 
-    /**
-     * Set address
-     *
-     * @param string $address
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
 
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * Set country
-     *
-     * @param HappyR\LocationBundle\Entity\Country $country
-     */
-    public function setCountry( $country)
-    {
-        $this->country = $country;
-    }
-
-    /**
-     * Get country
-     *
-     * @return HappyR\LocationBundle\Entity\Country
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * Set city
-     *
-     * @param HappyR\LocationBundle\Entity\City $city
-     */
-    public function setCity( $city)
-    {
-        $this->city = $city;
-    }
-
-    /**
-     * Get city
-     *
-     * @return HappyR\LocationBundle\Entity\City
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * Set municipality
-     *
-     * @param HappyR\LocationBundle\Entity\Municipality $municipality
-     */
-    public function setMunicipality( $municipality)
-    {
-        $this->municipality = $municipality;
-    }
-
-    /**
-     * Get municipality
-     *
-     * @return HappyR\LocationBundle\Entity\Municipality
-     */
-    public function getMunicipality()
-    {
-        return $this->municipality;
-    }
-
-    /**
-     * Set region
-     *
-     * @param HappyR\LocationBundle\Entity\Region $region
-     */
-    public function setRegion( $region)
-    {
-        $this->region = $region;
-    }
-
-    /**
-     * Get region
-     *
-     * @return HappyR\LocationBundle\Entity\Region
-     */
-    public function getRegion()
-    {
-        return $this->region;
-    }
-
-    /**
-     * Set zipCode
-     *
-     * @param HappyR\LocationBundle\Entity\ZipCode $zipCode
-     */
-    public function setZipCode( $zipCode)
-    {
-        $this->zipCode = $zipCode;
-    }
-
-    /**
-     * Get zipCode
-     *
-     * @return HappyR\LocationBundle\Entity\ZipCode
-     */
-    public function getZipCode()
-    {
-        return $this->zipCode;
-    }
 
     public function getCoordinates()
     {
@@ -265,30 +145,7 @@ class Location
         return $this->getCoordinates();
     }
 
-    public function setCoordLong($long)
-    {
-        $this->lng=$long;
-    }
 
-    public function setCoordLat($lat)
-    {
-        $this->lat=$lat;
-    }
-
-     public function getCoordLong()
-     {
-        return $this->lng;
-    }
-
-    public function getCoordLat()
-    {
-        return $this->lat;
-    }
-
-    public function getLocation()
-    {
-        return $this->location;
-    }
 
     public function setLocation($str)
     {
@@ -299,5 +156,192 @@ class Location
             $this->location='';
         }
     }
+
+    /**
+     *
+     * @param mixed $address
+     *
+     * @return $this
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return mixed
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     *
+     * @param mixed $city
+     *
+     * @return $this
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     *
+     * @param mixed $country
+     *
+     * @return $this
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     *
+     * @param mixed $lat
+     *
+     * @return $this
+     */
+    public function setLat($lat)
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return mixed
+     */
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    /**
+     *
+     * @param mixed $lng
+     *
+     * @return $this
+     */
+    public function setLng($lng)
+    {
+        $this->lng = $lng;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return mixed
+     */
+    public function getLng()
+    {
+        return $this->lng;
+    }
+
+    /**
+     *
+     * @return mixed
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     *
+     * @param mixed $municipality
+     *
+     * @return $this
+     */
+    public function setMunicipality($municipality)
+    {
+        $this->municipality = $municipality;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return mixed
+     */
+    public function getMunicipality()
+    {
+        return $this->municipality;
+    }
+
+    /**
+     *
+     * @param mixed $region
+     *
+     * @return $this
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return mixed
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     *
+     * @param mixed $zipCode
+     *
+     * @return $this
+     */
+    public function setZipCode($zipCode)
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return mixed
+     */
+    public function getZipCode()
+    {
+        return $this->zipCode;
+    }
+
+
 
 }
