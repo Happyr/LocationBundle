@@ -4,7 +4,7 @@ namespace HappyR\LocationBundle\Form\DataTransformer;
 use Symfony\Component\Form\DataTransformerInterface;
 use Acme\TaskBundle\Entity\country;
 
-class LocationObjectToStringTransformer implements DataTransformerInterface
+class ComponentToStringTransformer implements DataTransformerInterface
 {
 
     protected $lm;

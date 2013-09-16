@@ -1,0 +1,334 @@
+<?php
+
+namespace HappyR\LocationBundle\Form\Type;
+
+use HappyR\LocationBundle\Form\DataTransformer\CountryTransformer;
+use HappyR\LocationBundle\Form\DataTransformer\ComponentToStringTransformer;
+use HappyR\LocationBundle\Form\Events\GeocodeLocationString;
+use HappyR\LocationBundle\Manager\LocationManager;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+/**
+ * Class Location
+ *
+ * @author Tobias Nyholm
+ *
+ *
+ */
+class LocationType extends AbstractType
+{
+
+    /**
+     * @var \HappyR\LocationBundle\Manager\LocationManager $lm
+     *
+     *
+     */
+    protected $lm;
+
+    /**
+     * @var GeocodeInterface $geocoder
+     *
+     *
+     */
+    protected $geocoder;
+
+    /**
+     * @param LocationManager $lm
+     */
+    public function __construct(LocationManager $lm)
+    {
+        $this->lm=$lm;
+    }
+
+    /**
+     *
+     * @param \HappyR\LocationBundle\Form\Type\GeocodeInterface $geocoder
+     *
+     * @return $this
+     */
+    public function setGeocoder(GeocodeInterface $geocoder)
+    {
+        $this->geocoder = $geocoder;
+
+        return $this;
+    }
+
+
+
+    /**
+     *
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     *
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $this->mergeActiveParts($options);
+        $this->mergeLabels($options);
+        $this->addDefaultAttributes($options);
+
+        $this->addActiveParts($builder, $options);
+    }
+
+
+
+    /**
+     * Set the options
+     *
+     * @param OptionsResolverInterface $resolver
+     *
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'HappyR\LocationBundle\Entity\Location',
+            'components'=>array(),
+            'labels'=>array(),
+            'geocodeLocationString'=>true,
+
+            //use this one if you want to set an attr on a field
+            'field'=>array(),
+        ));
+    }
+
+
+    /**
+     * Set all parts to default false
+     *
+     * @param array $options
+     * @return array
+     */
+    protected function mergeActiveParts(array &$options){
+        $options['components']= array_merge(array(
+            'address'=>false,
+            'country'=>false,
+            'city'=>false,
+            'municipality'=>false,
+            'region'=>false,
+            'zipCode'=>false,
+            'location'=>false,
+        ),$options['components']);
+    }
+
+
+    /**
+     * Here is the default configuration for each field
+     *
+     * @param array &$options
+     *
+     */
+    protected function addDefaultAttributes(array &$options){
+
+        $options['field'] = array_merge(array(
+            'all'=>array(),
+            'address'=>array(
+                'trim'=>true,
+                'label'=>'location.form.address',
+            ),
+            'country'=>array(
+                'preferred_choices' => array('SE'),
+                'label'=>'location.form.country',
+            ),
+            'city'=>array(
+                'trim'=>true,
+                'label'=>'location.form.city',
+                'attr'=>array(
+                    'class'=>'google-autocomplete',
+                    'data-google-autocomplete-type'=>'(cities)',
+                ),
+            ),
+            'municipality'=>array(
+                'trim'=>true,
+                'label'=>'location.form.municipality',
+                'attr'=>array(
+                    'class'=>'autocomplete',
+                    'data-autocomplete-url'=>'_public_location_autocomplete_municipality',
+                ),
+            ),
+            'region'=>array(
+                'trim'=>true,
+                'label'=>'location.form.region',
+                'attr'=>array(
+                    'class'=>'autocomplete',
+                    'data-autocomplete-url'=>'_public_location_autocomplete_region',
+                ),
+            ),
+            'zipCode'=>array(
+                'trim'=>true,
+                'label'=>'location.form.zipCode',
+            ),
+            'location'=>array(
+                'label'=>'location.form.location',
+                'attr'=>array(
+                    'data-placeholder'=>'location.form.location',
+                    'class'=>'google-autocomplete',
+                    'data-google-autocomplete-type'=>'geocode',
+                ),
+            ),
+        ),$options['field']);
+    }
+
+    /**
+     * Merge user attributes with the default ones
+     *
+     * @param array $user
+     * @param array $default
+     *
+     *
+     * @return array
+     */
+    protected function mergeAttributes(array $priority, array $default)
+    {
+        //remove the label
+        unset($priority['label']);
+
+        //merge the class
+        if(isset($priority['class']) && isset($default['class'])){
+            $priority['class'].=' '.$default['class'];
+        }
+
+        return array_merge($default,$priority);
+    }
+
+
+    /**
+     * Add all the active parts for this instance
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     *
+     */
+    protected function addActiveParts(FormBuilderInterface &$builder, array &$options)
+    {
+        if ($options['components']['location']) {
+            $this->addLocation($builder, $options);
+        }
+
+        if ($options['components']['country']) {
+            $this->addCountry($builder, $options);
+        }
+
+        if($options['components']['city']){
+            $this->addCity($builder, $options);
+        }
+
+        if($options['components']['municipality']){
+            $this->addMunicipality($builder, $options);
+        }
+
+        if($options['components']['address']){
+            $this->addAddress($builder, $options);
+        }
+
+        if($options['components']['zipCode']){
+            $this->addZipCode($builder, $options);
+        }
+
+        if($options['components']['region']){
+            $this->addRegion($builder, $options);
+        }
+    }
+
+    /**
+     *
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     *
+     */
+    protected function addLocation(FormBuilderInterface &$builder, array &$options)
+    {
+        $locationForm= $builder->create('location', 'text', $options['field']['location']);
+
+        /*
+         * if we should geocode the location string
+         */
+        if ($options['geocodeLocationString']==true && $this->geocoder!=null) {
+
+            $eventListener=new GeocodeLocationString($this->lm, $this->geocoder);
+            $builder->addEventListener(FormEvents::BIND, array($eventListener, 'geocodeLocation'));
+        }
+
+        $builder->add($locationForm);
+    }
+
+    /**
+     * Add country
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     *
+     */
+    protected function addCountry(FormBuilderInterface &$builder, array &$options)
+    {
+        $builder->add(
+            $builder->create('country', 'country', $options['field']['country'])
+                ->addModelTransformer(new CountryTransformer())
+                ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'Country'))
+        );
+    }
+
+    protected function addCity(FormBuilderInterface &$builder, array &$options)
+    {
+        $builder->add(
+            $builder->create('city', 'text', $options['field']['city'])
+                ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'City'))
+        );
+    }
+
+    protected function addMunicipality(FormBuilderInterface &$builder, array &$options)
+    {
+        $builder->add(
+            $builder->create('municipality', 'text', $options['field']['municipality'])
+                ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'Municipality'))
+        );
+    }
+
+    protected function addAddress(FormBuilderInterface &$builder, array &$options)
+    {
+        $builder->add('address', 'text', $options['field']['address']);
+    }
+
+    protected function addZipCode(FormBuilderInterface &$builder, array &$options)
+    {
+        $builder->add(
+            $builder->create('zipCode', 'text', $options['field']['zipCode'])
+                ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'ZipCode'))
+        );
+    }
+
+    protected function addRegion(FormBuilderInterface &$builder, array &$options)
+    {
+        $builder->add(
+            $builder->create('region', 'text', $options['field']['zipCode'])
+                ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'Region'))
+        );
+    }
+
+    /**
+     *
+     *
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return 'location';
+    }
+
+    /**
+     *
+     *
+     *
+     * @return null|string|\Symfony\Component\Form\FormTypeInterface
+     */
+    public function getParent()
+    {
+        return 'form';
+    }
+}

@@ -54,7 +54,7 @@ class LocationManager
      * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
      * @param string $name. The name of the type.
      */
-    protected function getObject($entity, $name)
+    public function getObject($entity, $name)
     {
         $entity=$this->typePrefix.$entity;
         $name=$this->beautifyName($name);
@@ -86,7 +86,7 @@ class LocationManager
      * @param  String $slug
      * @return Object or Null
      */
-    protected function findOneObjectBySlug($entity, $slug)
+    public function findOneObjectBySlug($entity, $slug)
     {
         return $this->em->getRepository($entity)->findOneBy(array('slug'=>$slug));
     }
@@ -100,7 +100,7 @@ class LocationManager
      *
      * @return Object
      */
-    protected function findOneObjectByName($entity, $name)
+    public function findOneObjectByName($entity, $name)
     {
         return $this->findOneObjectBySlug($entity,$this->slugifier->slugify($name));
     }
@@ -112,7 +112,7 @@ class LocationManager
      * @param LocationObject $object
      * @param String         $name
      */
-    protected function renameObject($entity, LocationObject &$object, $name)
+    public function renameObject($entity, LocationObject &$object, $name)
     {
         $name=$this->beautifyName($name);
         $object->setName($name);
@@ -127,7 +127,7 @@ class LocationManager
      *
      * @param LocationObject $object
      */
-    protected function removeObject(LocationObject &$object)
+    public function removeObject(LocationObject &$object)
     {
         $this->em->remove($object);
         $this->em->flush();
@@ -142,7 +142,7 @@ class LocationManager
      * @param LocationObject $org
      * @param LocationObject $copy
      */
-    protected function mergeObjects($databaseName, LocationObject &$org, LocationObject &$copy)
+    public function mergeObjects($databaseName, LocationObject &$org, LocationObject &$copy)
     {
         $this->em->createQuery('UPDATE EastitLegoLocationBundle:Location e SET e.'.$databaseName.'=:org_id WHERE e.'.$databaseName.'=:copy_id')
             ->setParameter('org_id',$org->getId())

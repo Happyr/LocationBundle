@@ -7,13 +7,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
- * Class LocationObject
+ * Class Component. This is a component of the location object
  *
  * @author Tobias Nyholm
  *
  * @ORM\MappedSuperclass
  */
-abstract class LocationObject
+abstract class Component
 {
 
     /**

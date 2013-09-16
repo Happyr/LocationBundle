@@ -9,7 +9,7 @@ use Symfony\Component\Locale\Locale;
  * HappyR\LocationBundle\Entity\Country
  *
  * @ORM\Table(name="LocationCountry")
- * @ORM\Entity(repositoryClass="HappyR\LocationBundle\Entity\LocationObjectRepository")
+ * @ORM\Entity(repositoryClass="HappyR\LocationBundle\Entity\ComponentRepository")
  */
 class Country extends LocationObject
 {

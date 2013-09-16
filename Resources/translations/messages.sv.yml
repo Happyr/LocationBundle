@@ -12,7 +12,7 @@ location:
     municipality: 'Kommun'
     region: 'Postort'
     zipCode: 'Postnummer'
-    locationStr: 'Adress'
+    location: 'Adress'
 
     help:
       address: 'Ange addressen med gatunamn och gatunummer'
@@ -21,4 +21,4 @@ location:
       municipality: 'Börja skriv in kommun så kommer det komma en lista med förslag'
       region: 'Börja skriv in postort så kommer det komma en lista med förslag'
       zipCode: 'Ange vilket postnummer'
-      locationStr: 'Börja skriv in din adress. Du får du upp ett antal förslag som du kan välja mellan. '
+      location: 'Börja skriv in din adress. Du får du upp ett antal förslag som du kan välja mellan. '

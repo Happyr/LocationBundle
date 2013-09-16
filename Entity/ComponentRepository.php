@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityRepository;
  *
  *
  */
-class LocationObjectRepository extends EntityRepository
+class ComponentRepository extends EntityRepository
 {
     /**
      *

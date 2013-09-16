@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * HappyR\LocationBundle\Entity\ZipCode
  *
  * @ORM\Table(name="LocationZipCode")
- * @ORM\Entity(repositoryClass="HappyR\LocationBundle\Entity\LocationObjectRepository")
+ * @ORM\Entity(repositoryClass="HappyR\LocationBundle\Entity\ComponentRepository")
  */
 class ZipCode extends LocationObject
 {

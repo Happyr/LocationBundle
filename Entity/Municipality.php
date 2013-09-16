@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * HappyR\LocationBundle\Entity\Municipality
  *
  * @ORM\Table(name="LocationMunicipality")
- * @ORM\Entity(repositoryClass="HappyR\LocationBundle\Entity\LocationObjectRepository")
+ * @ORM\Entity(repositoryClass="HappyR\LocationBundle\Entity\ComponentRepository")
  */
 class Municipality extends LocationObject
 {

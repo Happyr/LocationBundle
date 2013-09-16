@@ -88,7 +88,7 @@ class Location
      */
     public function clear()
     {
-        $this->locationStr='';
+        $this->location='';
         $this->country=null;
         $this->city=null;
         $this->municipality=null;
@@ -287,16 +287,16 @@ class Location
 
     public function getLocation()
     {
-        return $this->locationStr;
+        return $this->location;
     }
 
     public function setLocation($str)
     {
         if($str!=null){
-            $this->locationStr=$str;
+            $this->location=$str;
         }
         else{
-            $this->locationStr='';
+            $this->location='';
         }
     }
 
