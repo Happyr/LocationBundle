@@ -1,0 +1,27 @@
+{
+    "name": "happyr/location-bundle",
+    "type": "symfony-bundle",
+    "description": "A Symfony2 Bundle to handle geographic location of your entities",
+    "keywords": ["Location"],
+    "homepage": "http://developer.happyr.se",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tobias Nyholm",
+            "email": "tobias@happyrecruiting.se"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": "2.*",
+        "symfony/yaml": "2.*"
+    },
+    "require-dev": {
+        "mockery/mockery": "*"
+    },
+    "autoload": {
+        "psr-0": { "HappyR\\LocationBundle": "" }
+    },
+    "target-dir": "HappyR/LocationBundle"
+    
+}

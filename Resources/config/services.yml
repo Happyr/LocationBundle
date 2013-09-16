@@ -1,0 +1,26 @@
+parameters:
+
+services:
+  darwin.location_manager:
+    class: HappyR\LocationBundle\Manager\LocationManager
+    arguments: [@doctrine.orm.entity_manager,@darwin.slugifier]
+
+
+  darwin.user_location:
+    class: HappyR\LocationBundle\Services\UserLocationService
+    arguments: [@doctrine.orm.entity_manager,@darwin.util_geoip]
+
+
+  darwin.location_type:
+    class: HappyR\LocationBundle\Form\Type\Location
+    arguments: [@darwin.location_manager, @happyr.google.api.geocode]
+    tags:
+      - { name: form.type, alias: location }
+
+
+  darwin.location.event_listener.locate_user:
+    class: HappyR\LocationBundle\EventListeners\LocateUser
+    arguments: [@darwin.user_location]
+    tags:
+      - { name: kernel.event_listener, event: user.register, method: registrationListener }
+      - { name: kernel.event_listener, event: security.interactive_login, method: loginListener }

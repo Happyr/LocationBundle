@@ -1,0 +1,24 @@
+location:
+  show:
+    jobsin: 'Lediga jobb i'
+
+
+
+
+  form:
+    address: 'Adress'
+    country: 'Land'
+    city: 'Stad'
+    municipality: 'Kommun'
+    region: 'Postort'
+    zipCode: 'Postnummer'
+    locationStr: 'Adress'
+
+    help:
+      address: 'Ange addressen med gatunamn och gatunummer'
+      country: 'Ange land från listan'
+      city: 'Börja skriv in stad så kommer det komma en lista med förslag'
+      municipality: 'Börja skriv in kommun så kommer det komma en lista med förslag'
+      region: 'Börja skriv in postort så kommer det komma en lista med förslag'
+      zipCode: 'Ange vilket postnummer'
+      locationStr: 'Börja skriv in din adress. Du får du upp ett antal förslag som du kan välja mellan. '

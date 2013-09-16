@@ -1,0 +1,21 @@
+# complete configuration reference: http://jmsyst.com/libs/serializer/master/reference/yml_reference
+
+HappyR\LocationBundle\Entity\Location:
+  exclusion_policy: ALL
+  properties:
+    country:
+      expose: true
+    city:
+      expose: true
+    lat:
+      expose: true
+    lng:
+      expose: true
+    address:
+      expose: true
+    region:
+      expose: true
+    zipCode:
+      expose: true
+    municipality:
+      expose: true

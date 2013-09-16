@@ -1,0 +1,8 @@
+location:
+  form:
+    error:
+      country: 'Du måste ange ett land ur listan'
+      city: 'Vi hittade inte den staden. Kanska har du stavat fel? Kanske staden är för liten?'
+      municipality: 'Vi hittade inte den kommun som du angav. Är du säker på att det är en giltlig kommun?'
+      region: 'Vi hittade inte postorten. Har du stavat fel?'
+      zipCode: 'Det blev något fel när vi skulle spara postnummer. Försök igen.'
