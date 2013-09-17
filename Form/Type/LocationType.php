@@ -159,7 +159,7 @@ class LocationType extends AbstractType
         );
 
         //merge defaults with the user options
-        $options['field']=$options['field']+$defaults;
+        $options['field'] = array_replace_recursive($defaults,$options['field']);
     }
 
 
