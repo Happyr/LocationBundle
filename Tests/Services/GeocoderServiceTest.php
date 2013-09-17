@@ -4,7 +4,7 @@
 namespace HappyR\LocationBundle\Tests\Services;
 
 use HappyR\Google\GeocoderBundle\Services\ScraperService;
-use HappyR\LocationBundle\Services\GeocodeService;
+use HappyR\LocationBundle\Services\GeocoderService;
 
 use Mockery as m;
 
@@ -14,7 +14,7 @@ use Mockery as m;
  * @author Tobias Nyholm
  *
  */
-class GeocodeServiceTest extends \PHPUnit_Framework_TestCase
+class GeocoderServiceTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -25,7 +25,7 @@ class GeocodeServiceTest extends \PHPUnit_Framework_TestCase
         $address='Test';
         $result=$this->getFakeResponse();
 
-        $geocoder=m::mock('HappyR\Google\GeocoderBundle\Services\GeocodeService')
+        $geocoder=m::mock('HappyR\Google\GeocoderBundle\Services\GeocoderService')
             ->shouldReceive('geocodeAddress')->with($address,true)->andReturn($result)
             ->getMock();
 
@@ -42,7 +42,7 @@ class GeocodeServiceTest extends \PHPUnit_Framework_TestCase
     public function testLiveData()
     {
         $scraper=new ScraperService();
-        $geocoder=new \HappyR\Google\GeocoderBundle\Services\GeocodeService($scraper);
+        $geocoder=new \HappyR\Google\GeocoderBundle\Services\GeocoderService($scraper);
         $service=new GeocodeService($geocoder);
 
         $service->geocode('Lina Sandells plan 9, Sverige');
