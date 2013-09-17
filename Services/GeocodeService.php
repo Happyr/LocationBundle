@@ -37,10 +37,11 @@ class GeocodeService implements GeocodeInterface
     {
         $result=$this->geocoder->geocodeAddress($address, true);
 
-        die(print_r($result,true));
+        $parts=$result[0]->address_components;
+        $geometry=$result[0]->geometry;
 
-        $defaults=array(
-            'fullLocation'=>'',
+        $ret= array(
+            'fullLocation'=>$result[0]->formatted_address,
             'streetNumber'=>'',
             'street'=>'',
             'city'=>null,
@@ -49,9 +50,41 @@ class GeocodeService implements GeocodeInterface
             'region'=>null,
             'zipCode'=>null,
             'state'=>null,
-            'lat'=>null,
-            'lng'=>null,
+            'lat'=>$geometry->location->lat,
+            'lng'=>$geometry->location->lng,
         );
+
+        foreach ($parts as $part) {
+            if (in_array('street_number', $part->types)) {
+                $ret['streetNumber']=$part->long_name;
+            }
+            elseif (in_array('route', $part->types)) {
+                $ret['street']=$part->long_name;
+            }
+            elseif (in_array('locality', $part->types)) {
+                $ret['city']=$part->long_name;
+            }
+            elseif (in_array('administrative_area_level_2', $part->types)) {
+                if($ret['city']==null){
+                    $ret['city']=$part->long_name;
+                }
+            }
+            elseif (in_array('administrative_area_level_1', $part->types)) {
+                $ret['state']=$part->long_name;
+            }
+            elseif (in_array('country', $part->types)) {
+                $ret['country']=$part->short_name;
+            }
+            elseif (in_array('postal_code', $part->types)) {
+                $ret['zipCode']=$part->long_name;
+            }
+            elseif (in_array('postal_town', $part->types)) {
+                $ret['region']=$part->long_name;
+            }
+        }
+
+        return $ret;
+
     }
 
 
