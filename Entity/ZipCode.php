@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="LocationZipCode")
  * @ORM\Entity(repositoryClass="HappyR\LocationBundle\Entity\ComponentRepository")
  */
-class ZipCode extends LocationObject
+class ZipCode extends Component
 {
     /**
      * @param $code

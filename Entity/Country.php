@@ -11,7 +11,7 @@ use Symfony\Component\Locale\Locale;
  * @ORM\Table(name="LocationCountry")
  * @ORM\Entity(repositoryClass="HappyR\LocationBundle\Entity\ComponentRepository")
  */
-class Country extends LocationObject
+class Country extends Component
 {
     /**
      * @param $name
