@@ -3,10 +3,10 @@
 
 namespace HappyR\LocationBundle\Services;
 
-use HappyR\Google\GeocoderBundle\Services\GeocodeService as Geocoder;
+use HappyR\Google\GeocoderBundle\Services\GeocoderService as Geocoder;
 
 /**
- * Class GeocodeService uses the HappyRGoogleGeocoderBundle.
+ * Class GeocoderService uses the HappyRGoogleGeocoderBundle.
  *
  *
  * @author Tobias Nyholm
