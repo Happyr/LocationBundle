@@ -61,6 +61,10 @@ class LocationManager
      */
     public function getObject($entity, $name)
     {
+        if($name==null){
+            return null;
+        }
+
         $entity=$this->typePrefix.$entity;
         $name=$this->beautifyName($name);
         $slug=$this->slugifier->slugify($name);

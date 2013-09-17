@@ -57,6 +57,12 @@ class Location
 
     /**
      *
+     * @ORM\ManyToOne(targetEntity="State")
+     */
+    protected $state;
+
+    /**
+     *
      * @ORM\ManyToOne(targetEntity="ZipCode")
      */
     protected $zipCode;
@@ -360,6 +366,29 @@ class Location
     {
         return $this->zipCode;
     }
+
+    /**
+     *
+     * @param mixed $state
+     *
+     * @return $this
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return mixed
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
 
 
 

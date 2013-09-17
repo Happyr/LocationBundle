@@ -80,8 +80,8 @@ class GeocodeLocationString
         $location->setMunicipality($this->lm->getObject('Municipality', $result['municipality']));
         $location->setState($this->lm->getObject('State', $result['state']));
 
-        $location->setCoordLat($result['lat']);
-        $location->setCoordLong($result['lng']);
+        $location->setLat($result['lat']);
+        $location->setLng($result['lng']);
         $location->setLocation($result['fullLocation']);
 
         $event->setData($location);
