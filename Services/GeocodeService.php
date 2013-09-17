@@ -21,6 +21,9 @@ class GeocodeService implements GeocodeInterface
      */
     private $geocoder;
 
+    /**
+     * @param Geocoder $geocoder
+     */
     function __construct(Geocoder $geocoder)
     {
         $this->geocoder = $geocoder;
@@ -31,7 +34,7 @@ class GeocodeService implements GeocodeInterface
      *
      * @param string $address
      *
-     * @return mixed
+     * @return array
      */
     public function geocode($address)
     {

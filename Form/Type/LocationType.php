@@ -38,10 +38,12 @@ class LocationType extends AbstractType
 
     /**
      * @param LocationManager $lm
+     * @param GeocodeInterface $geocoder
      */
-    public function __construct(LocationManager $lm)
+    public function __construct(LocationManager $lm, GeocodeInterface $geocoder)
     {
         $this->lm=$lm;
+        $this->geocoder=$geocoder;
     }
 
     /**

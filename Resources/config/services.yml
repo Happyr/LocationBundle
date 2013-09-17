@@ -1,15 +1,19 @@
 parameters:
 
 services:
-  darwin.location_manager:
+  happyr.location.location_manager:
     class: HappyR\LocationBundle\Manager\LocationManager
     arguments: [@doctrine.orm.entity_manager,@zenstruck.slugify]
 
 
-  darwin.location_type:
-    class: HappyR\LocationBundle\Form\Type\Location
-    arguments: [@darwin.location_manager, @happyr.google.api.geocode]
+  happyr.location.location_type:
+    class: HappyR\LocationBundle\Form\Type\LocationType
+    arguments: [@happyr.location.location_manager, @happyr.location.geocoder_dummy_service]
     tags:
       - { name: form.type, alias: location }
 
 
+
+  happyr.location.geocoder_dummy_service:
+    class: HappyR\LocationBundle\Services\GeocoderDummyService
+    arguments: []
