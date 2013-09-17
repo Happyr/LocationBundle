@@ -57,7 +57,6 @@ class LocationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->mergeActiveParts($options);
-        $this->mergeLabels($options);
         $this->addDefaultAttributes($options);
 
         $this->addActiveParts($builder, $options);
@@ -76,7 +75,6 @@ class LocationType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'HappyR\LocationBundle\Entity\Location',
             'components'=>array(),
-            'labels'=>array(),
             'geocodeLocationString'=>true,
 
             //use this one if you want to set an attr on a field
