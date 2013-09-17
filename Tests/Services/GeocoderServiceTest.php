@@ -9,7 +9,7 @@ use HappyR\LocationBundle\Services\GeocoderService;
 use Mockery as m;
 
 /**
- * Class GeocodeServiceTest
+ * Class GeocoderServiceTest
  *
  * @author Tobias Nyholm
  *
@@ -29,7 +29,7 @@ class GeocoderServiceTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('geocodeAddress')->with($address,true)->andReturn($result)
             ->getMock();
 
-        $service=new GeocodeService($geocoder);
+        $service=new GeocoderService($geocoder);
         $service->geocode($address);
 
     }
@@ -43,7 +43,7 @@ class GeocoderServiceTest extends \PHPUnit_Framework_TestCase
     {
         $scraper=new ScraperService();
         $geocoder=new \HappyR\Google\GeocoderBundle\Services\GeocoderService($scraper);
-        $service=new GeocodeService($geocoder);
+        $service=new GeocoderService($geocoder);
 
         $service->geocode('Lina Sandells plan 9, Sverige');
     }
