@@ -162,28 +162,6 @@ class LocationType extends AbstractType
         $options['field']=$options['field']+$defaults;
     }
 
-    /**
-     * Merge user attributes with the default ones
-     *
-     * @param array $priority
-     * @param array $default
-     *
-     *
-     * @return array
-     */
-    protected function mergeAttributes(array $priority, array $default)
-    {
-        //remove the label
-        unset($priority['label']);
-
-        //merge the class
-        if(isset($priority['class']) && isset($default['class'])){
-            $priority['class'].=' '.$default['class'];
-        }
-
-        return array_merge($default,$priority);
-    }
-
 
     /**
      * Add all the active parts for this instance
