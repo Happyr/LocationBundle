@@ -3,7 +3,7 @@ parameters:
 services:
   happyr.location.location_manager:
     class: HappyR\LocationBundle\Manager\LocationManager
-    arguments: [@doctrine.orm.entity_manager,@zenstruck.slugify]
+    arguments: [@doctrine.orm.entity_manager,@happyr.slugify.slugifier]
 
 
   happyr.location.location_type:
