@@ -5,7 +5,7 @@ namespace HappyR\LocationBundle\Services;
 
 
 /**
- * Class GeocodeInterface
+ * Class GeocoderInterface
  *
  * @author Tobias Nyholm
  *

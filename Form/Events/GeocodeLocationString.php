@@ -2,7 +2,7 @@
 
 namespace HappyR\LocationBundle\Form\Events;
 use HappyR\LocationBundle\Manager\LocationManager;
-use HappyR\LocationBundle\Services\GeocodeInterface;
+use HappyR\LocationBundle\Services\GeocoderInterface;
 use Symfony\Component\Form\FormEvent;
 
 /**
@@ -21,7 +21,7 @@ class GeocodeLocationString
     protected $lm;
 
     /**
-     * @var \HappyR\LocationBundle\Services\GeocodeInterface $geocoder
+     * @var \HappyR\LocationBundle\Services\GeocoderInterface $geocoder
      *
      *
      */
@@ -30,9 +30,9 @@ class GeocodeLocationString
 
     /**
      * @param LocationManager $lm
-     * @param GeocodeInterface $geocoder
+     * @param GeocoderInterface $geocoder
      */
-    function __construct(LocationManager $lm, GeocodeInterface $geocoder)
+    function __construct(LocationManager $lm, GeocoderInterface $geocoder)
     {
         $this->geocoder = $geocoder;
         $this->lm = $lm;

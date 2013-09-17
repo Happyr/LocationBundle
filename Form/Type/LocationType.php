@@ -6,6 +6,7 @@ use HappyR\LocationBundle\Form\DataTransformer\CountryTransformer;
 use HappyR\LocationBundle\Form\DataTransformer\ComponentToStringTransformer;
 use HappyR\LocationBundle\Form\Events\GeocodeLocationString;
 use HappyR\LocationBundle\Manager\LocationManager;
+use HappyR\LocationBundle\Services\GeocoderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
@@ -30,7 +31,7 @@ class LocationType extends AbstractType
     protected $lm;
 
     /**
-     * @var GeocodeInterface $geocoder
+     * @var GeocoderInterface $geocoder
      *
      *
      */
@@ -38,28 +39,13 @@ class LocationType extends AbstractType
 
     /**
      * @param LocationManager $lm
-     * @param GeocodeInterface $geocoder
+     * @param GeocoderInterface $geocoder
      */
-    public function __construct(LocationManager $lm, GeocodeInterface $geocoder)
+    public function __construct(LocationManager $lm, GeocoderInterface $geocoder)
     {
         $this->lm=$lm;
         $this->geocoder=$geocoder;
     }
-
-    /**
-     *
-     * @param \HappyR\LocationBundle\Form\Type\GeocodeInterface $geocoder
-     *
-     * @return $this
-     */
-    public function setGeocoder(GeocodeInterface $geocoder)
-    {
-        $this->geocoder = $geocoder;
-
-        return $this;
-    }
-
-
 
     /**
      *
