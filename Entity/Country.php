@@ -14,7 +14,7 @@ use Symfony\Component\Locale\Locale;
 class Country extends Component
 {
     /**
-     * @param $name
+     * @param string $name
      */
     public function __construct($name)
     {

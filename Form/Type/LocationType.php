@@ -102,7 +102,6 @@ class LocationType extends AbstractType
      *
      * @param array &$options
      *
-     * @return array
      */
     protected function mergeActiveParts(array &$options){
         $options['components']= array_merge(array(

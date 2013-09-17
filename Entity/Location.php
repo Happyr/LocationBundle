@@ -150,6 +150,9 @@ class Location
 
     /**
      * alias for getCoordinates
+     *
+     *
+     * @return array
      */
     public function getCoords()
     {
@@ -158,9 +161,9 @@ class Location
 
 
     /**
+     * This is a long string that describes the location
      *
-     *
-     * @param $str
+     * @param string $str
      *
      */
     public function setLocation($str)

@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ZipCode extends Component
 {
     /**
-     * @param $code
+     * @param string $code
      */
     public function __construct($code)
     {
@@ -34,12 +34,15 @@ class ZipCode extends Component
     /**
      *
      *
-     * @param $code
+     * @param string $code
      *
+     * @return $this
      */
     public function setCode($code)
     {
         $this->setName($code);
+
+        return $this;
     }
 
 }

@@ -34,8 +34,8 @@ class ComponentToStringTransformer implements DataTransformerInterface
      */
     public function __construct(LocationManager $lm, $type)
     {
-       $this->lm=$lm;
-       $this->type=$type;
+        $this->lm=$lm;
+        $this->type=$type;
     }
 
     /**

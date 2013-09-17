@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormEvent;
  * @author Tobias Nyholm
  *
  */
-class GeocodeLocationString 
+class GeocodeLocationString
 {
     /**
      * @var \HappyR\LocationBundle\Manager\LocationManager $this->lm
