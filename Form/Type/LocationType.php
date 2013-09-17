@@ -59,7 +59,7 @@ class LocationType extends AbstractType
         $this->mergeActiveParts($options);
         $this->addDefaultAttributes($options);
 
-        $this->addActiveParts($builder, $options);
+        $this->addActiveComponents($builder, $options);
     }
 
 
@@ -110,7 +110,7 @@ class LocationType extends AbstractType
      */
     protected function addDefaultAttributes(array &$options){
 
-        $options['field'] = array_merge(array(
+        $defaults = array(
             'all'=>array(),
             'address'=>array(
                 'trim'=>true,
@@ -156,7 +156,10 @@ class LocationType extends AbstractType
                     'data-google-autocomplete-type'=>'geocode',
                 ),
             ),
-        ),$options['field']);
+        );
+
+        //merge defaults with the user options
+        $options['field']=$options['field']+$defaults;
     }
 
     /**
@@ -189,7 +192,7 @@ class LocationType extends AbstractType
      * @param array &$options
      *
      */
-    protected function addActiveParts(FormBuilderInterface &$builder, array &$options)
+    protected function addActiveComponents(FormBuilderInterface &$builder, array &$options)
     {
         if ($options['components']['location']) {
             $this->addLocation($builder, $options);
