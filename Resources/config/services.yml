@@ -12,8 +12,6 @@ services:
     tags:
       - { name: form.type, alias: location }
 
-
-
   happyr.location.geocoder_dummy_service:
     class: HappyR\LocationBundle\Services\GeocoderDummyService
     arguments: []

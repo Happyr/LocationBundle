@@ -11,7 +11,7 @@ namespace HappyR\LocationBundle\Services;
  * @author Tobias Nyholm
  *
  */
-class GeocoderDummyService implements GeocodeInterface
+class GeocoderDummyService implements GeocoderInterface
 {
 
     /**

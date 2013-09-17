@@ -12,7 +12,7 @@ use HappyR\Google\GeocoderBundle\Services\GeocodeService as Geocoder;
  * @author Tobias Nyholm
  *
  */
-class GeocodeService implements GeocodeInterface
+class GeocoderService implements GeocoderInterface
 {
     /**
      * @var Geocoder geocoder
