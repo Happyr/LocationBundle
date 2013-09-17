@@ -93,6 +93,7 @@ class LocationManager
      */
     public function findOneObjectBySlug($entity, $slug)
     {
+        $entity=$this->typePrefix.$entity;
         return $this->em->getRepository($entity)->findOneBy(array('slug'=>$slug));
     }
 
