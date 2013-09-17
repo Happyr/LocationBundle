@@ -48,7 +48,7 @@ class GeocodeLocationString
     public function geocodeLocation(FormEvent $event)
     {
         $location=$event->getData();
-        $result=$this->geocoder->geocode($location->getLocationStr());
+        $result=$this->geocoder->geocode($location->getLocation());
         if(!$result){
             return;
         }

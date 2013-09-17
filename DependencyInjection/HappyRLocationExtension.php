@@ -4,6 +4,7 @@ namespace HappyR\LocationBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
@@ -35,7 +36,7 @@ class HappyRLocationExtension extends Extension
             }
 
             $container->getDefinition('happyr.location.location_type')
-                ->replaceArgument(2, $geocoderService);
+                ->replaceArgument(1, $geocoderService);
         }
     }
 }
