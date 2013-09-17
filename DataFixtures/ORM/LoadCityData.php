@@ -29,10 +29,10 @@ class LoadCityData extends BaseFixture
         $file = $this->parseYml('cities.yml');
         $cities = $file['cities'];
 
-        $cm=$this->container->get('darwin.location_manager')->getCityManager();
+        $lm=$this->container->get('happyr.location.location_manager');
 
         foreach ($cities as $cityName) {
-            $obj = $cm->getCity($cityName);
+            $obj = $cm->getObject('City', $cityName);
 
             $manager->persist($obj);
             $this->addReference($obj->getName(),'city', $obj);

@@ -28,10 +28,10 @@ class LoadMunicipalityData extends BaseFixture
         $file = $this->parseYml('municipality.yml');
         $municipalities = $file['municipalities'];
 
-        $cm=$this->container->get('darwin.location_manager')->getMunicipalityManager();
+        $lm=$this->container->get('happyr.location.location_manager');
 
         foreach ($municipalities as $arr) {
-            $obj = $cm->createMunicipality($arr['name'],$arr['code'],$arr['slug']);
+            $obj = $lm->get('Municipality',$arr['name'],$arr['code'],$arr['slug']);
 
             $manager->persist($obj);
         }
