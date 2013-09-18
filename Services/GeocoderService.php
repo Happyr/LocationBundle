@@ -41,6 +41,10 @@ class GeocoderService implements GeocoderInterface
         $importantValues=$this->getImportantValues();
         $result=$this->geocoder->geocodeAddress($address, true);
 
+        if($result==null){
+            return array();
+        }
+
         $parts=$result[0]->address_components;
         $geometry=$result[0]->geometry;
 
