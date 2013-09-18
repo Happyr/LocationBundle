@@ -3,6 +3,7 @@ namespace HappyR\LocationBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Eastit\Darwin\CommonBundle\DataFixtures\BaseFixture;
+use HappyR\LocationBundle\Entity\Municipality;
 
 /**
  * Class LoadMunicipalityData
@@ -22,8 +23,7 @@ class LoadMunicipalityData extends BaseFixture
      */
     public function load(ObjectManager $manager)
     {
-        $this->basePath = $this->container->get('kernel')->getRootDir().
-            '/../src/Eastit/Darwin/LocationBundle/Resources/data/';
+        $this->basePath = dirname(__FILE__).'/../../Resources/data/';
 
         $file = $this->parseYml('municipality.yml');
         $municipalities = $file['municipalities'];
@@ -31,7 +31,8 @@ class LoadMunicipalityData extends BaseFixture
         $lm=$this->container->get('happyr.location.location_manager');
 
         foreach ($municipalities as $arr) {
-            $obj = $lm->get('Municipality',$arr['name'],$arr['code'],$arr['slug']);
+            $obj=new Municipality($arr['name'],$arr['slug']);
+            $obj->setCode($arr['code']);
 
             $manager->persist($obj);
         }

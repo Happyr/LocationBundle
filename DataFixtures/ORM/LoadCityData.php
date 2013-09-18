@@ -23,8 +23,7 @@ class LoadCityData extends BaseFixture
      */
     public function load(ObjectManager $manager)
     {
-        $this->basePath = $this->container->get('kernel')->getRootDir().
-            '/../src/Eastit/Darwin/LocationBundle/Resources/data/';
+        $this->basePath = dirname(__FILE__).'/../../Resources/data/';
 
         $file = $this->parseYml('cities.yml');
         $cities = $file['cities'];
@@ -32,7 +31,7 @@ class LoadCityData extends BaseFixture
         $lm=$this->container->get('happyr.location.location_manager');
 
         foreach ($cities as $cityName) {
-            $obj = $cm->getObject('City', $cityName);
+            $obj = $lm->getObject('City', $cityName);
 
             $manager->persist($obj);
             $this->addReference($obj->getName(),'city', $obj);
