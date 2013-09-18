@@ -6,8 +6,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use HappyR\LocationBundle\Entity\Component;
 use HappyR\LocationBundle\Entity\LocationObject;
 use HappyR\LocationBundle\Services\SlugifierInterface;
+use HappyR\SlugifyBundle\Services\SlugifyService;
 
-use Cocur\Slugify\Slugify;
 
 /**
  *
@@ -45,7 +45,7 @@ class LocationManager
      * @param ObjectManager $em
      * @param SlugifierInterface $slugifier
      */
-    public function __construct(ObjectManager $em, Slugify $slugifier)
+    public function __construct(ObjectManager $em, SlugifyService $slugifier)
     {
         $this->em=$em;
         $this->slugifier=$slugifier;
