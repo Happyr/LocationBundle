@@ -27,6 +27,7 @@ class GeocoderServiceTest extends \PHPUnit_Framework_TestCase
 
         $geocoder=m::mock('HappyR\Google\GeocoderBundle\Services\GeocodeService')
             ->shouldReceive('geocodeAddress')->with($address,true)->andReturn($result)
+            ->shouldReceive('reverseGeocodeAddress')->with(59.2848305,17.9616526,true)->andReturn(array())
             ->getMock();
 
         $service=new GeocoderService($geocoder);
