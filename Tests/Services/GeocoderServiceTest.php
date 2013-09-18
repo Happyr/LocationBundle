@@ -18,22 +18,23 @@ class GeocoderServiceTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * Empty test
+     * Test teh geocode
      */
     public function testGeocode()
     {
         $address='Test';
         $result=$this->getFakeResponse();
 
-        $geocoder=m::mock('HappyR\Google\GeocoderBundle\Services\GeocoderService')
+        $geocoder=m::mock('HappyR\Google\GeocoderBundle\Services\GeocodeService')
             ->shouldReceive('geocodeAddress')->with($address,true)->andReturn($result)
             ->getMock();
 
         $service=new GeocoderService($geocoder);
+
+        //TODO validate the response
         $service->geocode($address);
 
     }
-
 
 
     /**
