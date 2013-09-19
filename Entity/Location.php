@@ -31,39 +31,39 @@ class Location
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Country")
+     * @ORM\ManyToOne(targetEntity="Country", cascade={"persist"})
      * @Assert\Type(type="HappyR\LocationBundle\Entity\Country", message="location.form.error.country")
      */
     protected $country;
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="City")
+     * @ORM\ManyToOne(targetEntity="City", cascade={"persist"})
      * @Assert\Type(type="HappyR\LocationBundle\Entity\City", message="location.form.error.city")
      */
     protected $city;
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Municipality")
+     * @ORM\ManyToOne(targetEntity="Municipality", cascade={"persist"})
      */
     protected $municipality;
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Region")
+     * @ORM\ManyToOne(targetEntity="Region", cascade={"persist"})
      */
     protected $region;
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="State")
+     * @ORM\ManyToOne(targetEntity="State", cascade={"persist"})
      */
     protected $state;
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="ZipCode")
+     * @ORM\ManyToOne(targetEntity="ZipCode", cascade={"persist"})
      */
     protected $zipCode;
 

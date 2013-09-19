@@ -79,10 +79,6 @@ class LocationManager
 
             //create
             $object=new $entityNamespace($name,$slug);
-
-            $this->em->persist($object);
-            $this->em->flush();
-
         }
 
         return $object;
