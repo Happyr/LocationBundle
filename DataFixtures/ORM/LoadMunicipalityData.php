@@ -2,7 +2,13 @@
 namespace HappyR\LocationBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Eastit\Darwin\CommonBundle\DataFixtures\BaseFixture;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Exception\ParseException;
 use HappyR\LocationBundle\Entity\Municipality;
 
 /**
@@ -12,7 +18,7 @@ use HappyR\LocationBundle\Entity\Municipality;
  *
  *
  */
-class LoadMunicipalityData extends BaseFixture
+class LoadMunicipalityData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
 
     /**
