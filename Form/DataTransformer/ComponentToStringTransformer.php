@@ -67,11 +67,9 @@ class ComponentToStringTransformer implements DataTransformerInterface
      */
     public function reverseTransform($data)
     {
-        $getType='get'.$this->type;
-        $getTypeManager='get'.$this->type.'Manager';
 
         //get the location object
-        $object= $this->lm->$getTypeManager()->$getType($data);
+        $object= $this->lm->getObject($this->type, $data);
 
         return $object;
     }
