@@ -211,7 +211,7 @@ class LocationType extends AbstractType
 
         if($options['components']['region']){
             $builder->add(
-                $builder->create('region', 'text', $options['field']['zipCode'])
+                $builder->create('region', 'text', $options['field']['region'])
                     ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'Region'))
             );
         }
