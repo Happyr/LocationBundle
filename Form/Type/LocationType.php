@@ -90,7 +90,7 @@ class LocationType extends AbstractType
      *
      */
     protected function mergeActiveParts(array &$options){
-        $options['components']= array_merge(array(
+        $validComponents=array(
             'address'=>false,
             'country'=>false,
             'city'=>false,
@@ -98,7 +98,9 @@ class LocationType extends AbstractType
             'region'=>false,
             'zipCode'=>false,
             'location'=>false,
-        ),$options['components']);
+        );
+
+        $options['components']= array_merge($validComponents, $options['components']);
     }
 
 
@@ -160,6 +162,20 @@ class LocationType extends AbstractType
 
         //merge defaults with the user options
         $options['field'] = array_replace_recursive($defaults,$options['field']);
+
+        /*
+         * Merge the default values
+         */
+        if(count($options['field']['all'])>0){
+            foreach($options['components'] as $component=>$active){
+                if(!$active){
+                    continue;
+                }
+
+                $options['field'][$component] = array_replace_recursive($options['field']['all'],$options['field'][$component]);
+
+            }
+        }
     }
 
 
