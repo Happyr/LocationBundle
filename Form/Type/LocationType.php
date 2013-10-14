@@ -133,18 +133,10 @@ class LocationType extends AbstractType
             'municipality'=>array(
                 'trim'=>true,
                 'label'=>'location.form.municipality',
-                'attr'=>array(
-                    'class'=>'autocomplete',
-                    'data-autocomplete-url'=>'_public_location_autocomplete_municipality',
-                ),
             ),
             'region'=>array(
                 'trim'=>true,
                 'label'=>'location.form.region',
-                'attr'=>array(
-                    'class'=>'autocomplete',
-                    'data-autocomplete-url'=>'_public_location_autocomplete_region',
-                ),
             ),
             'zipCode'=>array(
                 'trim'=>true,
