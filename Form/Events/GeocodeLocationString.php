@@ -49,7 +49,9 @@ class GeocodeLocationString
     {
         $location=$event->getData();
         $result=$this->geocoder->geocode($location->getLocation());
+
         if(!$result){
+            $location->clear();
             return;
         }
 
@@ -63,8 +65,8 @@ class GeocodeLocationString
             'region'=>null,
             'zipCode'=>null,
             'state'=>null,
-            'lat'=>null,
-            'lng'=>null,
+            'lat'=>0,
+            'lng'=>0,
         );
 
         //merge the result with the defaults
