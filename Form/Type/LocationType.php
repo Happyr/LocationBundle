@@ -164,7 +164,10 @@ class LocationType extends AbstractType
                     continue;
                 }
 
-                $options['field'][$component] = array_replace_recursive($options['field']['all'],$options['field'][$component]);
+                $options['field'][$component] = array_replace_recursive(
+                    $options['field']['all'],
+                    $options['field'][$component]
+                );
 
             }
         }

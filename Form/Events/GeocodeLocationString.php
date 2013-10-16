@@ -52,6 +52,7 @@ class GeocodeLocationString
 
         if(!$result){
             $location->clear();
+
             return;
         }
 

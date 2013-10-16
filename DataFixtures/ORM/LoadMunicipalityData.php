@@ -28,8 +28,6 @@ class LoadMunicipalityData extends BaseFixture
         $file = $this->parseYml('municipality.yml');
         $municipalities = $file['municipalities'];
 
-        $lm=$this->container->get('happyr.location.location_manager');
-
         foreach ($municipalities as $arr) {
             $obj=new Municipality($arr['name'],$arr['slug']);
             $obj->setCode($arr['code']);
