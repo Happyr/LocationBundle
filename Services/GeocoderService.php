@@ -96,8 +96,6 @@ class GeocoderService implements GeocoderInterface
                 break;
             }
         }
-
-
     }
 
     /**
@@ -161,7 +159,7 @@ class GeocoderService implements GeocoderInterface
      *
      * @return array
      */
-    private function getImportantValues()
+    protected function getImportantValues()
     {
         return array(
             'city'=>true,
