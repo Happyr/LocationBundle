@@ -80,14 +80,14 @@ class Location
      *
      * @ORM\Column(type="decimal", scale=6)
      */
-    private $lng='';
+    private $lng=0;
 
      /**
      *
      *
      * @ORM\Column(type="decimal", scale=6)
      */
-    private $lat='';
+    private $lat=0;
 
     /**
      * Removes all data associated with the location
@@ -101,8 +101,8 @@ class Location
         $this->region=null;
         $this->zipCode=null;
         $this->address='';
-        $this->lng=null;
-        $this->lat=null;
+        $this->lng=0;
+        $this->lat=0;
     }
 
       /**
@@ -151,7 +151,7 @@ class Location
      */
     public function hasCoordinates()
     {
-        return $this->lng!='' && $this->lat!='';
+        return $this->lng!=0 && $this->lat!=0;
     }
 
     /**
