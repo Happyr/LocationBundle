@@ -73,7 +73,7 @@ class LocationManager
         $object=$this->em->getRepository($entity)->findOneBy(array('slug'=>$slug));
 
         //if object is not found
-        if (!$object && $entity != $this->typePrefix.'Municipality') {
+        if (!$object) {
             $entityName=explode(':', $entity);
             $entityNamespace='HappyR\LocationBundle\Entity\\'.$entityName[1];
 
