@@ -21,7 +21,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode->children()
             ->scalarNode('geocoder_service')->defaultNull()->end()
-        ->end();
+            ->end();
 
         return $treeBuilder;
     }

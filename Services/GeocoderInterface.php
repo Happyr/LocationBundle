@@ -3,7 +3,6 @@
 
 namespace HappyR\LocationBundle\Services;
 
-
 /**
  * Class GeocoderInterface
  *

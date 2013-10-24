@@ -5,7 +5,6 @@ namespace HappyR\LocationBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * Class Component. This is a component of the location object
  *
@@ -53,8 +52,8 @@ abstract class Component
      */
     public function __construct($name, $slug)
     {
-        $this->name=$name;
-        $this->slug=$slug;
+        $this->name = $name;
+        $this->slug = $slug;
     }
 
     /**
@@ -67,7 +66,6 @@ abstract class Component
     {
         return $this->getName();
     }
-
 
     /**
      *
@@ -121,7 +119,4 @@ abstract class Component
     {
         return $this->slug;
     }
-
-
-
 }

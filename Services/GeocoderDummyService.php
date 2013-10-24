@@ -3,7 +3,6 @@
 
 namespace HappyR\LocationBundle\Services;
 
-
 /**
  * Dummy service that does nothing
  *
@@ -24,7 +23,5 @@ class GeocoderDummyService implements GeocoderInterface
     public function geocode($address)
     {
         return array();
-
     }
-
 }

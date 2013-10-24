@@ -1,6 +1,7 @@
 <?php
 
 namespace HappyR\LocationBundle\Form\Events;
+
 use HappyR\LocationBundle\Manager\LocationManager;
 use HappyR\LocationBundle\Services\GeocoderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -14,7 +15,7 @@ use Symfony\Component\Form\FormEvent;
 class GeocodeLocationString
 {
     /**
-     * @var \HappyR\LocationBundle\Manager\LocationManager $this->lm
+     * @var \HappyR\LocationBundle\Manager\LocationManager $this ->lm
      *
      *
      */
@@ -26,7 +27,6 @@ class GeocodeLocationString
      *
      */
     protected $geocoder;
-
 
     /**
      * @param LocationManager $lm
@@ -47,33 +47,33 @@ class GeocodeLocationString
      */
     public function geocodeLocation(FormEvent $event)
     {
-        $location=$event->getData();
-        $result=$this->geocoder->geocode($location->getLocation());
+        $location = $event->getData();
+        $result = $this->geocoder->geocode($location->getLocation());
 
-        if(!$result){
+        if (!$result) {
             $location->clear();
 
             return;
         }
 
-        $defaults=array(
-            'fullLocation'=>'',
-            'streetNumber'=>'',
-            'street'=>'',
-            'city'=>null,
-            'country'=>null,
-            'municipality'=>null,
-            'region'=>null,
-            'zipCode'=>null,
-            'state'=>null,
-            'lat'=>0,
-            'lng'=>0,
+        $defaults = array(
+            'fullLocation' => '',
+            'streetNumber' => '',
+            'street' => '',
+            'city' => null,
+            'country' => null,
+            'municipality' => null,
+            'region' => null,
+            'zipCode' => null,
+            'state' => null,
+            'lat' => 0,
+            'lng' => 0,
         );
 
         //merge the result with the defaults
-        $result+=$defaults;
+        $result += $defaults;
 
-        $streetAddress=$result['street'].' '.$result['streetNumber'];
+        $streetAddress = $result['street'] . ' ' . $result['streetNumber'];
         $location->setAddress(trim($streetAddress));
 
         $location->setCity($this->lm->getObject('City', $result['city']));
@@ -91,5 +91,4 @@ class GeocodeLocationString
 
         return $location;
     }
-
 }

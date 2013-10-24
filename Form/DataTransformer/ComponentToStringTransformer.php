@@ -34,8 +34,8 @@ class ComponentToStringTransformer implements DataTransformerInterface
      */
     public function __construct(LocationManager $lm, $type)
     {
-        $this->lm=$lm;
-        $this->type=$type;
+        $this->lm = $lm;
+        $this->type = $type;
     }
 
     /**
@@ -47,11 +47,11 @@ class ComponentToStringTransformer implements DataTransformerInterface
      */
     public function transform($data)
     {
-        if ($this->type=='Country') {
+        if ($this->type == 'Country') {
             return $data;
         }
 
-        if(!$data){
+        if (!$data) {
             return '';
         }
 
@@ -69,7 +69,7 @@ class ComponentToStringTransformer implements DataTransformerInterface
     {
 
         //get the location object
-        $object= $this->lm->getObject($this->type, $data);
+        $object = $this->lm->getObject($this->type, $data);
 
         return $object;
     }

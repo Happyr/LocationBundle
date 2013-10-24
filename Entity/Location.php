@@ -27,7 +27,7 @@ class Location
      *
      * @ORM\Column(type="string", length=255, nullable=false)
      */
-    protected $location='';
+    protected $location = '';
 
     /**
      *
@@ -67,45 +67,44 @@ class Location
      */
     protected $zipCode;
 
-     /**
+    /**
      * The address
      *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $address='';
-
+    private $address = '';
 
     /**
      *
      *
      * @ORM\Column(type="decimal", scale=6)
      */
-    private $lng=0;
+    private $lng = 0;
 
-     /**
+    /**
      *
      *
      * @ORM\Column(type="decimal", scale=6)
      */
-    private $lat=0;
+    private $lat = 0;
 
     /**
      * Removes all data associated with the location
      */
     public function clear()
     {
-        $this->location='';
-        $this->country=null;
-        $this->city=null;
-        $this->municipality=null;
-        $this->region=null;
-        $this->zipCode=null;
-        $this->address='';
-        $this->lng=0;
-        $this->lat=0;
+        $this->location = '';
+        $this->country = null;
+        $this->city = null;
+        $this->municipality = null;
+        $this->region = null;
+        $this->zipCode = null;
+        $this->address = '';
+        $this->lng = 0;
+        $this->lat = 0;
     }
 
-      /**
+    /**
      * Get id
      *
      * @return integer
@@ -123,14 +122,13 @@ class Location
      */
     public function getCountryCode()
     {
-        if($this->getCountry()==null){
+        if ($this->getCountry() == null) {
             //fallback
             return 'SE';
         }
 
         return $this->getCountry()->getCode();
     }
-
 
     /**
      *
@@ -140,7 +138,7 @@ class Location
      */
     public function getCoordinates()
     {
-        return array('lng'=>$this->lng, 'lat'=>$this->lat);
+        return array('lng' => $this->lng, 'lat' => $this->lat);
     }
 
     /**
@@ -151,7 +149,7 @@ class Location
      */
     public function hasCoordinates()
     {
-        return $this->lng!=0 && $this->lat!=0;
+        return $this->lng != 0 && $this->lat != 0;
     }
 
     /**
@@ -165,7 +163,6 @@ class Location
         return $this->getCoordinates();
     }
 
-
     /**
      * This is a long string that describes the location
      *
@@ -174,11 +171,10 @@ class Location
      */
     public function setLocation($str)
     {
-        if($str!=null){
-            $this->location=$str;
-        }
-        else{
-            $this->location='';
+        if ($str != null) {
+            $this->location = $str;
+        } else {
+            $this->location = '';
         }
     }
 
@@ -388,8 +384,4 @@ class Location
     {
         return $this->state;
     }
-
-
-
-
 }

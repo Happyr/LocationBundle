@@ -38,40 +38,38 @@ class GeocoderService implements GeocoderInterface
      */
     public function geocode($address)
     {
-        $importantValues=$this->getImportantValues();
-        $result=$this->geocoder->geocodeAddress($address, true);
+        $importantValues = $this->getImportantValues();
+        $result = $this->geocoder->geocodeAddress($address, true);
 
-        if($result==null){
+        if ($result == null) {
             return array();
         }
 
-        $parts=$result[0]->address_components;
-        $geometry=$result[0]->geometry;
+        $parts = $result[0]->address_components;
+        $geometry = $result[0]->geometry;
 
-        $ret= array(
-            'fullLocation'=>$result[0]->formatted_address,
-            'streetNumber'=>'',
-            'street'=>'',
-            'city'=>null,
-            'country'=>null,
-            'municipality'=>null,
-            'region'=>null,
-            'zipCode'=>null,
-            'state'=>null,
-            'lat'=>$geometry->location->lat,
-            'lng'=>$geometry->location->lng,
+        $ret = array(
+            'fullLocation' => $result[0]->formatted_address,
+            'streetNumber' => '',
+            'street' => '',
+            'city' => null,
+            'country' => null,
+            'municipality' => null,
+            'region' => null,
+            'zipCode' => null,
+            'state' => null,
+            'lat' => $geometry->location->lat,
+            'lng' => $geometry->location->lng,
         );
 
         $this->extractData($ret, $parts, $importantValues);
 
-        if(count($importantValues)>0){
+        if (count($importantValues) > 0) {
             $this->reverseLookup($ret, $importantValues);
         }
 
         return $ret;
-
     }
-
 
     /**
      * We do a reverse look up to get more information about the address.
@@ -82,17 +80,17 @@ class GeocoderService implements GeocoderInterface
      */
     protected function reverseLookup(array &$params, array &$importantValues)
     {
-        $results=$this->geocoder->reverseGeocodeAddress($params['lat'], $params['lng'], true);
+        $results = $this->geocoder->reverseGeocodeAddress($params['lat'], $params['lng'], true);
 
         //unset values that we do not want to override
         unset($importantValues['street']);
         unset($importantValues['streetNumber']);
 
-        foreach($results as $result){
+        foreach ($results as $result) {
 
             $this->extractData($params, $result->address_components, $importantValues);
 
-            if(count($importantValues)==0){
+            if (count($importantValues) == 0) {
                 break;
             }
         }
@@ -112,47 +110,37 @@ class GeocoderService implements GeocoderInterface
     {
         foreach ($parts as $part) {
             if (isset($importantValues['streetNumber']) && in_array('street_number', $part->types)) {
-                $ret['streetNumber']=$part->long_name;
+                $ret['streetNumber'] = $part->long_name;
                 unset($importantValues['streetNumber']);
-            }
-            elseif (isset($importantValues['street']) && in_array('route', $part->types)) {
-                $ret['street']=$part->long_name;
+            } elseif (isset($importantValues['street']) && in_array('route', $part->types)) {
+                $ret['street'] = $part->long_name;
                 unset($importantValues['street']);
-            }
-            elseif (isset($importantValues['city']) && in_array('locality', $part->types)) {
-                $ret['city']=$part->long_name;
+            } elseif (isset($importantValues['city']) && in_array('locality', $part->types)) {
+                $ret['city'] = $part->long_name;
                 unset($importantValues['city']);
-            }
-            elseif (isset($importantValues['city']) && in_array('administrative_area_level_2', $part->types)) {
-                if($ret['city']==null){
-                    $ret['city']=$part->long_name;
+            } elseif (isset($importantValues['city']) && in_array('administrative_area_level_2', $part->types)) {
+                if ($ret['city'] == null) {
+                    $ret['city'] = $part->long_name;
                     unset($importantValues['city']);
                 }
-            }
-            elseif (isset($importantValues['state']) && in_array('administrative_area_level_1', $part->types)) {
-                $ret['state']=$part->long_name;
+            } elseif (isset($importantValues['state']) && in_array('administrative_area_level_1', $part->types)) {
+                $ret['state'] = $part->long_name;
                 unset($importantValues['state']);
-            }
-            elseif (isset($importantValues['country']) && in_array('country', $part->types)) {
-                $ret['country']=$part->short_name;
+            } elseif (isset($importantValues['country']) && in_array('country', $part->types)) {
+                $ret['country'] = $part->short_name;
                 unset($importantValues['country']);
-            }
-            elseif (isset($importantValues['zipCode']) && in_array('postal_code', $part->types)) {
-                $ret['zipCode']=$part->long_name;
+            } elseif (isset($importantValues['zipCode']) && in_array('postal_code', $part->types)) {
+                $ret['zipCode'] = $part->long_name;
                 unset($importantValues['zipCode']);
-            }
-            elseif (isset($importantValues['region']) && in_array('postal_town', $part->types)) {
-                $ret['region']=$part->long_name;
+            } elseif (isset($importantValues['region']) && in_array('postal_town', $part->types)) {
+                $ret['region'] = $part->long_name;
                 unset($importantValues['region']);
-            }
-            elseif (isset($importantValues['municipality']) && in_array('locality', $part->types)) {
-                $ret['municipality']=$part->long_name;
+            } elseif (isset($importantValues['municipality']) && in_array('locality', $part->types)) {
+                $ret['municipality'] = $part->long_name;
                 unset($importantValues['municipality']);
             }
         }
     }
-
-
 
     /**
      * Get values that we think that we should have
@@ -162,13 +150,12 @@ class GeocoderService implements GeocoderInterface
     protected function getImportantValues()
     {
         return array(
-            'city'=>true,
-            'country'=>true,
-            'municipality'=>true,
-            'region'=>true,
-            'zipCode'=>true,
-            'state'=>true,
+            'city' => true,
+            'country' => true,
+            'municipality' => true,
+            'region' => true,
+            'zipCode' => true,
+            'state' => true,
         );
     }
-
 }

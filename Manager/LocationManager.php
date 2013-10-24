@@ -8,7 +8,6 @@ use HappyR\LocationBundle\Entity\LocationObject;
 use HappyR\LocationBundle\Services\SlugifierInterface;
 use HappyR\SlugifyBundle\Services\SlugifyService;
 
-
 /**
  *
  * All the other manager extends this class but the are not accessed by the service container.
@@ -38,8 +37,7 @@ class LocationManager
      *
      *
      */
-    protected $typePrefix='HappyRLocationBundle:';
-
+    protected $typePrefix = 'HappyRLocationBundle:';
 
     /**
      * @param ObjectManager $em
@@ -47,8 +45,8 @@ class LocationManager
      */
     public function __construct(ObjectManager $em, SlugifyService $slugifier)
     {
-        $this->em=$em;
-        $this->slugifier=$slugifier;
+        $this->em = $em;
+        $this->slugifier = $slugifier;
     }
 
     /**
@@ -61,32 +59,32 @@ class LocationManager
      */
     public function getObject($entity, $name)
     {
-        if($name==null){
+        if ($name == null) {
             return null;
         }
 
-        $entity=$this->typePrefix.$entity;
-        $name=$this->beautifyName($name);
+        $entity = $this->typePrefix . $entity;
+        $name = $this->beautifyName($name);
 
         /*
          * The slugifier removes words like "is", "at" etc.. that's why we just strlower the country codes..
          */
         if ($entity == 'HappyRLocationBundle:Country') {
-            $slug= strtolower($name);
+            $slug = strtolower($name);
         } else {
-            $slug=$this->slugifier->slugify($name);
+            $slug = $this->slugifier->slugify($name);
         }
 
         //fetch object
-        $object=$this->em->getRepository($entity)->findOneBy(array('slug'=>$slug));
+        $object = $this->em->getRepository($entity)->findOneBy(array('slug' => $slug));
 
         //if object is not found
         if (!$object) {
-            $entityName=explode(':', $entity);
-            $entityNamespace='HappyR\LocationBundle\Entity\\'.$entityName[1];
+            $entityName = explode(':', $entity);
+            $entityNamespace = 'HappyR\LocationBundle\Entity\\' . $entityName[1];
 
             //create
-            $object=new $entityNamespace($name,$slug);
+            $object = new $entityNamespace($name, $slug);
         }
 
         return $object;
@@ -97,13 +95,14 @@ class LocationManager
      *
      * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
      * @param string $slug
+     *
      * @return mixed|null
      */
     public function findOneObjectBySlug($entity, $slug)
     {
-        $entity=$this->typePrefix.$entity;
+        $entity = $this->typePrefix . $entity;
 
-        return $this->em->getRepository($entity)->findOneBy(array('slug'=>$slug));
+        return $this->em->getRepository($entity)->findOneBy(array('slug' => $slug));
     }
 
     /**
@@ -117,7 +116,7 @@ class LocationManager
      */
     public function findOneObjectByName($entity, $name)
     {
-        return $this->findOneObjectBySlug($entity,$this->slugifier->slugify($name));
+        return $this->findOneObjectBySlug($entity, $this->slugifier->slugify($name));
     }
 
     /**
@@ -125,11 +124,11 @@ class LocationManager
      *
      * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
      * @param Component &$component
-     * @param String         $name
+     * @param String $name
      */
     public function renameObject($entity, Component &$component, $name)
     {
-        $name=$this->beautifyName($name);
+        $name = $this->beautifyName($name);
         $component->setName($name);
         $component->setSlug($this->slugifier->slugify($name));
 
@@ -153,20 +152,21 @@ class LocationManager
      * This will move all Location's references from $copy to $org
      * This will remove the copy Object.
      *
-     * @param String $databaseName  The $databaseName will be inserted in a query. Must be safe
+     * @param String $databaseName The $databaseName will be inserted in a query. Must be safe
      * @param Component &$org
      * @param Component &$copy
      */
     public function mergeObjects($databaseName, Component &$org, Component &$copy)
     {
-        $this->em->createQuery('UPDATE EastitLegoLocationBundle:Location e SET e.'
-                .$databaseName.'=:org_id WHERE e.'.$databaseName.'=:copy_id')
-            ->setParameter('org_id',$org->getId())
-            ->setParameter('copy_id',$copy->getId())
+        $this->em->createQuery(
+            'UPDATE EastitLegoLocationBundle:Location e SET e.'
+            . $databaseName . '=:org_id WHERE e.' . $databaseName . '=:copy_id'
+        )
+            ->setParameter('org_id', $org->getId())
+            ->setParameter('copy_id', $copy->getId())
             ->execute();
 
         $this->removeObject($copy);
-
     }
 
     /**
@@ -178,7 +178,6 @@ class LocationManager
      */
     protected function beautifyName($name)
     {
-        return mb_convert_case(mb_strtolower(trim($name),'UTF-8'), MB_CASE_TITLE, 'UTF-8');
+        return mb_convert_case(mb_strtolower(trim($name), 'UTF-8'), MB_CASE_TITLE, 'UTF-8');
     }
-
 }

@@ -17,7 +17,7 @@ class ZipCode extends Component
      */
     public function __construct($code)
     {
-        parent::__construct($code,$code);
+        parent::__construct($code, $code);
     }
 
     /**
@@ -44,5 +44,4 @@ class ZipCode extends Component
 
         return $this;
     }
-
 }

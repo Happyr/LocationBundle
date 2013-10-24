@@ -43,8 +43,8 @@ class LocationType extends AbstractType
      */
     public function __construct(LocationManager $lm, GeocoderInterface $geocoder)
     {
-        $this->lm=$lm;
-        $this->geocoder=$geocoder;
+        $this->lm = $lm;
+        $this->geocoder = $geocoder;
     }
 
     /**
@@ -62,8 +62,6 @@ class LocationType extends AbstractType
         $this->addActiveComponents($builder, $options);
     }
 
-
-
     /**
      * Set the options
      *
@@ -72,16 +70,16 @@ class LocationType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'HappyR\LocationBundle\Entity\Location',
-            'components'=>array(),
-            'geocodeLocationString'=>true,
-
-            //use this one if you want to set an attr on a field
-            'field'=>array(),
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'HappyR\LocationBundle\Entity\Location',
+                'components' => array(),
+                'geocodeLocationString' => true,
+                //use this one if you want to set an attr on a field
+                'field' => array(),
+            )
+        );
     }
-
 
     /**
      * Set all parts to default false
@@ -89,20 +87,20 @@ class LocationType extends AbstractType
      * @param array &$options
      *
      */
-    protected function mergeActiveParts(array &$options){
-        $validComponents=array(
-            'address'=>false,
-            'country'=>false,
-            'city'=>false,
-            'municipality'=>false,
-            'region'=>false,
-            'zipCode'=>false,
-            'location'=>false,
+    protected function mergeActiveParts(array &$options)
+    {
+        $validComponents = array(
+            'address' => false,
+            'country' => false,
+            'city' => false,
+            'municipality' => false,
+            'region' => false,
+            'zipCode' => false,
+            'location' => false,
         );
 
-        $options['components']= array_merge($validComponents, $options['components']);
+        $options['components'] = array_merge($validComponents, $options['components']);
     }
-
 
     /**
      * Here is the default configuration for each field
@@ -110,57 +108,58 @@ class LocationType extends AbstractType
      * @param array &$options
      *
      */
-    protected function addDefaultAttributes(array &$options){
+    protected function addDefaultAttributes(array &$options)
+    {
 
         $defaults = array(
-            'all'=>array(),
-            'address'=>array(
-                'trim'=>true,
-                'label'=>'location.form.address',
+            'all' => array(),
+            'address' => array(
+                'trim' => true,
+                'label' => 'location.form.address',
             ),
-            'country'=>array(
+            'country' => array(
                 'preferred_choices' => array('SE'),
-                'label'=>'location.form.country',
+                'label' => 'location.form.country',
             ),
-            'city'=>array(
-                'trim'=>true,
-                'label'=>'location.form.city',
-                'attr'=>array(
-                    'class'=>'google-autocomplete',
-                    'data-google-autocomplete-type'=>'(cities)',
+            'city' => array(
+                'trim' => true,
+                'label' => 'location.form.city',
+                'attr' => array(
+                    'class' => 'google-autocomplete',
+                    'data-google-autocomplete-type' => '(cities)',
                 ),
             ),
-            'municipality'=>array(
-                'trim'=>true,
-                'label'=>'location.form.municipality',
+            'municipality' => array(
+                'trim' => true,
+                'label' => 'location.form.municipality',
             ),
-            'region'=>array(
-                'trim'=>true,
-                'label'=>'location.form.region',
+            'region' => array(
+                'trim' => true,
+                'label' => 'location.form.region',
             ),
-            'zipCode'=>array(
-                'trim'=>true,
-                'label'=>'location.form.zipCode',
+            'zipCode' => array(
+                'trim' => true,
+                'label' => 'location.form.zipCode',
             ),
-            'location'=>array(
-                'label'=>'location.form.location',
-                'attr'=>array(
-                    'data-placeholder'=>'location.form.location',
-                    'class'=>'google-autocomplete',
-                    'data-google-autocomplete-type'=>'geocode',
+            'location' => array(
+                'label' => 'location.form.location',
+                'attr' => array(
+                    'data-placeholder' => 'location.form.location',
+                    'class' => 'google-autocomplete',
+                    'data-google-autocomplete-type' => 'geocode',
                 ),
             ),
         );
 
         //merge defaults with the user options
-        $options['field'] = array_replace_recursive($defaults,$options['field']);
+        $options['field'] = array_replace_recursive($defaults, $options['field']);
 
         /*
          * Merge the default values
          */
-        if(count($options['field']['all'])>0){
-            foreach($options['components'] as $component=>$active){
-                if(!$active){
+        if (count($options['field']['all']) > 0) {
+            foreach ($options['components'] as $component => $active) {
+                if (!$active) {
                     continue;
                 }
 
@@ -168,11 +167,9 @@ class LocationType extends AbstractType
                     $options['field']['all'],
                     $options['field'][$component]
                 );
-
             }
         }
     }
-
 
     /**
      * Add all the active parts for this instance
@@ -195,32 +192,32 @@ class LocationType extends AbstractType
             );
         }
 
-        if($options['components']['city']){
+        if ($options['components']['city']) {
             $builder->add(
                 $builder->create('city', 'text', $options['field']['city'])
                     ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'City'))
             );
         }
 
-        if($options['components']['municipality']){
+        if ($options['components']['municipality']) {
             $builder->add(
                 $builder->create('municipality', 'text', $options['field']['municipality'])
                     ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'Municipality'))
             );
         }
 
-        if($options['components']['address']){
+        if ($options['components']['address']) {
             $builder->add('address', 'text', $options['field']['address']);
         }
 
-        if($options['components']['zipCode']){
+        if ($options['components']['zipCode']) {
             $builder->add(
                 $builder->create('zipCode', 'text', $options['field']['zipCode'])
                     ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'ZipCode'))
             );
         }
 
-        if($options['components']['region']){
+        if ($options['components']['region']) {
             $builder->add(
                 $builder->create('region', 'text', $options['field']['region'])
                     ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'Region'))
@@ -237,20 +234,19 @@ class LocationType extends AbstractType
      */
     protected function addLocation(FormBuilderInterface &$builder, array &$options)
     {
-        $locationForm= $builder->create('location', 'text', $options['field']['location']);
+        $locationForm = $builder->create('location', 'text', $options['field']['location']);
 
         /*
          * if we should geocode the location string
          */
-        if ($options['geocodeLocationString']==true && $this->geocoder!=null) {
+        if ($options['geocodeLocationString'] == true && $this->geocoder != null) {
 
-            $eventListener=new GeocodeLocationString($this->lm, $this->geocoder);
+            $eventListener = new GeocodeLocationString($this->lm, $this->geocoder);
             $builder->addEventListener(FormEvents::BIND, array($eventListener, 'geocodeLocation'));
         }
 
         $builder->add($locationForm);
     }
-
 
     /**
      *

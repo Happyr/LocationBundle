@@ -23,13 +23,13 @@ class LoadMunicipalityData extends BaseFixture
      */
     public function load(ObjectManager $manager)
     {
-        $this->basePath = dirname(__FILE__).'/../../Resources/data/';
+        $this->basePath = dirname(__FILE__) . '/../../Resources/data/';
 
         $file = $this->parseYml('municipality.yml');
         $municipalities = $file['municipalities'];
 
         foreach ($municipalities as $arr) {
-            $obj=new Municipality($arr['name'],$arr['slug']);
+            $obj = new Municipality($arr['name'], $arr['slug']);
             $obj->setCode($arr['code']);
 
             $manager->persist($obj);

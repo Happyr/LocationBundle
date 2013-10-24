@@ -51,6 +51,6 @@ class Municipality extends Component
      */
     public function getShortCode()
     {
-        return substr($this->code,-4);
+        return substr($this->code, -4);
     }
 }

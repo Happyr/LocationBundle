@@ -18,7 +18,7 @@ class Country extends Component
      */
     public function __construct($name)
     {
-        parent::__construct(strtoupper($name),strtolower($name));
+        parent::__construct(strtoupper($name), strtolower($name));
     }
 
     /**
@@ -56,5 +56,4 @@ class Country extends Component
     {
         return $this->name;
     }
-
 }

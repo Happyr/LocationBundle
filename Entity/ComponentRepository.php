@@ -23,14 +23,13 @@ class ComponentRepository extends EntityRepository
     public function searchByName($name)
     {
         return $this->getEntityManager()
-            ->createQuery('
-                SELECT e FROM '.$this->_entityName.' e
+            ->createQuery(
+                '
+                                SELECT e FROM ' . $this->_entityName . ' e
                 WHERE e.name LIKE :name
                 ORDER BY e.name DESC'
             )
-             ->setParameter('name', '%'.$name.'%')
-             ->getResult();
-
+            ->setParameter('name', '%' . $name . '%')
+            ->getResult();
     }
-
 }
