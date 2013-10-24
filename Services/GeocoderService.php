@@ -24,7 +24,7 @@ class GeocoderService implements GeocoderInterface
     /**
      * @param Geocoder $geocoder
      */
-    function __construct(Geocoder $geocoder)
+    public function __construct(Geocoder $geocoder)
     {
         $this->geocoder = $geocoder;
     }
