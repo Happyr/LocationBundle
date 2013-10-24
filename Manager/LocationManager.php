@@ -67,7 +67,15 @@ class LocationManager
 
         $entity=$this->typePrefix.$entity;
         $name=$this->beautifyName($name);
-        $slug=$this->slugifier->slugify($name);
+
+        /*
+         * The slugifier removes words like "is", "at" etc.. that's why we just strlower the country codes..
+         */
+        if ($entity == 'HappyRLocationBundle:Country') {
+            $slug= strtolower($name);
+        } else {
+            $slug=$this->slugifier->slugify($name);
+        }
 
         //fetch object
         $object=$this->em->getRepository($entity)->findOneBy(array('slug'=>$slug));
