@@ -2,8 +2,7 @@
 namespace HappyR\LocationBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Eastit\Darwin\CommonBundle\DataFixtures\BaseFixture;
-
+use HappyR\LocationBundle\DataFixtures\BaseFixture;
 use HappyR\LocationBundle\Entity\Country;
 
 /**
