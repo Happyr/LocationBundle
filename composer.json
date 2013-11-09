@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "A Symfony2 Bundle to handle geographic location of your entities",
     "keywords": ["Location"],
-    "homepage": "http://developer.happyr.se",
+    "homepage": "http://developer.happyr.se/symfony2-bundles/location-bundle",
     "license": "MIT",
     "authors": [
         {
