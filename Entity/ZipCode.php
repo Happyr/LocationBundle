@@ -13,14 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class ZipCode extends Component
 {
     /**
-     * @param string $code
-     */
-    public function __construct($code)
-    {
-        parent::__construct($code, $code);
-    }
-
-    /**
      *
      *
      *
