@@ -10,7 +10,7 @@ location:
     location: 'Adress'
 
     help:
-      address: 'Ange addressen med gatunamn och gatunummer'
+      address: 'Ange adressen med gatunamn och gatunummer'
       country: 'Ange land från listan'
       city: 'Ange en stad'
       municipality: 'Ange en kommun'
