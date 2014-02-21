@@ -40,3 +40,20 @@ happy_r_location:
   geocoder_service: 'happyr.geocoder'
 
 ```
+
+## Usage
+
+``` php 
+//any form 
+public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('location', 'location', array(
+                    'components'=>array(
+                        'country'=>true,
+                        'city'=>true,
+                    )
+                ));
+    }
+```
+    
