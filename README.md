@@ -23,7 +23,7 @@ A Symfony2 Bundle to handle location
     {
         $bundles = array(
             // ...
-            new HappyR\TranslationBundle\HappyRTranslationBundle(),
+            new HappyR\LocationBundle\HappyRLocationBundle(),
         );
     }
     ```
