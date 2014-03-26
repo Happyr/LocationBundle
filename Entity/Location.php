@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Location
 {
     /**
-     * @var integer $id
+     * @var integer id
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -23,6 +23,8 @@ class Location
     private $id;
 
     /**
+     * @var string location
+     *
      * The complete address. This field is used with google autocomplete
      *
      * @ORM\Column(type="string", length=255, nullable=false)
@@ -30,6 +32,7 @@ class Location
     protected $location = '';
 
     /**
+     * @var \HappyR\LocationBundle\Entity\Country country
      *
      * @ORM\ManyToOne(targetEntity="Country", cascade={"persist"})
      * @Assert\Type(type="HappyR\LocationBundle\Entity\Country", message="location.form.error.country")
@@ -37,6 +40,7 @@ class Location
     protected $country;
 
     /**
+     * @var \HappyR\LocationBundle\Entity\City city
      *
      * @ORM\ManyToOne(targetEntity="City", cascade={"persist"})
      * @Assert\Type(type="HappyR\LocationBundle\Entity\City", message="location.form.error.city")
@@ -44,30 +48,36 @@ class Location
     protected $city;
 
     /**
+     * @var \HappyR\LocationBundle\Entity\Municipality municipality
      *
      * @ORM\ManyToOne(targetEntity="Municipality", cascade={"persist"})
      */
     protected $municipality;
 
     /**
+     * @var \HappyR\LocationBundle\Entity\Region region
      *
      * @ORM\ManyToOne(targetEntity="Region", cascade={"persist"})
      */
     protected $region;
 
     /**
+     * @var \HappyR\LocationBundle\Entity\State state
      *
      * @ORM\ManyToOne(targetEntity="State", cascade={"persist"})
      */
     protected $state;
 
     /**
+     * @var \HappyR\LocationBundle\Entity\ZipCode zipCode
      *
      * @ORM\ManyToOne(targetEntity="ZipCode", cascade={"persist"})
      */
     protected $zipCode;
 
     /**
+     *  @var string address
+     *
      * The address
      *
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -75,14 +85,14 @@ class Location
     private $address = '';
 
     /**
-     *
+     * @var float lng
      *
      * @ORM\Column(type="decimal", scale=6)
      */
     private $lng = 0;
 
     /**
-     *
+     * @var float lat
      *
      * @ORM\Column(type="decimal", scale=6)
      */
@@ -117,7 +127,6 @@ class Location
     /**
      * Get the country code or fallback on SE
      *
-     *
      * @return string
      */
     public function getCountryCode()
@@ -133,7 +142,6 @@ class Location
     /**
      *
      *
-     *
      * @return array
      */
     public function getCoordinates()
@@ -142,7 +150,6 @@ class Location
     }
 
     /**
-     *
      *
      *
      * @return bool
@@ -180,7 +187,7 @@ class Location
 
     /**
      *
-     * @param mixed $address
+     * @param string $address
      *
      * @return $this
      */
@@ -193,7 +200,7 @@ class Location
 
     /**
      *
-     * @return mixed
+     * @return string
      */
     public function getAddress()
     {
@@ -202,7 +209,7 @@ class Location
 
     /**
      *
-     * @param mixed $city
+     * @param \HappyR\LocationBundle\Entity\City $city
      *
      * @return $this
      */
@@ -215,7 +222,7 @@ class Location
 
     /**
      *
-     * @return mixed
+     * @return \HappyR\LocationBundle\Entity\City
      */
     public function getCity()
     {
@@ -224,7 +231,7 @@ class Location
 
     /**
      *
-     * @param mixed $country
+     * @param \HappyR\LocationBundle\Entity\Country $country
      *
      * @return $this
      */
@@ -237,7 +244,7 @@ class Location
 
     /**
      *
-     * @return mixed
+     * @return \HappyR\LocationBundle\Entity\Country
      */
     public function getCountry()
     {
@@ -246,7 +253,7 @@ class Location
 
     /**
      *
-     * @param mixed $lat
+     * @param float $lat
      *
      * @return $this
      */
@@ -259,7 +266,7 @@ class Location
 
     /**
      *
-     * @return mixed
+     * @return float
      */
     public function getLat()
     {
@@ -268,7 +275,7 @@ class Location
 
     /**
      *
-     * @param mixed $lng
+     * @param float $lng
      *
      * @return $this
      */
@@ -281,7 +288,7 @@ class Location
 
     /**
      *
-     * @return mixed
+     * @return float
      */
     public function getLng()
     {
@@ -290,7 +297,7 @@ class Location
 
     /**
      *
-     * @return mixed
+     * @return string
      */
     public function getLocation()
     {
@@ -299,7 +306,7 @@ class Location
 
     /**
      *
-     * @param mixed $municipality
+     * @param \HappyR\LocationBundle\Entity\Municipality $municipality
      *
      * @return $this
      */
@@ -312,7 +319,7 @@ class Location
 
     /**
      *
-     * @return mixed
+     * @return \HappyR\LocationBundle\Entity\Municipality
      */
     public function getMunicipality()
     {
@@ -321,7 +328,7 @@ class Location
 
     /**
      *
-     * @param mixed $region
+     * @param \HappyR\LocationBundle\Entity\Region $region
      *
      * @return $this
      */
@@ -334,7 +341,7 @@ class Location
 
     /**
      *
-     * @return mixed
+     * @return \HappyR\LocationBundle\Entity\Region
      */
     public function getRegion()
     {
@@ -343,29 +350,7 @@ class Location
 
     /**
      *
-     * @param mixed $zipCode
-     *
-     * @return $this
-     */
-    public function setZipCode($zipCode)
-    {
-        $this->zipCode = $zipCode;
-
-        return $this;
-    }
-
-    /**
-     *
-     * @return mixed
-     */
-    public function getZipCode()
-    {
-        return $this->zipCode;
-    }
-
-    /**
-     *
-     * @param mixed $state
+     * @param \HappyR\LocationBundle\Entity\State $state
      *
      * @return $this
      */
@@ -378,10 +363,32 @@ class Location
 
     /**
      *
-     * @return mixed
+     * @return \HappyR\LocationBundle\Entity\State
      */
     public function getState()
     {
         return $this->state;
+    }
+
+    /**
+     *
+     * @param \HappyR\LocationBundle\Entity\ZipCode $zipCode
+     *
+     * @return $this
+     */
+    public function setZipCode($zipCode)
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return \HappyR\LocationBundle\Entity\ZipCode
+     */
+    public function getZipCode()
+    {
+        return $this->zipCode;
     }
 }
