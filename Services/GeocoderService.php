@@ -82,12 +82,7 @@ class GeocoderService implements GeocoderInterface
     {
         $results = $this->geocoder->reverseGeocodeAddress($params['lat'], $params['lng'], true);
 
-        //unset values that we do not want to override
-        unset($importantValues['street']);
-        unset($importantValues['streetNumber']);
-
         foreach ($results as $result) {
-
             $this->extractData($params, $result->address_components, $importantValues);
 
             if (count($importantValues) == 0) {
@@ -150,6 +145,8 @@ class GeocoderService implements GeocoderInterface
     protected function getImportantValues()
     {
         return array(
+            'streetNumber' => true,
+            'street' => true,
             'city' => true,
             'country' => true,
             'municipality' => true,
