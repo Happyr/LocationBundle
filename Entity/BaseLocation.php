@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * HappyR\LocationBundle\Entity\BaseLocation
  *
- * @ORM\MappedSuperClass
+ * @ORM\MappedSuperclass
  * 
  */
 class BaseLocation
