@@ -3,17 +3,16 @@
     "type": "symfony-bundle",
     "description": "A Symfony2 Bundle to handle geographic location of your entities",
     "keywords": ["Location"],
-    "homepage": "http://developer.happyr.se/symfony2-bundles/location-bundle",
+    "homepage": "http://developer.happyr.com/symfony2-bundles/location-bundle",
     "license": "MIT",
     "authors": [
         {
             "name": "Tobias Nyholm",
-            "email": "tobias@happyrecruiting.se"
+            "email": "tobias@happyr.com"
         }
     ],
     "require": {
         "php": ">=5.3.2",
-        "symfony/framework-bundle": "2.*",
         "symfony/yaml": "2.*",
         "happyr/slugify-bundle": "1.0.*"
     },
