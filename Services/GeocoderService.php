@@ -80,7 +80,9 @@ class GeocoderService implements GeocoderInterface
      */
     protected function reverseLookup(array &$params, array &$importantValues)
     {
-        $results = $this->geocoder->reverseGeocodeAddress($params['lat'], $params['lng'], true);
+        if (null === $results = $this->geocoder->reverseGeocodeAddress($params['lat'], $params['lng'], true)) {
+            return;
+        }
 
         foreach ($results as $result) {
             $this->extractData($params, $result->address_components, $importantValues);
