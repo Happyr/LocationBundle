@@ -99,6 +99,19 @@ class BaseLocation
     protected $lat = 0;
 
     /**
+     * Try to return the location or the name of the city
+     * @return string
+     */
+    public function __toString()
+    {
+        if (empty($this->location) && $this->city) {
+            return $this->city->__toString();
+        }
+
+        return $this->location;
+    }
+
+    /**
      * Removes all data associated with the location
      */
     public function clear()
