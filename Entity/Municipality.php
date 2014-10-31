@@ -20,7 +20,7 @@ class Municipality extends Component
      *
      * @ORM\Column(name="code", type="string", length=15, nullable=true)
      */
-    private $code;
+    protected $code;
 
     /**
      * Set code
