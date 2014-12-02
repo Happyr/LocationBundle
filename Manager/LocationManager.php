@@ -3,6 +3,7 @@
 namespace Happyr\LocationBundle\Manager;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use Happyr\LocationBundle\Entity\Component;
 use Happyr\LocationBundle\Entity\LocationObject;
 use Happyr\LocationBundle\Services\SlugifierInterface;
@@ -19,31 +20,25 @@ use HappyR\SlugifyBundle\Services\SlugifyService;
 class LocationManager
 {
     /**
-     * @var \Doctrine\Common\Persistence\ObjectManager em
-     *
-     *
+     * @var \Doctrine\ORM\EntityManager em
      */
-    protected $om;
+    protected $em;
 
     /**
-     * @var \Happyr\LocationBundle\Services\SlugifierInterface slugifier
-     *
-     *
+     * @var \HappyR\SlugifyBundle\Services\SlugifyService slugifier
      */
     protected $slugifier;
 
     /**
      * @var string typePrefix
-     *
-     *
      */
-    protected $typePrefix = 'HappyRLocationBundle:';
+    protected $typePrefix = 'HappyrLocationBundle:';
 
     /**
-     * @param ObjectManager $em
-     * @param SlugifierInterface $slugifier
+     * @param EntityManager $em
+     * @param SlugifyService $slugifier
      */
-    public function __construct(ObjectManager $em, SlugifyService $slugifier)
+    public function __construct(EntityManager $em, SlugifyService $slugifier)
     {
         $this->em = $em;
         $this->slugifier = $slugifier;
@@ -69,7 +64,7 @@ class LocationManager
         /*
          * The slugifier removes words like "is", "at" etc.. that's why we just strlower the country codes..
          */
-        if ($entity == 'HappyRLocationBundle:Country') {
+        if ($entity == 'HappyrLocationBundle:Country') {
             $slug = strtolower($name);
         } else {
             $slug = $this->slugifier->slugify($name);

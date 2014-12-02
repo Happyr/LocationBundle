@@ -16,10 +16,7 @@ class LoadMunicipalityData extends BaseFixture
 {
 
     /**
-     *
-     *
      * @param ObjectManager $manager
-     *
      */
     public function load(ObjectManager $manager)
     {
@@ -38,8 +35,6 @@ class LoadMunicipalityData extends BaseFixture
     }
 
     /**
-     *
-     *
      *
      * @return int
      */

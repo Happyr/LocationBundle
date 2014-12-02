@@ -16,10 +16,7 @@ class LoadCountryData extends BaseFixture
 {
 
     /**
-     *
-     *
      * @param ObjectManager $manager
-     *
      */
     public function load(ObjectManager $manager)
     {
@@ -36,8 +33,6 @@ class LoadCountryData extends BaseFixture
     }
 
     /**
-     *
-     *
      *
      * @return int
      */

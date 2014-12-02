@@ -1,7 +1,0 @@
-
-
-services:
-
-  happyr.location.geocoder_service:
-    class: Happyr\LocationBundle\Services\GeocoderService
-    arguments: [@happyr.google.geocoder.geocode]

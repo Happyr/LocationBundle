@@ -3,15 +3,11 @@ parameters:
 services:
   happyr.location.location_manager:
     class: Happyr\LocationBundle\Manager\LocationManager
-    arguments: [@doctrine.orm.entity_manager,@happyr.slugify.slugifier]
+    arguments: [@doctrine.orm.entity_manager, @happyr.slugify.slugifier]
 
 
   happyr.location.location_type:
     class: Happyr\LocationBundle\Form\Type\LocationType
-    arguments: [@happyr.location.location_manager, @happyr.location.geocoder_dummy_service]
+    arguments: [@happyr.location.location_manager, @bazinga_geocoder.geocoder]
     tags:
       - { name: form.type, alias: location }
-
-  happyr.location.geocoder_dummy_service:
-    class: Happyr\LocationBundle\Services\GeocoderDummyService
-    arguments: []

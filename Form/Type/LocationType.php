@@ -6,19 +6,14 @@ use Happyr\LocationBundle\Form\DataTransformer\CountryTransformer;
 use Happyr\LocationBundle\Form\DataTransformer\ComponentToStringTransformer;
 use Happyr\LocationBundle\Form\Events\GeocodeLocationString;
 use Happyr\LocationBundle\Manager\LocationManager;
-use Happyr\LocationBundle\Services\GeocoderInterface;
+use Geocoder\Geocoder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class Location
- *
  * @author Tobias Nyholm
- *
- *
  */
 class LocationType extends AbstractType
 {
@@ -31,7 +26,7 @@ class LocationType extends AbstractType
     protected $lm;
 
     /**
-     * @var GeocoderInterface $geocoder
+     * @var Geocoder $geocoder
      *
      *
      */
@@ -39,9 +34,9 @@ class LocationType extends AbstractType
 
     /**
      * @param LocationManager $lm
-     * @param GeocoderInterface $geocoder
+     * @param Geocoder $geocoder
      */
-    public function __construct(LocationManager $lm, GeocoderInterface $geocoder)
+    public function __construct(LocationManager $lm, Geocoder $geocoder)
     {
         $this->lm = $lm;
         $this->geocoder = $geocoder;
@@ -226,11 +221,8 @@ class LocationType extends AbstractType
     }
 
     /**
-     *
-     *
-     * @param FormBuilderInterface &$builder
+     * @param FormBuilderInterface $builder
      * @param array &$options
-     *
      */
     protected function addLocation(FormBuilderInterface &$builder, array &$options)
     {
@@ -242,15 +234,13 @@ class LocationType extends AbstractType
         if ($options['geocodeLocationString'] == true && $this->geocoder != null) {
 
             $eventListener = new GeocodeLocationString($this->lm, $this->geocoder);
-            $builder->addEventListener(FormEvents::BIND, array($eventListener, 'geocodeLocation'));
+            $builder->addEventListener(FormEvents::SUBMIT, array($eventListener, 'geocodeLocation'));
         }
 
         $builder->add($locationForm);
     }
 
     /**
-     *
-     *
      *
      * @return string
      */
@@ -260,8 +250,6 @@ class LocationType extends AbstractType
     }
 
     /**
-     *
-     *
      *
      * @return null|string|\Symfony\Component\Form\FormTypeInterface
      */
