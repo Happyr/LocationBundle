@@ -21,20 +21,10 @@ class HappyrLocationExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
 
-        if ($config['geocoder_service'] != null) {
-            if ($config['geocoder_service'] == 'happyr.geocoder') {
-                $loader->load('geocoder.yml');
-                $geocoderService = new Reference('happyr.location.geocoder_service');
-            } else {
-                $geocoderService = new Reference($config['geocoder_service']);
-            }
-
-            $container->getDefinition('happyr.location.location_type')->replaceArgument(1, $geocoderService);
-        }
     }
 }

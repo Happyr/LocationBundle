@@ -16,29 +16,16 @@ A Symfony2 Bundle to handle location
 
 2. Enable the bundle:
 
-    ```php
-    // app/AppKernel.php
+```php
+// app/AppKernel.php
 
-    public function registerBundles()
-    {
-        $bundles = array(
-            // ...
-            new Happyr\LocationBundle\HappyRLocationBundle(),
-        );
-    }
-    ```
-
-### Optional installation
-
-If you want geocoding, install the
-[HappyR GoobleMaps GeocoderBundle](https://github.com/HappyR/GoogleMapsGeocoderBundle) and enable it with the
-location plugin like this:
-
-```yaml
-#/app/config/config.yml
-happyr_location:
-  geocoder_service: 'happyr.geocoder'
-
+public function registerBundles()
+{
+    $bundles = array(
+        // ...
+        new Happyr\LocationBundle\HappyRLocationBundle(),
+    );
+}
 ```
 
 ## Usage
