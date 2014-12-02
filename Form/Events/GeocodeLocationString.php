@@ -3,6 +3,7 @@
 namespace Happyr\LocationBundle\Form\Events;
 
 use Geocoder\GeocoderInterface;
+use Geocoder\Result\Geocoded;
 use Happyr\LocationBundle\Entity\Location;
 use Happyr\LocationBundle\Manager\LocationManager;
 use Symfony\Component\Form\FormEvent;
@@ -48,47 +49,68 @@ class GeocodeLocationString
     {
         /** @var Location $location */
         $location = $event->getData();
-        $result = $this->geocoder->geocode($location->getLocation());
 
-        if (!$result) {
+        /** @var Geocoded $result */
+        $result = $this->getGeocoder()->geocode($location->getLocation());
+
+        if (!$result || $result->getLatitude()===0) {
             $location->clear();
 
             return;
         }
 
-        $defaults = array(
-            'fullLocation' => '',
-            'streetNumber' => '',
-            'street' => '',
-            'city' => null,
-            'country' => null,
-            'municipality' => null,
-            'region' => null,
-            'zipCode' => null,
-            'state' => null,
-            'lat' => 0,
-            'lng' => 0,
-        );
-
-        //merge the result with the defaults
-        $result += $defaults;
-
-        $streetAddress = $result['street'] . ' ' . $result['streetNumber'];
+        $streetAddress = sprintf('%s %s', $result->getStreetName(), $result->getStreetNumber());
         $location->setAddress(trim($streetAddress));
 
-        $location->setCity($this->lm->getObject('City', $result['city']));
-        $location->setCountry($this->lm->getObject('Country', $result['country']));
-        $location->setZipCode($this->lm->getObject('ZipCode', $result['zipCode']));
-        $location->setRegion($this->lm->getObject('Region', $result['region']));
-        $location->setMunicipality($this->lm->getObject('Municipality', $result['municipality']));
-        $location->setState($this->lm->getObject('State', $result['state']));
+        $location->setCity($this->lm->getObject('City', $result->getCity()));
+        $location->setCountry($this->lm->getObject('Country', $result->getCountryCode()));
+        $location->setZipCode($this->lm->getObject('ZipCode', $result->getZipcode()));
+        $location->setRegion($this->lm->getObject('Region', $result->getRegion()));
+        $location->setMunicipality($this->lm->getObject('Municipality', $result->getCityDistrict()));
+        $location->setState($this->lm->getObject('State', $result->getCounty()));
 
-        $location->setLat($result['lat']);
-        $location->setLng($result['lng']);
-        $location->setLocation($result['fullLocation']);
-
-        $event->setData($location);
+        $location->setLat($result->getLatitude());
+        $location->setLng($result->getLongitude());
+        $location->setLocation(sprintf('%s %s, %s, %s', $result->getStreetName(), $result->getStreetNumber(), $result->getCityDistrict(), $result->getCity()));
 
         return $location;
+    }
+
+    /**
+     * Get the coordinates for this location
+     *
+     * @param FormEvent $event
+     *
+     * @return Location
+     */
+    public function getCoordinates(FormEvent $event)
+    {
+        /** @var Location $location */
+        $location = $event->getData();
+
+        /** @var Geocoded $result */
+        $result = $this->getGeocoder()->geocode(sprintf(
+                '%s, %s, %s, %s, %s, %s',
+                $location->getAddress(),
+                $location->getMunicipality(),
+                $location->getCity(),
+                $location->getRegion(),
+                $location->getState(),
+                $location->getCountry()
+            ));
+
+        $location->setLat($result->getLatitude());
+        $location->setLng($result->getLongitude());
+
+        return $location;
+    }
+
+    /**
+     *
+     * @return mixed
+     */
+    private function getGeocoder()
+    {
+        return $this->geocoder->using('chain');
     }
 }
