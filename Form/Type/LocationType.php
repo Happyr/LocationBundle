@@ -2,11 +2,11 @@
 
 namespace Happyr\LocationBundle\Form\Type;
 
+use Geocoder\GeocoderInterface;
 use Happyr\LocationBundle\Form\DataTransformer\CountryTransformer;
 use Happyr\LocationBundle\Form\DataTransformer\ComponentToStringTransformer;
 use Happyr\LocationBundle\Form\Events\GeocodeLocationString;
 use Happyr\LocationBundle\Manager\LocationManager;
-use Geocoder\Geocoder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
@@ -26,17 +26,15 @@ class LocationType extends AbstractType
     protected $lm;
 
     /**
-     * @var Geocoder $geocoder
-     *
-     *
+     * @var \Geocoder\GeocoderInterface geocoder
      */
     protected $geocoder;
 
     /**
      * @param LocationManager $lm
-     * @param Geocoder $geocoder
+     * @param GeocoderInterface $geocoder
      */
-    public function __construct(LocationManager $lm, Geocoder $geocoder)
+    public function __construct(LocationManager $lm, GeocoderInterface $geocoder)
     {
         $this->lm = $lm;
         $this->geocoder = $geocoder;

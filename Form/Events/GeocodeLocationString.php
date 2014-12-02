@@ -2,8 +2,9 @@
 
 namespace Happyr\LocationBundle\Form\Events;
 
+use Geocoder\GeocoderInterface;
+use Happyr\LocationBundle\Entity\Location;
 use Happyr\LocationBundle\Manager\LocationManager;
-use Happyr\LocationBundle\Services\GeocoderInterface;
 use Symfony\Component\Form\FormEvent;
 
 /**
@@ -22,9 +23,7 @@ class GeocodeLocationString
     protected $lm;
 
     /**
-     * @var \Happyr\LocationBundle\Services\GeocoderInterface $geocoder
-     *
-     *
+     * @var \Geocoder\GeocoderInterface geocoder
      */
     protected $geocoder;
 
@@ -47,6 +46,7 @@ class GeocodeLocationString
      */
     public function geocodeLocation(FormEvent $event)
     {
+        /** @var Location $location */
         $location = $event->getData();
         $result = $this->geocoder->geocode($location->getLocation());
 
