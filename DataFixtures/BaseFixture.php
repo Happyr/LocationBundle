@@ -1,5 +1,5 @@
 <?php
-namespace HappyR\LocationBundle\DataFixtures;
+namespace Happyr\LocationBundle\DataFixtures;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;

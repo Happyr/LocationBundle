@@ -21,9 +21,9 @@
     },
     "autoload": {
         "psr-0": {
-            "HappyR\\LocationBundle": ""
+            "Happyr\\LocationBundle": ""
         }
     },
-    "target-dir": "HappyR/LocationBundle"
+    "target-dir": "Happyr/LocationBundle"
 
 }

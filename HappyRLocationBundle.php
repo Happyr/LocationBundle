@@ -1,6 +1,6 @@
 <?php
 
-namespace HappyR\LocationBundle;
+namespace Happyr\LocationBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -11,6 +11,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  *
  *
  */
-class HappyRLocationBundle extends Bundle
+class HappyrLocationBundle extends Bundle
 {
 }

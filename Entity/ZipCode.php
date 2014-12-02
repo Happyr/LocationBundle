@@ -1,14 +1,14 @@
 <?php
 
-namespace HappyR\LocationBundle\Entity;
+namespace Happyr\LocationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * HappyR\LocationBundle\Entity\ZipCode
+ * Happyr\LocationBundle\Entity\ZipCode
  *
  * @ORM\Table(name="LocationZipCode")
- * @ORM\Entity(repositoryClass="HappyR\LocationBundle\Entity\ComponentRepository")
+ * @ORM\Entity(repositoryClass="Happyr\LocationBundle\Entity\ComponentRepository")
  */
 class ZipCode extends Component
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace HappyR\LocationBundle\Manager;
+namespace Happyr\LocationBundle\Manager;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use HappyR\LocationBundle\Entity\Component;
-use HappyR\LocationBundle\Entity\LocationObject;
-use HappyR\LocationBundle\Services\SlugifierInterface;
+use Happyr\LocationBundle\Entity\Component;
+use Happyr\LocationBundle\Entity\LocationObject;
+use Happyr\LocationBundle\Services\SlugifierInterface;
 use HappyR\SlugifyBundle\Services\SlugifyService;
 
 /**
@@ -26,7 +26,7 @@ class LocationManager
     protected $om;
 
     /**
-     * @var \HappyR\LocationBundle\Services\SlugifierInterface slugifier
+     * @var \Happyr\LocationBundle\Services\SlugifierInterface slugifier
      *
      *
      */
@@ -81,7 +81,7 @@ class LocationManager
         //if object is not found
         if (!$object) {
             $entityName = explode(':', $entity);
-            $entityNamespace = 'HappyR\LocationBundle\Entity\\' . $entityName[1];
+            $entityNamespace = 'Happyr\LocationBundle\Entity\\' . $entityName[1];
 
             //create
             $object = new $entityNamespace($name, $slug);

@@ -1,10 +1,10 @@
 <?php
 
 
-namespace HappyR\LocationBundle\Tests\Services;
+namespace Happyr\LocationBundle\Tests\Services;
 
 use HappyR\Google\GeocoderBundle\Services\ScraperService;
-use HappyR\LocationBundle\Services\GeocoderService;
+use Happyr\LocationBundle\Services\GeocoderService;
 
 use Mockery as m;
 

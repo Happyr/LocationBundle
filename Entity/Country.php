@@ -1,15 +1,15 @@
 <?php
 
-namespace HappyR\LocationBundle\Entity;
+namespace Happyr\LocationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Locale\Locale;
 
 /**
- * HappyR\LocationBundle\Entity\Country
+ * Happyr\LocationBundle\Entity\Country
  *
  * @ORM\Table(name="LocationCountry")
- * @ORM\Entity(repositoryClass="HappyR\LocationBundle\Entity\ComponentRepository")
+ * @ORM\Entity(repositoryClass="Happyr\LocationBundle\Entity\ComponentRepository")
  */
 class Country extends Component
 {

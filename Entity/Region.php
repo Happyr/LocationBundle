@@ -1,16 +1,16 @@
 <?php
 
-namespace HappyR\LocationBundle\Entity;
+namespace Happyr\LocationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * HappyR\LocationBundle\Entity\Region
+ * Happyr\LocationBundle\Entity\Region
  *
  * This is what we in Sweden call "postort"
  *
  * @ORM\Table(name="LocationRegion")
- * @ORM\Entity(repositoryClass="HappyR\LocationBundle\Entity\ComponentRepository")
+ * @ORM\Entity(repositoryClass="Happyr\LocationBundle\Entity\ComponentRepository")
  */
 class Region extends Component
 {

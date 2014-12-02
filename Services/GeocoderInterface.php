@@ -1,7 +1,7 @@
 <?php
 
 
-namespace HappyR\LocationBundle\Services;
+namespace Happyr\LocationBundle\Services;
 
 /**
  * Class GeocoderInterface

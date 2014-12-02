@@ -1,9 +1,9 @@
 <?php
-namespace HappyR\LocationBundle\DataFixtures\ORM;
+namespace Happyr\LocationBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use HappyR\LocationBundle\DataFixtures\BaseFixture;
-use HappyR\LocationBundle\Entity\Country;
+use Happyr\LocationBundle\DataFixtures\BaseFixture;
+use Happyr\LocationBundle\Entity\Country;
 
 /**
  * Class LoadCountryData

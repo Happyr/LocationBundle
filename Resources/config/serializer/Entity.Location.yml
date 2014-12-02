@@ -1,6 +1,6 @@
 # complete configuration reference: http://jmsyst.com/libs/serializer/master/reference/yml_reference
 
-HappyR\LocationBundle\Entity\Location:
+Happyr\LocationBundle\Entity\Location:
   exclusion_policy: ALL
   properties:
     country:

@@ -23,7 +23,7 @@ A Symfony2 Bundle to handle location
     {
         $bundles = array(
             // ...
-            new HappyR\LocationBundle\HappyRLocationBundle(),
+            new Happyr\LocationBundle\HappyRLocationBundle(),
         );
     }
     ```
@@ -36,7 +36,7 @@ location plugin like this:
 
 ```yaml
 #/app/config/config.yml
-happy_r_location:
+happyr_location:
   geocoder_service: 'happyr.geocoder'
 
 ```

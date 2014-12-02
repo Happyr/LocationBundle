@@ -1,6 +1,6 @@
 <?php
 
-namespace HappyR\LocationBundle\Entity;
+namespace Happyr\LocationBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

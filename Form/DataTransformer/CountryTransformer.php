@@ -1,5 +1,5 @@
 <?php
-namespace HappyR\LocationBundle\Form\DataTransformer;
+namespace Happyr\LocationBundle\Form\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
 use Acme\TaskBundle\Entity\country;

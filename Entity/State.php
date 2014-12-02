@@ -1,15 +1,15 @@
 <?php
 
-namespace HappyR\LocationBundle\Entity;
+namespace Happyr\LocationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * HappyR\LocationBundle\Entity\State
+ * Happyr\LocationBundle\Entity\State
  *
  *
  * @ORM\Table(name="LocationState")
- * @ORM\Entity(repositoryClass="HappyR\LocationBundle\Entity\ComponentRepository")
+ * @ORM\Entity(repositoryClass="Happyr\LocationBundle\Entity\ComponentRepository")
  */
 class State extends Component
 {

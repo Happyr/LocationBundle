@@ -1,9 +1,9 @@
 <?php
 
-namespace HappyR\LocationBundle\Form\Events;
+namespace Happyr\LocationBundle\Form\Events;
 
-use HappyR\LocationBundle\Manager\LocationManager;
-use HappyR\LocationBundle\Services\GeocoderInterface;
+use Happyr\LocationBundle\Manager\LocationManager;
+use Happyr\LocationBundle\Services\GeocoderInterface;
 use Symfony\Component\Form\FormEvent;
 
 /**
@@ -15,14 +15,14 @@ use Symfony\Component\Form\FormEvent;
 class GeocodeLocationString
 {
     /**
-     * @var \HappyR\LocationBundle\Manager\LocationManager $this ->lm
+     * @var \Happyr\LocationBundle\Manager\LocationManager $this ->lm
      *
      *
      */
     protected $lm;
 
     /**
-     * @var \HappyR\LocationBundle\Services\GeocoderInterface $geocoder
+     * @var \Happyr\LocationBundle\Services\GeocoderInterface $geocoder
      *
      *
      */

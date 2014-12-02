@@ -1,6 +1,6 @@
 <?php
 
-namespace HappyR\LocationBundle\DependencyInjection;
+namespace Happyr\LocationBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -17,7 +17,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('happy_r_location');
+        $rootNode = $treeBuilder->root('happyr_location');
 
         $rootNode->children()
             ->scalarNode('geocoder_service')->defaultNull()->end()

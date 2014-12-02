@@ -1,12 +1,12 @@
 <?php
 
-namespace HappyR\LocationBundle\Form\Type;
+namespace Happyr\LocationBundle\Form\Type;
 
-use HappyR\LocationBundle\Form\DataTransformer\CountryTransformer;
-use HappyR\LocationBundle\Form\DataTransformer\ComponentToStringTransformer;
-use HappyR\LocationBundle\Form\Events\GeocodeLocationString;
-use HappyR\LocationBundle\Manager\LocationManager;
-use HappyR\LocationBundle\Services\GeocoderInterface;
+use Happyr\LocationBundle\Form\DataTransformer\CountryTransformer;
+use Happyr\LocationBundle\Form\DataTransformer\ComponentToStringTransformer;
+use Happyr\LocationBundle\Form\Events\GeocodeLocationString;
+use Happyr\LocationBundle\Manager\LocationManager;
+use Happyr\LocationBundle\Services\GeocoderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
@@ -24,7 +24,7 @@ class LocationType extends AbstractType
 {
 
     /**
-     * @var \HappyR\LocationBundle\Manager\LocationManager $lm
+     * @var \Happyr\LocationBundle\Manager\LocationManager $lm
      *
      *
      */
@@ -72,7 +72,7 @@ class LocationType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'HappyR\LocationBundle\Entity\Location',
+                'data_class' => 'Happyr\LocationBundle\Entity\Location',
                 'components' => array(),
                 'geocodeLocationString' => true,
                 //use this one if you want to set an attr on a field

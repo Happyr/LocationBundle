@@ -1,7 +1,7 @@
 <?php
 
 
-namespace HappyR\LocationBundle\Services;
+namespace Happyr\LocationBundle\Services;
 
 use HappyR\Google\GeocoderBundle\Services\GeocodeService as Geocoder;
 

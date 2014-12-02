@@ -1,12 +1,12 @@
 <?php
 
-namespace HappyR\LocationBundle\Entity;
+namespace Happyr\LocationBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * HappyR\LocationBundle\Entity\BaseLocation
+ * Happyr\LocationBundle\Entity\BaseLocation
  *
  * @ORM\MappedSuperclass
  * 
@@ -32,46 +32,46 @@ class BaseLocation
     protected $location = '';
 
     /**
-     * @var \HappyR\LocationBundle\Entity\Country country
+     * @var \Happyr\LocationBundle\Entity\Country country
      *
-     * @ORM\ManyToOne(targetEntity="HappyR\LocationBundle\Entity\Country", cascade={"persist"})
-     * @Assert\Type(type="HappyR\LocationBundle\Entity\Country", message="location.form.error.country")
+     * @ORM\ManyToOne(targetEntity="Happyr\LocationBundle\Entity\Country", cascade={"persist"})
+     * @Assert\Type(type="Happyr\LocationBundle\Entity\Country", message="location.form.error.country")
      */
     protected $country;
 
     /**
-     * @var \HappyR\LocationBundle\Entity\City city
+     * @var \Happyr\LocationBundle\Entity\City city
      *
-     * @ORM\ManyToOne(targetEntity="HappyR\LocationBundle\Entity\City", cascade={"persist"})
-     * @Assert\Type(type="HappyR\LocationBundle\Entity\City", message="location.form.error.city")
+     * @ORM\ManyToOne(targetEntity="Happyr\LocationBundle\Entity\City", cascade={"persist"})
+     * @Assert\Type(type="Happyr\LocationBundle\Entity\City", message="location.form.error.city")
      */
     protected $city;
 
     /**
-     * @var \HappyR\LocationBundle\Entity\Municipality municipality
+     * @var \Happyr\LocationBundle\Entity\Municipality municipality
      *
-     * @ORM\ManyToOne(targetEntity="HappyR\LocationBundle\Entity\Municipality", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Happyr\LocationBundle\Entity\Municipality", cascade={"persist"})
      */
     protected $municipality;
 
     /**
-     * @var \HappyR\LocationBundle\Entity\Region region
+     * @var \Happyr\LocationBundle\Entity\Region region
      *
-     * @ORM\ManyToOne(targetEntity="HappyR\LocationBundle\Entity\Region", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Happyr\LocationBundle\Entity\Region", cascade={"persist"})
      */
     protected $region;
 
     /**
-     * @var \HappyR\LocationBundle\Entity\State state
+     * @var \Happyr\LocationBundle\Entity\State state
      *
-     * @ORM\ManyToOne(targetEntity="HappyR\LocationBundle\Entity\State", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Happyr\LocationBundle\Entity\State", cascade={"persist"})
      */
     protected $state;
 
     /**
-     * @var \HappyR\LocationBundle\Entity\ZipCode zipCode
+     * @var \Happyr\LocationBundle\Entity\ZipCode zipCode
      *
-     * @ORM\ManyToOne(targetEntity="HappyR\LocationBundle\Entity\ZipCode", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Happyr\LocationBundle\Entity\ZipCode", cascade={"persist"})
      */
     protected $zipCode;
 
@@ -222,7 +222,7 @@ class BaseLocation
 
     /**
      *
-     * @param \HappyR\LocationBundle\Entity\City $city
+     * @param \Happyr\LocationBundle\Entity\City $city
      *
      * @return $this
      */
@@ -235,7 +235,7 @@ class BaseLocation
 
     /**
      *
-     * @return \HappyR\LocationBundle\Entity\City
+     * @return \Happyr\LocationBundle\Entity\City
      */
     public function getCity()
     {
@@ -244,7 +244,7 @@ class BaseLocation
 
     /**
      *
-     * @param \HappyR\LocationBundle\Entity\Country $country
+     * @param \Happyr\LocationBundle\Entity\Country $country
      *
      * @return $this
      */
@@ -257,7 +257,7 @@ class BaseLocation
 
     /**
      *
-     * @return \HappyR\LocationBundle\Entity\Country
+     * @return \Happyr\LocationBundle\Entity\Country
      */
     public function getCountry()
     {
@@ -319,7 +319,7 @@ class BaseLocation
 
     /**
      *
-     * @param \HappyR\LocationBundle\Entity\Municipality $municipality
+     * @param \Happyr\LocationBundle\Entity\Municipality $municipality
      *
      * @return $this
      */
@@ -332,7 +332,7 @@ class BaseLocation
 
     /**
      *
-     * @return \HappyR\LocationBundle\Entity\Municipality
+     * @return \Happyr\LocationBundle\Entity\Municipality
      */
     public function getMunicipality()
     {
@@ -341,7 +341,7 @@ class BaseLocation
 
     /**
      *
-     * @param \HappyR\LocationBundle\Entity\Region $region
+     * @param \Happyr\LocationBundle\Entity\Region $region
      *
      * @return $this
      */
@@ -354,7 +354,7 @@ class BaseLocation
 
     /**
      *
-     * @return \HappyR\LocationBundle\Entity\Region
+     * @return \Happyr\LocationBundle\Entity\Region
      */
     public function getRegion()
     {
@@ -363,7 +363,7 @@ class BaseLocation
 
     /**
      *
-     * @param \HappyR\LocationBundle\Entity\State $state
+     * @param \Happyr\LocationBundle\Entity\State $state
      *
      * @return $this
      */
@@ -376,7 +376,7 @@ class BaseLocation
 
     /**
      *
-     * @return \HappyR\LocationBundle\Entity\State
+     * @return \Happyr\LocationBundle\Entity\State
      */
     public function getState()
     {
@@ -385,7 +385,7 @@ class BaseLocation
 
     /**
      *
-     * @param \HappyR\LocationBundle\Entity\ZipCode $zipCode
+     * @param \Happyr\LocationBundle\Entity\ZipCode $zipCode
      *
      * @return $this
      */
@@ -398,7 +398,7 @@ class BaseLocation
 
     /**
      *
-     * @return \HappyR\LocationBundle\Entity\ZipCode
+     * @return \Happyr\LocationBundle\Entity\ZipCode
      */
     public function getZipCode()
     {

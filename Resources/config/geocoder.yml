@@ -3,5 +3,5 @@
 services:
 
   happyr.location.geocoder_service:
-    class: HappyR\LocationBundle\Services\GeocoderService
+    class: Happyr\LocationBundle\Services\GeocoderService
     arguments: [@happyr.google.geocoder.geocode]

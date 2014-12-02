@@ -1,7 +1,7 @@
 <?php
-namespace HappyR\LocationBundle\Form\DataTransformer;
+namespace Happyr\LocationBundle\Form\DataTransformer;
 
-use HappyR\LocationBundle\Manager\LocationManager;
+use Happyr\LocationBundle\Manager\LocationManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Acme\TaskBundle\Entity\country;
 
@@ -15,7 +15,7 @@ use Acme\TaskBundle\Entity\country;
 class ComponentToStringTransformer implements DataTransformerInterface
 {
     /**
-     * @var \HappyR\LocationBundle\Manager\LocationManager lm
+     * @var \Happyr\LocationBundle\Manager\LocationManager lm
      *
      *
      */
