@@ -52,10 +52,12 @@ class GeocodeLocationString
         $location = $event->getData();
 
         /** @var Geocoded $result */
-        $result = $this->getGeocoder()->geocode($location->getLocation());
+        $submittedData = $location->getLocation();
+        $result = $this->getGeocoder()->geocode($submittedData);
 
         if (!$result || $result->getLatitude()===0) {
             $location->clear();
+            $location->setLocation($submittedData);
 
             return;
         }

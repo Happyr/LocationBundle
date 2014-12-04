@@ -4,12 +4,12 @@ namespace Happyr\LocationBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  * Happyr\LocationBundle\Entity\BaseLocation
  *
  * @ORM\MappedSuperclass
- * 
  */
 class BaseLocation
 {
@@ -35,7 +35,7 @@ class BaseLocation
      * @var \Happyr\LocationBundle\Entity\Country country
      *
      * @ORM\ManyToOne(targetEntity="Happyr\LocationBundle\Entity\Country", cascade={"persist"})
-     * @Assert\Type(type="Happyr\LocationBundle\Entity\Country", message="location.form.error.country")
+     * @Assert\Type(type="Happyr\LocationBundle\Entity\Country", message="happyr.location.form.error.country")
      */
     protected $country;
 
@@ -43,7 +43,7 @@ class BaseLocation
      * @var \Happyr\LocationBundle\Entity\City city
      *
      * @ORM\ManyToOne(targetEntity="Happyr\LocationBundle\Entity\City", cascade={"persist"})
-     * @Assert\Type(type="Happyr\LocationBundle\Entity\City", message="location.form.error.city")
+     * @Assert\Type(type="Happyr\LocationBundle\Entity\City", message="happyr.location.form.error.city")
      */
     protected $city;
 

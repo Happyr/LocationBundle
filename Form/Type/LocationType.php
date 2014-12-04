@@ -3,12 +3,15 @@
 namespace Happyr\LocationBundle\Form\Type;
 
 use Geocoder\GeocoderInterface;
+use Happyr\LocationBundle\Entity\Location;
 use Happyr\LocationBundle\Form\DataTransformer\CountryTransformer;
 use Happyr\LocationBundle\Form\DataTransformer\ComponentToStringTransformer;
 use Happyr\LocationBundle\Form\Events\GeocodeLocationString;
 use Happyr\LocationBundle\Manager\LocationManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -66,6 +69,7 @@ class LocationType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Happyr\LocationBundle\Entity\Location',
+                'error_bubbling'=>true,
                 'components' => array(),
                 'geocodeLocationString' => true,
                 //use this one if you want to set an attr on a field
@@ -234,8 +238,24 @@ class LocationType extends AbstractType
          */
         if ($options['geocodeLocationString'] == true && $this->geocoder != null) {
 
+            // Geocode the input
             $eventListener = new GeocodeLocationString($this->lm, $this->geocoder);
             $builder->addEventListener(FormEvents::SUBMIT, array($eventListener, 'geocodeLocation'));
+
+            //Make sure we got a valid geocode
+            $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+                /** @var $data Location */
+                $data = $event->getData();
+                $form = $event->getForm();
+
+                if ($data === null) {
+                    return;
+                }
+
+                if (!empty($data->getLocation()) && $data->getLat()==0 && $data->getLng()==0) {
+                    $form->get('location')->addError(new FormError('happyr.location.geocode.failed'));
+                }
+            });
         }
 
         $builder->add($locationForm);

@@ -1,30 +1,23 @@
 <?php
+
 namespace Happyr\LocationBundle\Form\DataTransformer;
 
+use Happyr\LocationBundle\Entity\Component;
 use Happyr\LocationBundle\Manager\LocationManager;
 use Symfony\Component\Form\DataTransformerInterface;
-use Acme\TaskBundle\Entity\country;
 
 /**
- * Class ComponentToStringTransformer
- *
  * @author Tobias Nyholm
- *
- *
  */
 class ComponentToStringTransformer implements DataTransformerInterface
 {
     /**
      * @var \Happyr\LocationBundle\Manager\LocationManager lm
-     *
-     *
      */
     protected $lm;
 
     /**
      * @var string type
-     *
-     *
      */
     protected $type;
 
@@ -59,18 +52,14 @@ class ComponentToStringTransformer implements DataTransformerInterface
     }
 
     /**
-     * "app data" => "norm data"
+     * get the location component object
      *
      * @param mixed $data
      *
-     * @return mixed
+     * @return Component
      */
     public function reverseTransform($data)
     {
-
-        //get the location object
-        $object = $this->lm->getObject($this->type, $data);
-
-        return $object;
+        return $this->lm->getObject($this->type, $data);
     }
 }

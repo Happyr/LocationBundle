@@ -24,16 +24,7 @@ class ExcessiveGeocoder extends LoggableGeocoder
     public function geocode($value)
     {
         $result = parent::geocode($value);
-
-        $locale = $this->getLocaleFromResult($result);
-
-        //set the locale to the providers
-        $providers = $this->getProviders();
-        foreach ($providers as $p) {
-            if (method_exists($p, 'setLocale')) {
-                $p->setLocale($locale);
-            }
-        }
+        $this->updateProvidersLocale($result);
 
         return parent::geocode($value);
     }
@@ -48,7 +39,10 @@ class ExcessiveGeocoder extends LoggableGeocoder
      */
     public function reverse($latitude, $longitude)
     {
+        $result = parent::reverse($latitude, $longitude);
+        $this->updateProvidersLocale($result);
 
+        return parent::reverse($latitude, $longitude);
     }
 
     private function getLocaleFromResult(Geocoded $result)
@@ -60,6 +54,22 @@ class ExcessiveGeocoder extends LoggableGeocoder
                 return 'sv';
             default:
                 return 'en';
+        }
+    }
+
+    /**
+     * @param $result
+     */
+    private function updateProvidersLocale($result)
+    {
+        $locale = $this->getLocaleFromResult($result);
+
+        //set the locale to the providers
+        $providers = $this->getProviders();
+        foreach ($providers as $p) {
+            if (method_exists($p, 'setLocale')) {
+                $p->setLocale($locale);
+            }
         }
     }
 }
