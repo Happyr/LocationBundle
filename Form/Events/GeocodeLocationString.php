@@ -10,17 +10,12 @@ use Happyr\LocationBundle\Manager\LocationManager;
 use Symfony\Component\Form\FormEvent;
 
 /**
- * Class GeocodeLocationString
- *
  * @author Tobias Nyholm
- *
  */
 class GeocodeLocationString
 {
     /**
-     * @var \Happyr\LocationBundle\Manager\LocationManager $this ->lm
-     *
-     *
+     * @var \Happyr\LocationBundle\Manager\LocationManager lm
      */
     protected $lm;
 
@@ -62,25 +57,20 @@ class GeocodeLocationString
             return;
         }
 
-        $streetAddress = sprintf('%s %s', $result->getStreetName(), $result->getStreetNumber());
-        $location->setAddress(trim($streetAddress));
-
-        //These are always correct
-        $location->setCity($this->lm->getObject('City', $result->getCity()));
-        $location->setCountry($this->lm->getObject('Country', $result->getCountryCode()));
-        $location->setZipCode($this->lm->getObject('ZipCode', $result->getZipcode()));
-
-        //These can be tricky to find
-        //TODO find these
-        $location->setRegion($this->lm->getObject('Region', $result->getRegion()));
-        $location->setMunicipality($this->lm->getObject('Municipality', $result->getCityDistrict()));
+        $this->addLocationObjects($result, $location);
 
         //get the coordinates
         $location->setLat($result->getLatitude());
         $location->setLng($result->getLongitude());
 
         //set a nice looking string
-        $location->setLocation(sprintf('%s %s, %s, %s', $result->getStreetName(), $result->getStreetNumber(), $result->getCity(), $result->getCountry()));
+        $location->setLocation(sprintf(
+            '%s %s, %s, %s',
+            $result->getStreetName(),
+            $result->getStreetNumber(),
+            $result->getCity()?:$result->getRegion()?:$result->getCounty(),
+            $result->getCountry()
+        ));
 
         return $location;
     }
@@ -131,5 +121,35 @@ class GeocodeLocationString
         }
 
         return $this->geocoder;
+    }
+
+    /**
+     * @param $result
+     * @param $location
+     */
+    private function addLocationObjects(Geocoded $result, Location $location)
+    {
+        $streetAddress = sprintf('%s %s', $result->getStreetName(), $result->getStreetNumber());
+        $location->setAddress(trim($streetAddress));
+
+        //These are always correct
+        $location->setCity($this->lm->getObject('City', $result->getCity()));
+        $location->setCountry($this->lm->getObject('Country', $result->getCountryCode()));
+        $location->setZipCode($this->lm->getObject('ZipCode', $result->getZipcode()));
+
+        /*
+         * These can be tricky to find. These might be null.
+         * We can not always be sure what the result set has in the $result->getRegion(). It might
+         * be the region or it might be a county. It also depends on the geocoder.
+         */
+        if (null === $region = $this->lm->findOneObjectByName('Region', $result->getRegion())) {
+            $region = $this->lm->findOneObjectByName('Region', $result->getCounty());
+        }
+        $location->setRegion($region);
+
+        if (null === $mun = $this->lm->findOneObjectByName('Municipality', $result->getCityDistrict())) {
+            $mun = $this->lm->findOneObjectByName('Municipality', $result->getCity());
+        }
+        $location->setMunicipality($mun);
     }
 }
