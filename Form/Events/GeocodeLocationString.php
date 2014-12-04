@@ -5,6 +5,7 @@ namespace Happyr\LocationBundle\Form\Events;
 use Geocoder\Geocoder;
 use Geocoder\GeocoderInterface;
 use Geocoder\Result\Geocoded;
+use Happyr\LocationBundle\Entity\BaseLocation;
 use Happyr\LocationBundle\Entity\Location;
 use Happyr\LocationBundle\Manager\LocationManager;
 use Symfony\Component\Form\FormEvent;
@@ -89,12 +90,11 @@ class GeocodeLocationString
 
         /** @var Geocoded $result */
         $result = $this->getGeocoder()->geocode(sprintf(
-                '%s, %s, %s, %s, %s, %s',
+                '%s, %s, %s, %s, %s',
                 $location->getAddress(),
                 $location->getMunicipality(),
                 $location->getCity(),
                 $location->getRegion(),
-                $location->getState(),
                 $location->getCountry()
             ));
 
@@ -127,7 +127,7 @@ class GeocodeLocationString
      * @param $result
      * @param $location
      */
-    private function addLocationObjects(Geocoded $result, Location $location)
+    private function addLocationObjects(Geocoded $result, BaseLocation $location)
     {
         $streetAddress = sprintf('%s %s', $result->getStreetName(), $result->getStreetNumber());
         $location->setAddress(trim($streetAddress));

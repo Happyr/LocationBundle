@@ -356,28 +356,6 @@ class BaseLocation
 
     /**
      *
-     * @param \Happyr\LocationBundle\Entity\State $state
-     *
-     * @return $this
-     */
-    public function setState($state)
-    {
-        $this->state = $state;
-
-        return $this;
-    }
-
-    /**
-     *
-     * @return \Happyr\LocationBundle\Entity\State
-     */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    /**
-     *
      * @param \Happyr\LocationBundle\Entity\ZipCode $zipCode
      *
      * @return $this

@@ -91,10 +91,14 @@ class LocationManager
      * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
      * @param string $slug
      *
-     * @return mixed|null
+     * @return Component|null
      */
     public function findOneObjectBySlug($entity, $slug)
     {
+        if (empty($slug)) {
+            return null;
+        }
+
         $entity = $this->typePrefix . $entity;
 
         return $this->em->getRepository($entity)->findOneBy(array('slug' => $slug));
