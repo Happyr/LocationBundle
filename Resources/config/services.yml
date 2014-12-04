@@ -1,4 +1,6 @@
 parameters:
+  happyr.location.geocoder.excessive.class: 'Happyr\LocationBundle\Service\ExcessiveGeocoder'
+  happyr.location.geocoder.excessive.class2: 'Happyr\LocationBundle\Service\ExcessiveGeocoder'
 
 services:
   happyr.location.location_manager:
@@ -11,3 +13,7 @@ services:
     arguments: [@happyr.location.location_manager, @bazinga_geocoder.geocoder]
     tags:
       - { name: form.type, alias: location }
+
+  happyr.location.geocoder.excessive:
+    class: '%happyr.location.geocoder.excessive.class%'
+    arguments: [@bazinga_geocoder.geocoder]

@@ -2,6 +2,7 @@
 
 namespace Happyr\LocationBundle\Form\Events;
 
+use Geocoder\Geocoder;
 use Geocoder\GeocoderInterface;
 use Geocoder\Result\Geocoded;
 use Happyr\LocationBundle\Entity\Location;
@@ -107,10 +108,20 @@ class GeocodeLocationString
 
     /**
      *
-     * @return mixed
+     * @return GeocoderInterface
      */
     private function getGeocoder()
     {
-        return $this->geocoder->using('chain');
+        if ($this->geocoder instanceof Geocoder) {
+            $provider = $this->geocoder->getProviders();
+            if (isset($provider['cache'])) {
+                return $this->geocoder->using('cache');
+            }
+            if (isset($provider['chain'])) {
+                return $this->geocoder->using('chain');
+            }
+        }
+
+        return $this->geocoder;
     }
 }
