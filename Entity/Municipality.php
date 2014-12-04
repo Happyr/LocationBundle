@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Happyr\LocationBundle\Entity\Municipality
  *
+ * This is the area you dived a region in
+ *
  * @ORM\Table(name="LocationMunicipality")
  * @ORM\Entity(repositoryClass="Happyr\LocationBundle\Entity\ComponentRepository")
  */

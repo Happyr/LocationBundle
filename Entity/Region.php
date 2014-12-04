@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Happyr\LocationBundle\Entity\Region
  *
- * This is what we in Sweden call "postort"
+ * A region is the like "State", "Län" or "Bundesland"
  *
  * @ORM\Table(name="LocationRegion")
  * @ORM\Entity(repositoryClass="Happyr\LocationBundle\Entity\ComponentRepository")

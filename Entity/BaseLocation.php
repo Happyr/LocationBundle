@@ -62,13 +62,6 @@ class BaseLocation
     protected $region;
 
     /**
-     * @var \Happyr\LocationBundle\Entity\State state
-     *
-     * @ORM\ManyToOne(targetEntity="Happyr\LocationBundle\Entity\State", cascade={"persist"})
-     */
-    protected $state;
-
-    /**
      * @var \Happyr\LocationBundle\Entity\ZipCode zipCode
      *
      * @ORM\ManyToOne(targetEntity="Happyr\LocationBundle\Entity\ZipCode", cascade={"persist"})

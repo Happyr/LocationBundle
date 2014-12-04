@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Happyr\LocationBundle\Entity\Location
  *
+ * This is the wrapper object that has all the relations with the components
+ *
  * @ORM\Table(name="Location")
  * @ORM\Entity
  */

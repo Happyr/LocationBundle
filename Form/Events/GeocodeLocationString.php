@@ -63,16 +63,22 @@ class GeocodeLocationString
         $streetAddress = sprintf('%s %s', $result->getStreetName(), $result->getStreetNumber());
         $location->setAddress(trim($streetAddress));
 
+        //These are always correct
         $location->setCity($this->lm->getObject('City', $result->getCity()));
         $location->setCountry($this->lm->getObject('Country', $result->getCountryCode()));
         $location->setZipCode($this->lm->getObject('ZipCode', $result->getZipcode()));
+
+        //These can be tricky to find
+        //TODO find these
         $location->setRegion($this->lm->getObject('Region', $result->getRegion()));
         $location->setMunicipality($this->lm->getObject('Municipality', $result->getCityDistrict()));
-        $location->setState($this->lm->getObject('State', $result->getCounty()));
 
+        //get the coordinates
         $location->setLat($result->getLatitude());
         $location->setLng($result->getLongitude());
-        $location->setLocation(sprintf('%s %s, %s, %s', $result->getStreetName(), $result->getStreetNumber(), $result->getCityDistrict(), $result->getCity()));
+
+        //set a nice looking string
+        $location->setLocation(sprintf('%s %s, %s, %s', $result->getStreetName(), $result->getStreetNumber(), $result->getCity(), $result->getCountry()));
 
         return $location;
     }
