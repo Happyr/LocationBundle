@@ -9,6 +9,10 @@ function locationBundle_initialize() {
         var autocomplete = new google.maps.places.Autocomplete(element);
         autocomplete.setComponentRestrictions({'country': 'se'});
 
+        if (element.dataset.googleAutocompleteType != undefined) {
+            autocomplete.setTypes([element.dataset.googleAutocompleteType]);
+        }
+
         //make sure we dont have any placeholder
         element.setAttribute("placeholder", "");
 

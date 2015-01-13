@@ -1,6 +1,5 @@
 parameters:
   happyr.location.geocoder.excessive.class: 'Happyr\LocationBundle\Service\ExcessiveGeocoder'
-  happyr.location.geocoder.excessive.class2: 'Happyr\LocationBundle\Service\ExcessiveGeocoder'
 
 services:
   happyr.location.location_manager:
