@@ -27,8 +27,9 @@ class HappyrLocationExtension extends Extension
         $loader->load('services.yml');
 
 
-        $container->setParameter('happyr_location.enable_excessive_geocoder', $config['enable_excessive_geocoder']);
-
+        if ($config['enable_excessive_geocoder']) {
+            $container->setAlias('happyr.location.geocoder', 'happyr.location.geocoder.excessive');
+        }
 
         if ($config['geocoder_service'] !== null) {
             $container->getDefinition('happyr.location.location_type')

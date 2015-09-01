@@ -52,6 +52,10 @@ class ExcessiveGeocoder extends LoggableGeocoder
         switch ($countryCode) {
             case 'SE':
                 return 'sv';
+            case 'RU':
+                return 'ru';
+            case 'DA':
+                return 'da';
             default:
                 return 'en';
         }
