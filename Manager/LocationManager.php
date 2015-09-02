@@ -42,9 +42,9 @@ class LocationManager
     /**
      * Returns a object of $type. This will always return a object. A new object will be created if it does not exsist.
      *
-     * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
-     * @param string $name   The name of the type.
-     * @param string $countryCode   2 digt country code
+     * @param string $entity      must be safe. Don't let the user affect this one. Example "City", "Region"
+     * @param string $name        The name of the type.
+     * @param string $countryCode 2 digt country code
      *
      * @return mixed
      */
@@ -64,9 +64,14 @@ class LocationManager
          */
         if ($entity == 'HappyrLocationBundle:Country') {
             $conditions = array('slug' => strtolower($name));
+            $countryCode = null;
         } else {
             $slug = $this->slugifier->slugify($name);
-            $conditions = array('slug' => $slug, 'country'=>$countryCode);
+        }
+        $conditions = array('slug' => $slug);
+
+        if ($countryCode !== null) {
+            $conditions['country'] = $countryCode;
         }
 
         //fetch object
@@ -103,7 +108,7 @@ class LocationManager
 
         $entity = $this->typePrefix.$entity;
 
-        return $this->em->getRepository($entity)->findOneBy(array('slug' => $slug, 'country'=>$countryCode));
+        return $this->em->getRepository($entity)->findOneBy(array('slug' => $slug, 'country' => $countryCode));
     }
 
     /**
@@ -125,13 +130,13 @@ class LocationManager
 
         $entity = $this->typePrefix.$entity;
 
-        return $this->em->getRepository($entity)->findOneBy(array('name' => $name, 'country'=>$countryCode));
+        return $this->em->getRepository($entity)->findOneBy(array('name' => $name, 'country' => $countryCode));
     }
 
     /**
      * Rename a object.
      *
-     * @param string    $entity     must be safe. Don't let the user affect this one. Example "City", "Region"
+     * @param string    $entity    must be safe. Don't let the user affect this one. Example "City", "Region"
      * @param Component $component
      * @param String    $name
      */
@@ -199,7 +204,7 @@ class LocationManager
         if (!in_array($entity, $validEntities)) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    "%s is not a valid entity to use with the LocationManager. You should use of of these: %s",
+                    '%s is not a valid entity to use with the LocationManager. You should use of of these: %s',
                     $entity,
                     implode(', ', $validEntities)
                 )

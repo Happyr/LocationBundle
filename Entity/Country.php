@@ -24,7 +24,7 @@ class Country
     protected $id;
 
     /**
-     * The 2 letter code for a country
+     * The 2 letter code for a country.
      *
      * @var string
      *
@@ -44,13 +44,24 @@ class Country
     }
 
     /**
+     * The __toString method allows a class to decide how it will react when it is converted to a string.
+     *
+     * @return string
+     * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
+     */
+    function __toString()
+    {
+        return $this->getName();
+    }
+
+    /**
      * Returns the name of the country with the current locale.
      *
      * @return mixed
      */
     public function getName($locale = null)
     {
-        return Intl::getRegionBundle()->getCountryName($this->slug, $locale);
+        return Intl::getRegionBundle()->getCountryName(strtoupper($this->slug), $locale);
     }
 
     /**
@@ -66,7 +77,6 @@ class Country
     }
 
     /**
-     *
      * @return string
      */
     public function getCode()

@@ -44,7 +44,7 @@ abstract class Component
     protected $slug;
 
     /**
-     * This field is just a way of separating the unique filter
+     * This field is just a way of separating the unique filter.
      *
      * @var string country
      *

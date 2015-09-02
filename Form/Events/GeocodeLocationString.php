@@ -134,7 +134,7 @@ class GeocodeLocationString
 
         //These are always correct
         $location->setCity($this->lm->getObject('City', $result->getCity(), $countryCode));
-        $location->setCountry($this->lm->getObject('Country', $countryCode, $countryCode));
+        $location->setCountry($this->lm->getObject('Country', $countryCode, null));
         $location->setZipCode($result->getZipcode());
 
         if (!$this->isSupportedCountry($countryCode)) {
@@ -152,7 +152,9 @@ class GeocodeLocationString
             }
 
             if (null === $mun = $this->lm->findOneObjectByName('Municipality', $result->getCityDistrict(), $countryCode)) {
-                $mun = $this->lm->findOneObjectByName('Municipality', $result->getCity(), $countryCode);
+                if (null === $mun = $this->lm->findOneObjectByName('Municipality', $result->getRegion(), $countryCode)) {
+                    $mun = $this->lm->findOneObjectByName('Municipality', $result->getCounty(), $countryCode);
+                }
             }
         }
 
