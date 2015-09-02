@@ -125,14 +125,19 @@ class LocationManager
     public function findOneObjectByName($entity, $name, $countryCode)
     {
         $this->isValidEntity($entity);
-
         if (empty($name)) {
             return;
         }
 
+        if ($entity=='Country') {
+            $conditions = array('slug' => $name);
+        } else {
+            $conditions = array('name' => $name, 'country' => $countryCode);
+        }
+
         $entity = $this->typePrefix.$entity;
 
-        return $this->em->getRepository($entity)->findOneBy(array('name' => $name, 'country' => $countryCode));
+        return $this->em->getRepository($entity)->findOneBy($conditions);
     }
 
     /**
