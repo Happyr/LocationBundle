@@ -63,7 +63,7 @@ class LocationManager
          * The slugifier removes words like "is", "at" etc.. that's why we just strlower the country codes..
          */
         if ($entity == 'HappyrLocationBundle:Country') {
-            $conditions = array('slug' => strtolower($name));
+            $slug = strtolower($name);
             $countryCode = null;
         } else {
             $slug = $this->slugifier->slugify($name);
@@ -131,6 +131,24 @@ class LocationManager
         $entity = $this->typePrefix.$entity;
 
         return $this->em->getRepository($entity)->findOneBy(array('name' => $name, 'country' => $countryCode));
+    }
+
+    public function findOneMunicipalityByName($name, $countryCode)
+    {
+        if (empty($name)) {
+            return;
+        }
+
+        if (!preg_match('|.*?s? Kommun|sim', $name)) {
+            return $this->findOneObjectByName('Municipality', $name, $countryCode);
+        }
+
+        //If it ends if "* Kommun"
+        if (null === $mun = $this->findOneObjectByName('Municipality', substr($name, 0, -7), $countryCode)) {
+            $mun = $this->findOneObjectByName('Municipality', substr($name, 0, -8), $countryCode);
+        }
+
+        return $mun;
     }
 
     /**

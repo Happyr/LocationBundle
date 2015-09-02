@@ -17,7 +17,7 @@ class LocationService
     protected $lm;
 
     /**
-     * @param LocationManager   $lm
+     * @param LocationManager $lm
      */
     public function __construct(LocationManager $lm)
     {
@@ -25,7 +25,7 @@ class LocationService
     }
 
     /**
-     * Add Result to a Locations
+     * Add Result to a Locations.
      *
      * @param $result
      * @param $location
@@ -55,16 +55,16 @@ class LocationService
                 $region = $this->lm->findOneObjectByName('Region', $result->getCounty(), $countryCode);
             }
 
-            if (null === $mun = $this->lm->findOneObjectByName('Municipality', $result->getCityDistrict(), $countryCode)) {
-                if (null === $mun = $this->lm->findOneObjectByName('Municipality', $result->getRegion(), $countryCode)) {
-                    $mun = $this->lm->findOneObjectByName('Municipality', $result->getCounty(), $countryCode);
+            $possibleValues = array($result->getCityDistrict(), $result->getRegion(), $result->getCounty());
+            foreach ($possibleValues as $value) {
+                if (null !== $mun = $this->lm->findOneMunicipalityByName($value, $countryCode)) {
+                    break;
                 }
             }
         }
 
         $location->setRegion($region);
         $location->setMunicipality($mun);
-
 
         //get the coordinates
         $location->setLat($result->getLatitude());
