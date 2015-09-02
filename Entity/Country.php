@@ -14,7 +14,6 @@ use Symfony\Component\Locale\Locale;
  */
 class Country
 {
-
     /**
      * @var int
      *
@@ -34,7 +33,7 @@ class Country
      * @Assert\Length(max=6)
      * @Assert\NotBlank()
      */
-    protected $code;
+    protected $slug;
 
     /**
      * @param string $code
@@ -51,7 +50,7 @@ class Country
      */
     public function getName($locale = null)
     {
-        return Intl::getRegionBundle()->getCountryName($this->code, $locale);
+        return Intl::getRegionBundle()->getCountryName($this->slug, $locale);
     }
 
     /**
@@ -61,7 +60,7 @@ class Country
      */
     public function setCode($code)
     {
-        $this->code = strtoupper($code);
+        $this->slug = strtolower($code);
 
         return $this;
     }
@@ -72,6 +71,6 @@ class Country
      */
     public function getCode()
     {
-        return $this->code;
+        return $this->slug;
     }
 }

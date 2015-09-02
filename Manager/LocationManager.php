@@ -49,6 +49,15 @@ class LocationManager
      */
     public function getObject($entity, $name)
     {
+        $validEntities = array('City', 'Country', 'Municipality', 'Region');
+        if (!in_array($entity, $validEntities)) {
+            throw new \InvalidArgumentException(sprintf(
+                "%s is not a valid entity to use with the LocationManager. You should use of of these: %s",
+                $entity,
+                implode(', ', $validEntities)
+            ));
+        }
+
         if ($name == null) {
             return;
         }
@@ -117,10 +126,10 @@ class LocationManager
      * Rename a object.
      *
      * @param string    $entity     must be safe. Don't let the user affect this one. Example "City", "Region"
-     * @param Component &$component
+     * @param Component $component
      * @param String    $name
      */
-    public function renameObject($entity, Component &$component, $name)
+    public function renameObject($entity, Component $component, $name)
     {
         $name = $this->beautifyName($name);
         $component->setName($name);
@@ -133,9 +142,9 @@ class LocationManager
     /**
      * Remove a Location object.
      *
-     * @param Component &$component
+     * @param Component $component
      */
-    public function removeObject(Component &$component)
+    public function removeObject(Component $component)
     {
         $this->em->remove($component);
         $this->em->flush();
@@ -147,10 +156,10 @@ class LocationManager
      * This will remove the copy Object.
      *
      * @param String    $databaseName The $databaseName will be inserted in a query. Must be safe
-     * @param Component &$org
-     * @param Component &$copy
+     * @param Component $org
+     * @param Component $copy
      */
-    public function mergeObjects($databaseName, Component &$org, Component &$copy)
+    public function mergeObjects($databaseName, Component $org, Component $copy)
     {
         $this->em->createQuery(
             'UPDATE EastitLegoLocationBundle:Location e SET e.'

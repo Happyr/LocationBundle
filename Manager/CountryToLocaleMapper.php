@@ -16,6 +16,7 @@ class CountryToLocaleMapper
      */
     public static function getLocale($countryCode)
     {
+        $countryCode = strtoupper($countryCode);
         switch ($countryCode) {
             case 'SE':
                 return 'sv';
