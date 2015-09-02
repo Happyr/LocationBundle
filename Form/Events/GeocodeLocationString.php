@@ -134,7 +134,7 @@ class GeocodeLocationString
 
         //These are always correct
         $location->setCity($this->lm->getObject('City', $result->getCity(), $countryCode));
-        $location->setCountry($this->lm->getObject('Country', $countryCode));
+        $location->setCountry($this->lm->getObject('Country', $countryCode, $countryCode));
         $location->setZipCode($result->getZipcode());
 
         if (!$this->isSupportedCountry($countryCode)) {
@@ -169,7 +169,7 @@ class GeocodeLocationString
      */
     private function isSupportedCountry($countryCode)
     {
-        $supported = array('SV', 'DA', 'NO');
+        $supported = array('SE', 'DA', 'NO');
 
         return in_array(strtoupper($countryCode), $supported);
     }
