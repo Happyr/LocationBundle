@@ -10,7 +10,7 @@ services:
 
   happyr.location.location_type:
     class: Happyr\LocationBundle\Form\Type\LocationType
-    arguments: [@happyr.location.location_manager, @happyr.location.geocoder, @hapyr.location.service ]
+    arguments: [@happyr.location.location_manager, @happyr.location.geocoder, @happyr.location.service ]
     tags:
       - { name: form.type, alias: location }
 
@@ -18,6 +18,6 @@ services:
     class: Happyr\LocationBundle\Service\ExcessiveGeocoder
     arguments: [@bazinga_geocoder.geocoder]
 
-  hapyr.location.service:
+  happyr.location.service:
     class: Happyr\LocationBundle\Service\LocationService
     arguments: [@happyr.location.location_manager]
