@@ -128,30 +128,31 @@ class GeocodeLocationString
      */
     private function addLocationObjects(Geocoded $result, BaseLocation $location)
     {
+        $countryCode = $result->getCountryCode();
         $streetAddress = sprintf('%s %s', $result->getStreetName(), $result->getStreetNumber());
         $location->setAddress(trim($streetAddress));
 
         //These are always correct
-        $location->setCity($this->lm->getObject('City', $result->getCity()));
-        $location->setCountry($this->lm->getObject('Country', $result->getCountryCode()));
+        $location->setCity($this->lm->getObject('City', $result->getCity(), $countryCode));
+        $location->setCountry($this->lm->getObject('Country', $countryCode));
         $location->setZipCode($result->getZipcode());
 
-        if (!$this->isSupportedCountry($result->getCountryCode())) {
+        if (!$this->isSupportedCountry($countryCode)) {
             // just fetch something
-            $region = $this->lm->getObject('Region', $result->getRegion());
-            $mun = $this->lm->getObject('Municipality', $result->getCityDistrict());
+            $region = $this->lm->getObject('Region', $result->getRegion(), $countryCode);
+            $mun = $this->lm->getObject('Municipality', $result->getCityDistrict(), $countryCode);
         } else {
             /*
              * These can be tricky to find. These might be null.
              * We can not always be sure what the result set has in the $result->getRegion(). It might
              * be the region or it might be a county. It also depends on the geocoder.
              */
-            if (null === $region = $this->lm->findOneObjectByName('Region', $result->getRegion())) {
-                $region = $this->lm->findOneObjectByName('Region', $result->getCounty());
+            if (null === $region = $this->lm->findOneObjectByName('Region', $result->getRegion(), $countryCode)) {
+                $region = $this->lm->findOneObjectByName('Region', $result->getCounty(), $countryCode);
             }
 
-            if (null === $mun = $this->lm->findOneObjectByName('Municipality', $result->getCityDistrict())) {
-                $mun = $this->lm->findOneObjectByName('Municipality', $result->getCity());
+            if (null === $mun = $this->lm->findOneObjectByName('Municipality', $result->getCityDistrict(), $countryCode)) {
+                $mun = $this->lm->findOneObjectByName('Municipality', $result->getCity(), $countryCode);
             }
         }
 

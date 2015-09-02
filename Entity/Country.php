@@ -4,7 +4,7 @@ namespace Happyr\LocationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Intl\Intl;
-use Symfony\Component\Locale\Locale;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Happyr\LocationBundle\Entity\Country.

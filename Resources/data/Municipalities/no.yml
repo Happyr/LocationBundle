@@ -61,7 +61,7 @@ municipalities:
   - { code: '0437', name: Tynset, slug: tynset }
   - { code: '0438', name: Alvdal, slug: alvdal }
   - { code: '0439', name: Folldal, slug: folldal }
-  - { code: '0441', name: Os, slug: os }
+  - { code: '0441', name: Os, slug: os- }
   - { code: '0501', name: Lillehammer, slug: lillehammer }
   - { code: '0502', name: Gjøvik, slug: gjovik }
   - { code: '0511', name: Dovre, slug: dovre }
@@ -260,7 +260,7 @@ municipalities:
   - { code: '1504', name: 'Ålesund', slug: alesund }
   - { code: '1505', name: Kristiansund, slug: kristiansund }
   - { code: '1511', name: Vanylven, slug: vanylven }
-  - { code: '1514', name: Sande, slug: sande }
+  - { code: '1514', name: Sande, slug: sande- }
   - { code: '1515', name: Herøy, slug: heroy }
   - { code: '1516', name: Ulstein, slug: ulstein }
   - { code: '1517', name: Hareid, slug: hareid }
@@ -348,7 +348,7 @@ municipalities:
   - { code: '1813', name: Brønnøy, slug: bronnoy }
   - { code: '1815', name: Vega, slug: vega }
   - { code: '1816', name: Vevelstad, slug: vevelstad }
-  - { code: '1818', name: Herøy, slug: heroy }
+  - { code: '1818', name: Herøy, slug: heroy- }
   - { code: '1820', name: Alstahaug, slug: alstahaug }
   - { code: '1822', name: Leirfjord, slug: leirfjord }
   - { code: '1824', name: Vefsn, slug: vefsn }
@@ -380,7 +380,7 @@ municipalities:
   - { code: '1860', name: Vestvågøy, slug: vestvagoy }
   - { code: '1865', name: Vågan, slug: vagan }
   - { code: '1866', name: Hadsel, slug: hadsel }
-  - { code: '1867', name: Bø, slug: bo }
+  - { code: '1867', name: Bø, slug: bo- }
   - { code: '1868', name: Øksnes, slug: oksnes }
   - { code: '1870', name: Sortland, slug: sortland }
   - { code: '1871', name: Andøy, slug: andoy }

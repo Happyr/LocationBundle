@@ -60,6 +60,7 @@ class ComponentToStringTransformer implements DataTransformerInterface
      */
     public function reverseTransform($data)
     {
+        //TODO fixme
         return $this->lm->getObject($this->type, $data);
     }
 }

@@ -44,19 +44,13 @@ class LocationManager
      *
      * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
      * @param string $name   The name of the type.
+     * @param string $countryCode   2 digt country code
      *
      * @return mixed
      */
-    public function getObject($entity, $name)
+    public function getObject($entity, $name, $countryCode)
     {
-        $validEntities = array('City', 'Country', 'Municipality', 'Region');
-        if (!in_array($entity, $validEntities)) {
-            throw new \InvalidArgumentException(sprintf(
-                "%s is not a valid entity to use with the LocationManager. You should use of of these: %s",
-                $entity,
-                implode(', ', $validEntities)
-            ));
-        }
+        $this->isValidEntity($entity);
 
         if ($name == null) {
             return;
@@ -69,21 +63,23 @@ class LocationManager
          * The slugifier removes words like "is", "at" etc.. that's why we just strlower the country codes..
          */
         if ($entity == 'HappyrLocationBundle:Country') {
-            $slug = strtolower($name);
+            $conditions = array('slug' => strtolower($name));
         } else {
             $slug = $this->slugifier->slugify($name);
+            $conditions = array('slug' => $slug, 'country'=>$countryCode);
         }
 
         //fetch object
-        $object = $this->em->getRepository($entity)->findOneBy(array('slug' => $slug));
+        $object = $this->em->getRepository($entity)->findOneBy($conditions);
 
         //if object is not found
         if (!$object) {
+            // Assert: this will never be Country
             $entityName = explode(':', $entity);
             $entityNamespace = 'Happyr\LocationBundle\Entity\\'.$entityName[1];
 
             //create
-            $object = new $entityNamespace($name, $slug);
+            $object = new $entityNamespace($name, $slug, $countryCode);
         }
 
         return $object;
@@ -97,15 +93,17 @@ class LocationManager
      *
      * @return Component|null
      */
-    public function findOneObjectBySlug($entity, $slug)
+    public function findOneObjectBySlug($entity, $slug, $countryCode)
     {
+        $this->isValidEntity($entity);
+
         if (empty($slug)) {
             return;
         }
 
         $entity = $this->typePrefix.$entity;
 
-        return $this->em->getRepository($entity)->findOneBy(array('slug' => $slug));
+        return $this->em->getRepository($entity)->findOneBy(array('slug' => $slug, 'country'=>$countryCode));
     }
 
     /**
@@ -117,9 +115,17 @@ class LocationManager
      *
      * @return Object
      */
-    public function findOneObjectByName($entity, $name)
+    public function findOneObjectByName($entity, $name, $countryCode)
     {
-        return $this->findOneObjectBySlug($entity, $this->slugifier->slugify($name));
+        $this->isValidEntity($entity);
+
+        if (empty($name)) {
+            return;
+        }
+
+        $entity = $this->typePrefix.$entity;
+
+        return $this->em->getRepository($entity)->findOneBy(array('name' => $name, 'country'=>$countryCode));
     }
 
     /**
@@ -182,5 +188,22 @@ class LocationManager
     protected function beautifyName($name)
     {
         return mb_convert_case(mb_strtolower(trim($name), 'UTF-8'), MB_CASE_TITLE, 'UTF-8');
+    }
+
+    /**
+     * @param $entity
+     */
+    protected function isValidEntity($entity)
+    {
+        $validEntities = array('City', 'Country', 'Municipality', 'Region');
+        if (!in_array($entity, $validEntities)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "%s is not a valid entity to use with the LocationManager. You should use of of these: %s",
+                    $entity,
+                    implode(', ', $validEntities)
+                )
+            );
+        }
     }
 }

@@ -47,17 +47,21 @@ abstract class Component
      * This field is just a way of separating the unique filter
      *
      * @var string country
+     *
+     * @ORM\Column(type="string", length=10)
      */
     protected $country;
 
     /**
      * @param string $name
      * @param string $slug
+     * @param string $country
      */
-    public function __construct($name, $slug)
+    public function __construct($name, $slug, $country)
     {
         $this->name = $name;
         $this->slug = $slug;
+        $this->country = $country;
     }
 
     /**
@@ -117,5 +121,17 @@ abstract class Component
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * @param string $country
+     *
+     * @return $this
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
     }
 }

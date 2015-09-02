@@ -25,11 +25,12 @@ class LoadRegionData extends AbstractFixture
 
         /** @var \Symfony\Component\Finder\SplFileInfo $file */
         foreach ($finder as $file) {
+            $country = substr($file->getFilename(), 0, -4);
             $contents = Yaml::parse($file->getContents());
             $municipalities = $contents['regions'];
 
             foreach ($municipalities as $arr) {
-                $obj = new Region($arr['name'], $arr['slug']);
+                $obj = new Region($arr['name'], $arr['slug'], $country);
 
                 $manager->persist($obj);
             }

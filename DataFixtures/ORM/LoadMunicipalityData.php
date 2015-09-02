@@ -21,15 +21,16 @@ class LoadMunicipalityData  extends AbstractFixture
         $basePath = dirname(__FILE__).'/../../Resources/data/Municipalities';
 
         $finder = new Finder();
-        $finder->files()->in($basePath)->name('no.yml');
+        $finder->files()->in($basePath)->name('*.yml');
 
         /** @var \Symfony\Component\Finder\SplFileInfo $file */
         foreach ($finder as $file) {
+            $country = substr($file->getFilename(), 0, -4);
             $contents = Yaml::parse($file->getContents());
             $municipalities = $contents['municipalities'];
 
             foreach ($municipalities as $arr) {
-                $obj = new Municipality($arr['name'], $arr['slug']);
+                $obj = new Municipality($arr['name'], $arr['slug'], $country);
                 $obj->setCode($arr['code']);
 
                 $manager->persist($obj);
