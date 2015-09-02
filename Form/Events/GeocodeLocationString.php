@@ -26,7 +26,7 @@ class GeocodeLocationString
     protected $geocoder;
 
     /**
-     * @param LocationManager $lm
+     * @param LocationManager   $lm
      * @param GeocoderInterface $geocoder
      */
     public function __construct(LocationManager $lm, GeocoderInterface $geocoder)
@@ -51,7 +51,7 @@ class GeocodeLocationString
         $submittedData = $location->getLocation();
         $result = $this->getGeocoder()->geocode($submittedData);
 
-        if (!$result || $result->getLatitude()===0) {
+        if (!$result || $result->getLatitude() === 0) {
             $location->clear();
             $location->setLocation($submittedData);
 
@@ -69,7 +69,7 @@ class GeocodeLocationString
             '%s %s, %s, %s',
             $result->getStreetName(),
             $result->getStreetNumber(),
-            $result->getCity()?:$result->getRegion()?:$result->getCounty(),
+            $result->getCity() ?: $result->getRegion() ?: $result->getCounty(),
             $result->getCountry()
         ));
 
@@ -77,7 +77,7 @@ class GeocodeLocationString
     }
 
     /**
-     * Get the coordinates for this location
+     * Get the coordinates for this location.
      *
      * @param FormEvent $event
      *
@@ -105,7 +105,6 @@ class GeocodeLocationString
     }
 
     /**
-     *
      * @return GeocoderInterface
      */
     private function getGeocoder()
@@ -135,8 +134,7 @@ class GeocodeLocationString
         //These are always correct
         $location->setCity($this->lm->getObject('City', $result->getCity()));
         $location->setCountry($this->lm->getObject('Country', $result->getCountryCode()));
-        $location->setZipCode($this->lm->getObject('ZipCode', $result->getZipcode()));
-
+        $location->setZipCode($result->getZipcode());
 
         if (!$this->isSupportedCountry($result->getCountryCode())) {
             // just fetch something
@@ -162,7 +160,8 @@ class GeocodeLocationString
     }
 
     /**
-     * Do we have Municipality
+     * Do we have Municipality.
+     *
      * @param $countryCode
      *
      * @return bool

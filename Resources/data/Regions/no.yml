@@ -1,0 +1,20 @@
+regions:
+  - { name: Akershus, slug: akershus }
+  - { name: Aust-Agder, slug: aust-agder }
+  - { name: Buskerud, slug: buskerud }
+  - { name: Finnmark, slug: finnmark }
+  - { name: Hedmark, slug: hedmark }
+  - { name: Hordaland, slug: hordaland }
+  - { name: 'Møre og Romsdal', slug: more-og-romsdal }
+  - { name: Nordland, slug: nordland }
+  - { name: Nord-Trøndelag, slug: nord-trondelag }
+  - { name: Oppland, slug: oppland }
+  - { name: Oslo, slug: oslo }
+  - { name: Rogaland, slug: rogaland }
+  - { name: 'Sogn og Fjordane', slug: sogn-og-fjordane }
+  - { name: Sør-Trøndelag, slug: sor-trondelag }
+  - { name: Telemark, slug: telemark }
+  - { name: Troms, slug: troms }
+  - { name: Vest-Agder, slug: vest-agder }
+  - { name: Vestfold, slug: vestfold }
+  - { name: Østfold, slug: ostfold }

@@ -1,15 +1,14 @@
 <?php
+
 namespace Happyr\LocationBundle\Form\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
 use Acme\TaskBundle\Entity\country;
 
 /**
- * Class CountryTransformer
+ * Class CountryTransformer.
  *
  * @author Tobias Nyholm
- *
- *
  */
 class CountryTransformer implements DataTransformerInterface
 {
@@ -24,14 +23,14 @@ class CountryTransformer implements DataTransformerInterface
     public function transform($country)
     {
         if (null == $country) {
-            return "";
+            return '';
         }
 
         return $country->getCode();
     }
 
     /**
-     * We don't need any reverse transform
+     * We don't need any reverse transform.
      *
      * @param mixed $code
      *

@@ -3,57 +3,75 @@
 namespace Happyr\LocationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Intl\Intl;
 use Symfony\Component\Locale\Locale;
 
 /**
- * Happyr\LocationBundle\Entity\Country
+ * Happyr\LocationBundle\Entity\Country.
  *
  * @ORM\Table(name="LocationCountry")
- * @ORM\Entity(repositoryClass="Happyr\LocationBundle\Entity\ComponentRepository")
+ * @ORM\Entity()
  */
-class Country extends Component
+class Country
 {
+
     /**
-     * @param string $name
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public function __construct($name)
+    protected $id;
+
+    /**
+     * The 2 letter code for a country
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string", length=64)
+     *
+     * @Assert\Length(max=6)
+     * @Assert\NotBlank()
+     */
+    protected $code;
+
+    /**
+     * @param string $code
+     */
+    public function __construct($code)
     {
-        parent::__construct(strtoupper($name), strtolower($name));
+        $this->setCode($code);
     }
 
     /**
      * Returns the name of the country with the current locale.
-     * If you using twig you may also use the country filter
-     *
      *
      * @return mixed
      */
-    public function getName()
+    public function getName($locale = null)
     {
-        $countries = Locale::getDisplayCountries(Locale::getDefault());
-
-        return $countries[$this->getCode()];
+        return Intl::getRegionBundle()->getCountryName($this->code, $locale);
     }
 
     /**
-     * Set code
+     * @param $code
      *
-     *
-     * @param string $code
+     * @return $this
      */
     public function setCode($code)
     {
-        $this->name = $code;
+        $this->code = strtoupper($code);
+
+        return $this;
     }
 
     /**
-     * Get code
-     *
      *
      * @return string
      */
     public function getCode()
     {
-        return $this->name;
+        return $this->code;
     }
 }

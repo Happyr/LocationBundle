@@ -2,20 +2,15 @@
 
 namespace Happyr\LocationBundle\Manager;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use Happyr\LocationBundle\Entity\Component;
-use Happyr\LocationBundle\Entity\LocationObject;
-use Happyr\LocationBundle\Services\SlugifierInterface;
 use HappyR\SlugifyBundle\Services\SlugifyService;
 
 /**
- *
  * All the other manager extends this class but the are not accessed by the service container.
- * This class does all the work
+ * This class does all the work.
  *
  * @author tobias
- *
  */
 class LocationManager
 {
@@ -35,7 +30,7 @@ class LocationManager
     protected $typePrefix = 'HappyrLocationBundle:';
 
     /**
-     * @param EntityManager $em
+     * @param EntityManager  $em
      * @param SlugifyService $slugifier
      */
     public function __construct(EntityManager $em, SlugifyService $slugifier)
@@ -48,17 +43,17 @@ class LocationManager
      * Returns a object of $type. This will always return a object. A new object will be created if it does not exsist.
      *
      * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
-     * @param string $name The name of the type.
+     * @param string $name   The name of the type.
      *
      * @return mixed
      */
     public function getObject($entity, $name)
     {
         if ($name == null) {
-            return null;
+            return;
         }
 
-        $entity = $this->typePrefix . $entity;
+        $entity = $this->typePrefix.$entity;
         $name = $this->beautifyName($name);
 
         /*
@@ -76,7 +71,7 @@ class LocationManager
         //if object is not found
         if (!$object) {
             $entityName = explode(':', $entity);
-            $entityNamespace = 'Happyr\LocationBundle\Entity\\' . $entityName[1];
+            $entityNamespace = 'Happyr\LocationBundle\Entity\\'.$entityName[1];
 
             //create
             $object = new $entityNamespace($name, $slug);
@@ -96,17 +91,17 @@ class LocationManager
     public function findOneObjectBySlug($entity, $slug)
     {
         if (empty($slug)) {
-            return null;
+            return;
         }
 
-        $entity = $this->typePrefix . $entity;
+        $entity = $this->typePrefix.$entity;
 
         return $this->em->getRepository($entity)->findOneBy(array('slug' => $slug));
     }
 
     /**
      * Return an object by name
-     * This function slugifys the name and runs findOneObjectBySlug
+     * This function slugifys the name and runs findOneObjectBySlug.
      *
      * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
      * @param string $name
@@ -119,11 +114,11 @@ class LocationManager
     }
 
     /**
-     * Rename a object
+     * Rename a object.
      *
-     * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
+     * @param string    $entity     must be safe. Don't let the user affect this one. Example "City", "Region"
      * @param Component &$component
-     * @param String $name
+     * @param String    $name
      */
     public function renameObject($entity, Component &$component, $name)
     {
@@ -136,7 +131,7 @@ class LocationManager
     }
 
     /**
-     * Remove a Location object
+     * Remove a Location object.
      *
      * @param Component &$component
      */
@@ -151,7 +146,7 @@ class LocationManager
      * This will move all Location's references from $copy to $org
      * This will remove the copy Object.
      *
-     * @param String $databaseName The $databaseName will be inserted in a query. Must be safe
+     * @param String    $databaseName The $databaseName will be inserted in a query. Must be safe
      * @param Component &$org
      * @param Component &$copy
      */
@@ -159,7 +154,7 @@ class LocationManager
     {
         $this->em->createQuery(
             'UPDATE EastitLegoLocationBundle:Location e SET e.'
-            . $databaseName . '=:org_id WHERE e.' . $databaseName . '=:copy_id'
+            .$databaseName.'=:org_id WHERE e.'.$databaseName.'=:copy_id'
         )
             ->setParameter('org_id', $org->getId())
             ->setParameter('copy_id', $copy->getId())

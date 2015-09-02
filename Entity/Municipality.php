@@ -5,25 +5,25 @@ namespace Happyr\LocationBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Happyr\LocationBundle\Entity\Municipality
+ * Happyr\LocationBundle\Entity\Municipality.
  *
  * This is the area you dived a region in
  *
- * @ORM\Table(name="LocationMunicipality")
+ * @ORM\Table(name="LocationMunicipality", uniqueConstraints={
+ *     @ORM\UniqueConstraint(name="slug_index", columns={"slug", "country"})})
  * @ORM\Entity(repositoryClass="Happyr\LocationBundle\Entity\ComponentRepository")
  */
 class Municipality extends Component
 {
-
     /**
-     * @var string $code
+     * @var string
      *
      * @ORM\Column(name="code", type="string", length=15, nullable=true)
      */
     protected $code;
 
     /**
-     * Set code
+     * Set code.
      *
      * @param string $code
      */
@@ -33,7 +33,7 @@ class Municipality extends Component
     }
 
     /**
-     * Get code
+     * Get code.
      *
      * @return string
      */

@@ -4,17 +4,16 @@ namespace Happyr\LocationBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
- * Happyr\LocationBundle\Entity\BaseLocation
+ * Happyr\LocationBundle\Entity\BaseLocation.
  *
  * @ORM\MappedSuperclass
  */
 class BaseLocation
 {
     /**
-     * @var integer id
+     * @var int id
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -62,9 +61,9 @@ class BaseLocation
     protected $region;
 
     /**
-     * @var \Happyr\LocationBundle\Entity\ZipCode zipCode
+     * @var string zipCode
      *
-     * @ORM\ManyToOne(targetEntity="Happyr\LocationBundle\Entity\ZipCode", cascade={"persist"})
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     protected $zipCode;
 
@@ -92,7 +91,8 @@ class BaseLocation
     protected $lat = 0;
 
     /**
-     * Try to return the location or the name of the city
+     * Try to return the location or the name of the city.
+     *
      * @return string
      */
     public function __toString()
@@ -105,7 +105,7 @@ class BaseLocation
     }
 
     /**
-     * Removes all data associated with the location
+     * Removes all data associated with the location.
      */
     public function clear()
     {
@@ -114,16 +114,16 @@ class BaseLocation
         $this->city = null;
         $this->municipality = null;
         $this->region = null;
-        $this->zipCode = null;
+        $this->zipCode = '';
         $this->address = '';
         $this->lng = 0;
         $this->lat = 0;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -131,7 +131,7 @@ class BaseLocation
     }
 
     /**
-     * Get the country code or fallback on SE
+     * Get the country code or fallback on SE.
      *
      * @return string
      */
@@ -146,8 +146,6 @@ class BaseLocation
     }
 
     /**
-     *
-     *
      * @return array
      */
     public function getCoordinates()
@@ -156,8 +154,6 @@ class BaseLocation
     }
 
     /**
-     *
-     *
      * @return bool
      */
     public function hasCoordinates()
@@ -166,7 +162,7 @@ class BaseLocation
     }
 
     /**
-     * alias for getCoordinates
+     * alias for getCoordinates.
      *
      *
      * @return array
@@ -177,10 +173,9 @@ class BaseLocation
     }
 
     /**
-     * This is a long string that describes the location
+     * This is a long string that describes the location.
      *
      * @param string $str
-     *
      */
     public function setLocation($str)
     {
@@ -192,7 +187,6 @@ class BaseLocation
     }
 
     /**
-     *
      * @param string $address
      *
      * @return $this
@@ -205,7 +199,6 @@ class BaseLocation
     }
 
     /**
-     *
      * @return string
      */
     public function getAddress()
@@ -214,7 +207,6 @@ class BaseLocation
     }
 
     /**
-     *
      * @param \Happyr\LocationBundle\Entity\City $city
      *
      * @return $this
@@ -227,7 +219,6 @@ class BaseLocation
     }
 
     /**
-     *
      * @return \Happyr\LocationBundle\Entity\City
      */
     public function getCity()
@@ -236,7 +227,6 @@ class BaseLocation
     }
 
     /**
-     *
      * @param \Happyr\LocationBundle\Entity\Country $country
      *
      * @return $this
@@ -249,7 +239,6 @@ class BaseLocation
     }
 
     /**
-     *
      * @return \Happyr\LocationBundle\Entity\Country
      */
     public function getCountry()
@@ -258,7 +247,6 @@ class BaseLocation
     }
 
     /**
-     *
      * @param float $lat
      *
      * @return $this
@@ -271,7 +259,6 @@ class BaseLocation
     }
 
     /**
-     *
      * @return float
      */
     public function getLat()
@@ -280,7 +267,6 @@ class BaseLocation
     }
 
     /**
-     *
      * @param float $lng
      *
      * @return $this
@@ -293,7 +279,6 @@ class BaseLocation
     }
 
     /**
-     *
      * @return float
      */
     public function getLng()
@@ -302,7 +287,6 @@ class BaseLocation
     }
 
     /**
-     *
      * @return string
      */
     public function getLocation()
@@ -311,7 +295,6 @@ class BaseLocation
     }
 
     /**
-     *
      * @param \Happyr\LocationBundle\Entity\Municipality $municipality
      *
      * @return $this
@@ -324,7 +307,6 @@ class BaseLocation
     }
 
     /**
-     *
      * @return \Happyr\LocationBundle\Entity\Municipality
      */
     public function getMunicipality()
@@ -333,7 +315,6 @@ class BaseLocation
     }
 
     /**
-     *
      * @param \Happyr\LocationBundle\Entity\Region $region
      *
      * @return $this
@@ -346,7 +327,6 @@ class BaseLocation
     }
 
     /**
-     *
      * @return \Happyr\LocationBundle\Entity\Region
      */
     public function getRegion()
@@ -355,8 +335,7 @@ class BaseLocation
     }
 
     /**
-     *
-     * @param \Happyr\LocationBundle\Entity\ZipCode $zipCode
+     * @param string $zipCode
      *
      * @return $this
      */
@@ -368,8 +347,7 @@ class BaseLocation
     }
 
     /**
-     *
-     * @return \Happyr\LocationBundle\Entity\ZipCode
+     * @return string
      */
     public function getZipCode()
     {

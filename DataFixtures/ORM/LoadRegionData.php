@@ -4,7 +4,6 @@ namespace Happyr\LocationBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Happyr\LocationBundle\Entity\Municipality;
 use Happyr\LocationBundle\Entity\Region;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;

@@ -2,11 +2,10 @@
 
 namespace Happyr\LocationBundle\Entity;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Happyr\LocationBundle\Entity\Location
+ * Happyr\LocationBundle\Entity\Location.
  *
  * This is the wrapper object that has all the relations with the components
  *

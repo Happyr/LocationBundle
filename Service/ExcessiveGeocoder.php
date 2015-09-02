@@ -3,8 +3,6 @@
 namespace Happyr\LocationBundle\Service;
 
 use Bazinga\Bundle\GeocoderBundle\Geocoder\LoggableGeocoder;
-use Geocoder\Geocoder;
-use Geocoder\GeocoderInterface;
 use Geocoder\Result\Geocoded;
 use Geocoder\Result\ResultInterface;
 
@@ -13,7 +11,6 @@ use Geocoder\Result\ResultInterface;
  */
 class ExcessiveGeocoder extends LoggableGeocoder
 {
-
     /**
      * Geocode a given value.
      *
@@ -32,8 +29,8 @@ class ExcessiveGeocoder extends LoggableGeocoder
     /**
      * Reverse geocode given latitude and longitude values.
      *
-     * @param double $latitude Latitude.
-     * @param double $longitude Longitude.
+     * @param float $latitude  Latitude.
+     * @param float $longitude Longitude.
      *
      * @return ResultInterface A ResultInterface result object.
      */

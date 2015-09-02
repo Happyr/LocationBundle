@@ -20,11 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class LocationType extends AbstractType
 {
-
     /**
-     * @var \Happyr\LocationBundle\Manager\LocationManager $lm
-     *
-     *
+     * @var \Happyr\LocationBundle\Manager\LocationManager
      */
     protected $lm;
 
@@ -34,7 +31,7 @@ class LocationType extends AbstractType
     protected $geocoder;
 
     /**
-     * @param LocationManager $lm
+     * @param LocationManager   $lm
      * @param GeocoderInterface $geocoder
      */
     public function __construct(LocationManager $lm, GeocoderInterface $geocoder)
@@ -44,11 +41,8 @@ class LocationType extends AbstractType
     }
 
     /**
-     *
-     *
      * @param FormBuilderInterface $builder
-     * @param array $options
-     *
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -59,17 +53,16 @@ class LocationType extends AbstractType
     }
 
     /**
-     * Set the options
+     * Set the options.
      *
      * @param OptionsResolverInterface $resolver
-     *
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
             array(
                 'data_class' => 'Happyr\LocationBundle\Entity\Location',
-                'error_bubbling'=>true,
+                'error_bubbling' => true,
                 'components' => array(),
                 'geocodeLocationString' => true,
                 //use this one if you want to set an attr on a field
@@ -79,10 +72,9 @@ class LocationType extends AbstractType
     }
 
     /**
-     * Set all parts to default false
+     * Set all parts to default false.
      *
      * @param array &$options
-     *
      */
     protected function mergeActiveParts(array &$options)
     {
@@ -100,14 +92,12 @@ class LocationType extends AbstractType
     }
 
     /**
-     * Here is the default configuration for each field
+     * Here is the default configuration for each field.
      *
      * @param array &$options
-     *
      */
     protected function addDefaultAttributes(array &$options)
     {
-
         $defaults = array(
             'all' => array(),
             'address' => array(
@@ -169,11 +159,10 @@ class LocationType extends AbstractType
     }
 
     /**
-     * Add all the active parts for this instance
+     * Add all the active parts for this instance.
      *
      * @param FormBuilderInterface &$builder
-     * @param array &$options
-     *
+     * @param array                &$options
      */
     protected function addActiveComponents(FormBuilderInterface &$builder, array &$options)
     {
@@ -211,10 +200,7 @@ class LocationType extends AbstractType
         }
 
         if ($options['components']['zipCode']) {
-            $builder->add(
-                $builder->create('zipCode', 'text', $options['field']['zipCode'])
-                    ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'ZipCode'))
-            );
+            $builder->add('zipCode', 'text', $options['field']['zipCode']);
         }
 
         if ($options['components']['region']) {
@@ -227,7 +213,7 @@ class LocationType extends AbstractType
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array &$options
+     * @param array                &$options
      */
     protected function addLocation(FormBuilderInterface &$builder, array &$options)
     {
@@ -252,7 +238,7 @@ class LocationType extends AbstractType
                     return;
                 }
 
-                if (!empty($data->getLocation()) && $data->getLat()==0 && $data->getLng()==0) {
+                if (!empty($data->getLocation()) && $data->getLat() == 0 && $data->getLng() == 0) {
                     $form->get('location')->addError(new FormError('happyr.location.geocode.failed'));
                 }
             });
@@ -262,7 +248,6 @@ class LocationType extends AbstractType
     }
 
     /**
-     *
      * @return string
      */
     public function getName()
@@ -271,7 +256,6 @@ class LocationType extends AbstractType
     }
 
     /**
-     *
      * @return null|string|\Symfony\Component\Form\FormTypeInterface
      */
     public function getParent()

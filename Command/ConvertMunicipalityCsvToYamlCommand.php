@@ -5,7 +5,6 @@ namespace Happyr\LocationBundle\Command;
 use HappyR\SlugifyBundle\Services\SlugifyService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
@@ -67,7 +66,7 @@ class ConvertMunicipalityCsvToYamlCommand extends ContainerAwareCommand
 
     protected function convertMunicipalities()
     {
-        $basePath = dirname(__FILE__) . '/../Resources/data/Municipalities';
+        $basePath = dirname(__FILE__).'/../Resources/data/Municipalities';
         $finder = new Finder();
         $finder->files()->in($basePath)->name('*.csv');
 
@@ -91,7 +90,7 @@ class ConvertMunicipalityCsvToYamlCommand extends ContainerAwareCommand
 
     protected function convertRegions()
     {
-        $basePath = dirname(__FILE__) . '/../Resources/data/Regions';
+        $basePath = dirname(__FILE__).'/../Resources/data/Regions';
         $finder = new Finder();
         $finder->files()->in($basePath)->name('*.csv');
 

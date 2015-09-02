@@ -16,7 +16,8 @@ class LoadCountryData extends AbstractFixture
      * @param ObjectManager $manager
      */
     public function load(ObjectManager $manager)
-    {return;
+    {
+        return;
         $filePath = dirname(__FILE__).'/../../Resources/data/countries.yml';
         $contents = Yaml::parse(file_get_contents($filePath));
 

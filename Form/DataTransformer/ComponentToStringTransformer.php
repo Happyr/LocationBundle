@@ -23,7 +23,7 @@ class ComponentToStringTransformer implements DataTransformerInterface
 
     /**
      * @param LocationManager $lm
-     * @param string $type
+     * @param string          $type
      */
     public function __construct(LocationManager $lm, $type)
     {
@@ -32,7 +32,7 @@ class ComponentToStringTransformer implements DataTransformerInterface
     }
 
     /**
-     * "app data"=> "norm data"
+     * "app data"=> "norm data".
      *
      * @param mixed $data
      *
@@ -52,7 +52,7 @@ class ComponentToStringTransformer implements DataTransformerInterface
     }
 
     /**
-     * get the location component object
+     * get the location component object.
      *
      * @param mixed $data
      *

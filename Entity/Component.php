@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Component. This is a component of the location object
+ * Class Component. This is a component of the location object.
  *
  * @author Tobias Nyholm
  *
@@ -14,9 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class Component
 {
-
     /**
-     * @var integer $id
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -25,26 +24,31 @@ abstract class Component
     protected $id;
 
     /**
-     * @var string $name
+     * @var string
      *
      * @ORM\Column(type="string", length=64)
      *
      * @Assert\Length(max=64)
      * @Assert\NotBlank()
-     *
      */
     protected $name;
 
     /**
-     * @var string $slug
+     * @var string
      *
-     * @ORM\Column(type="string", length=64, unique=true)
+     * @ORM\Column(type="string", length=64)
      *
      * @Assert\Length(max=64)
      * @Assert\NotBlank()
-     *
      */
     protected $slug;
+
+    /**
+     * This field is just a way of separating the unique filter
+     *
+     * @var string country
+     */
+    protected $country;
 
     /**
      * @param string $name
@@ -57,7 +61,7 @@ abstract class Component
     }
 
     /**
-     * A to string method
+     * A to string method.
      *
      *
      * @return string
@@ -68,7 +72,6 @@ abstract class Component
     }
 
     /**
-     *
      * @return int
      */
     public function getId()
@@ -77,7 +80,6 @@ abstract class Component
     }
 
     /**
-     *
      * @param string $name
      *
      * @return $this
@@ -90,7 +92,6 @@ abstract class Component
     }
 
     /**
-     *
      * @return string
      */
     public function getName()
@@ -99,7 +100,6 @@ abstract class Component
     }
 
     /**
-     *
      * @param string $slug
      *
      * @return $this
@@ -112,7 +112,6 @@ abstract class Component
     }
 
     /**
-     *
      * @return string
      */
     public function getSlug()
