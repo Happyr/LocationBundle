@@ -44,7 +44,7 @@ class LocationManager
      *
      * @param string $entity      must be safe. Don't let the user affect this one. Example "City", "Region"
      * @param string $name        The name of the type.
-     * @param string $countryCode 2 digt country code
+     * @param string $countryCode 2 digit country code, UPPERCASE
      *
      * @return mixed
      */
@@ -95,6 +95,7 @@ class LocationManager
      *
      * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
      * @param string $slug
+     * @param string $countryCode 2 digit country code, UPPERCASE
      *
      * @return Component|null
      */
@@ -117,6 +118,7 @@ class LocationManager
      *
      * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
      * @param string $name
+     * @param string $countryCode 2 digit country code, UPPERCASE
      *
      * @return Object
      */
@@ -133,6 +135,14 @@ class LocationManager
         return $this->em->getRepository($entity)->findOneBy(array('name' => $name, 'country' => $countryCode));
     }
 
+    /**
+     * Special case to handle Swedish Kommun that sometimes are post-fixed with "s? Kommun" and some times not
+     *
+     * @param string $name
+     * @param string $countryCode 2 digit country code, UPPERCASE
+     *
+     * @return Object|void
+     */
     public function findOneMunicipalityByName($name, $countryCode)
     {
         if (empty($name)) {

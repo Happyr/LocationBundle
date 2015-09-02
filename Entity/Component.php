@@ -61,7 +61,7 @@ abstract class Component
     {
         $this->name = $name;
         $this->slug = $slug;
-        $this->country = $country;
+        $this->setCountry($country);
     }
 
     /**
@@ -130,7 +130,7 @@ abstract class Component
      */
     public function setCountry($country)
     {
-        $this->country = $country;
+        $this->country = strtoupper($country);
 
         return $this;
     }

@@ -32,7 +32,7 @@ class LocationService
      */
     public function addResultToLocation(Geocoded $result, BaseLocation $location)
     {
-        $countryCode = $result->getCountryCode();
+        $countryCode = strtoupper($result->getCountryCode());
         $streetAddress = sprintf('%s %s', $result->getStreetName(), $result->getStreetNumber());
         $location->setAddress(trim($streetAddress));
 

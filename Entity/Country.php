@@ -62,7 +62,7 @@ class Country
      */
     public function getName($locale = null)
     {
-        return Intl::getRegionBundle()->getCountryName(strtoupper($this->slug), $locale);
+        return Intl::getRegionBundle()->getCountryName($this->slug, $locale);
     }
 
     /**
@@ -72,7 +72,7 @@ class Country
      */
     public function setCode($code)
     {
-        $this->slug = strtolower($code);
+        $this->slug = strtoupper($code);
 
         return $this;
     }
