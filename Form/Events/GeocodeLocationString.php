@@ -137,19 +137,40 @@ class GeocodeLocationString
         $location->setCountry($this->lm->getObject('Country', $result->getCountryCode()));
         $location->setZipCode($this->lm->getObject('ZipCode', $result->getZipcode()));
 
-        /*
-         * These can be tricky to find. These might be null.
-         * We can not always be sure what the result set has in the $result->getRegion(). It might
-         * be the region or it might be a county. It also depends on the geocoder.
-         */
-        if (null === $region = $this->lm->findOneObjectByName('Region', $result->getRegion())) {
-            $region = $this->lm->findOneObjectByName('Region', $result->getCounty());
-        }
-        $location->setRegion($region);
 
-        if (null === $mun = $this->lm->findOneObjectByName('Municipality', $result->getCityDistrict())) {
-            $mun = $this->lm->findOneObjectByName('Municipality', $result->getCity());
+        if (!$this->isSupportedCountry($result->getCountryCode())) {
+            // just fetch something
+            $region = $this->lm->getObject('Region', $result->getRegion());
+            $mun = $this->lm->getObject('Municipality', $result->getCityDistrict());
+        } else {
+            /*
+             * These can be tricky to find. These might be null.
+             * We can not always be sure what the result set has in the $result->getRegion(). It might
+             * be the region or it might be a county. It also depends on the geocoder.
+             */
+            if (null === $region = $this->lm->findOneObjectByName('Region', $result->getRegion())) {
+                $region = $this->lm->findOneObjectByName('Region', $result->getCounty());
+            }
+
+            if (null === $mun = $this->lm->findOneObjectByName('Municipality', $result->getCityDistrict())) {
+                $mun = $this->lm->findOneObjectByName('Municipality', $result->getCity());
+            }
         }
+
+        $location->setRegion($region);
         $location->setMunicipality($mun);
+    }
+
+    /**
+     * Do we have Municipality
+     * @param $countryCode
+     *
+     * @return bool
+     */
+    private function isSupportedCountry($countryCode)
+    {
+        $supported = array('SV', 'DA', 'NO');
+
+        return in_array(strtoupper($countryCode), $supported);
     }
 }

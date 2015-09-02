@@ -30,7 +30,7 @@ abstract class Component
      * @ORM\Column(type="string", length=64)
      *
      * @Assert\Length(max=64)
-     * @Assert\NotBlank(message="error.notblank.general")
+     * @Assert\NotBlank()
      *
      */
     protected $name;
@@ -41,7 +41,7 @@ abstract class Component
      * @ORM\Column(type="string", length=64, unique=true)
      *
      * @Assert\Length(max=64)
-     * @Assert\NotBlank(message="error.notblank.general")
+     * @Assert\NotBlank()
      *
      */
     protected $slug;

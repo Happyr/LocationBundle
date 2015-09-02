@@ -5,32 +5,32 @@ namespace Happyr\LocationBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Happyr\LocationBundle\Entity\Municipality;
+use Happyr\LocationBundle\Entity\Region;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * @author Tobias Nyholm
  */
-class LoadMunicipalityData  extends AbstractFixture
+class LoadRegionData extends AbstractFixture
 {
     /**
      * @param ObjectManager $manager
      */
     public function load(ObjectManager $manager)
     {
-        $basePath = dirname(__FILE__).'/../../Resources/data/Municipalities';
+        $basePath = dirname(__FILE__).'/../../Resources/data/Regions';
 
         $finder = new Finder();
-        $finder->files()->in($basePath)->name('no.yml');
+        $finder->files()->in($basePath)->name('*.yml');
 
         /** @var \Symfony\Component\Finder\SplFileInfo $file */
         foreach ($finder as $file) {
             $contents = Yaml::parse($file->getContents());
-            $municipalities = $contents['municipalities'];
+            $municipalities = $contents['regions'];
 
             foreach ($municipalities as $arr) {
-                $obj = new Municipality($arr['name'], $arr['slug']);
-                $obj->setCode($arr['code']);
+                $obj = new Region($arr['name'], $arr['slug']);
 
                 $manager->persist($obj);
             }

@@ -1,43 +1,31 @@
 <?php
+
 namespace Happyr\LocationBundle\DataFixtures\ORM;
 
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Happyr\LocationBundle\DataFixtures\BaseFixture;
 use Happyr\LocationBundle\Entity\Country;
+use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class LoadCountryData
- *
  * @author Tobias Nyholm
- *
- *
  */
-class LoadCountryData extends BaseFixture
+class LoadCountryData extends AbstractFixture
 {
-
     /**
      * @param ObjectManager $manager
      */
     public function load(ObjectManager $manager)
-    {
-        $this->basePath = dirname(__FILE__) . '/../../Resources/data/';
+    {return;
+        $filePath = dirname(__FILE__).'/../../Resources/data/countries.yml';
+        $contents = Yaml::parse(file_get_contents($filePath));
 
-        $file = $this->parseYml('countries.yml');
-        $countries = $file['countries'];
+        $countries = $contents['countries'];
 
         foreach ($countries as $code) {
             $obj = new Country($code);
             $manager->persist($obj);
         }
         $manager->flush();
-    }
-
-    /**
-     *
-     * @return int
-     */
-    public function getOrder()
-    {
-        return 100;
     }
 }
