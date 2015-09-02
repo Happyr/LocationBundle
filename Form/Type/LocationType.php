@@ -8,6 +8,7 @@ use Happyr\LocationBundle\Form\DataTransformer\CountryTransformer;
 use Happyr\LocationBundle\Form\DataTransformer\ComponentToStringTransformer;
 use Happyr\LocationBundle\Form\Events\GeocodeLocationString;
 use Happyr\LocationBundle\Manager\LocationManager;
+use Happyr\LocationBundle\Service\LocationService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
@@ -26,6 +27,11 @@ class LocationType extends AbstractType
     protected $lm;
 
     /**
+     * @var LocationService locationService
+     */
+    protected $locationService;
+
+    /**
      * @var \Geocoder\GeocoderInterface geocoder
      */
     protected $geocoder;
@@ -33,10 +39,12 @@ class LocationType extends AbstractType
     /**
      * @param LocationManager   $lm
      * @param GeocoderInterface $geocoder
+     * @param LocationService   $ls
      */
-    public function __construct(LocationManager $lm, GeocoderInterface $geocoder)
+    public function __construct(LocationManager $lm, GeocoderInterface $geocoder, LocationService $ls)
     {
         $this->lm = $lm;
+        $this->locationService = $ls;
         $this->geocoder = $geocoder;
     }
 
@@ -169,7 +177,7 @@ class LocationType extends AbstractType
         if ($options['components']['location']) {
             $this->addLocation($builder, $options);
         } else {
-            $eventListener = new GeocodeLocationString($this->lm, $this->geocoder);
+            $eventListener = new GeocodeLocationString($this->locationService, $this->geocoder);
             $builder->addEventListener(FormEvents::SUBMIT, array($eventListener, 'getCoordinates'));
         }
 
@@ -225,7 +233,7 @@ class LocationType extends AbstractType
         if ($options['geocodeLocationString'] == true && $this->geocoder != null) {
 
             // Geocode the input
-            $eventListener = new GeocodeLocationString($this->lm, $this->geocoder);
+            $eventListener = new GeocodeLocationString($this->locationService, $this->geocoder);
             $builder->addEventListener(FormEvents::SUBMIT, array($eventListener, 'geocodeLocation'));
 
             //Make sure we got a valid geocode
