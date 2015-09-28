@@ -55,7 +55,7 @@ class LocationService
                 $region = $this->lm->findOneObjectByName('Region', $result->getCounty(), $countryCode);
             }
 
-            $possibleValues = array($result->getCityDistrict(), $result->getRegion(), $result->getCounty());
+            $possibleValues = array($result->getCityDistrict(), $result->getRegion(), $result->getCity());
             foreach ($possibleValues as $value) {
                 if (null !== $mun = $this->lm->findOneMunicipalityByName($value, $countryCode)) {
                     break;
