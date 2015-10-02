@@ -28,7 +28,7 @@ class LocationService
      * Add GeocodedResult to a Location.
      *
      * @param GeocodedResult $result
-     * @param BaseLocation $location
+     * @param BaseLocation   $location
      */
     public function addResultToLocation(GeocodedResult $result, BaseLocation $location)
     {
@@ -39,9 +39,9 @@ class LocationService
         $location->setZipCode($result->getZipcode());
         $location->setRegion($this->lm->getObject('Region', $result->getRegion(), $countryCode));
         $location->setMunicipality($this->lm->getObject('Municipality', $result->getMunicipality(), $countryCode, array(
-            'conditions'=>array(
-                'code'=>$result->getMunicipalityCode(),
-            )
+            'conditions' => array(
+                'code' => $result->getMunicipalityCode(),
+            ),
         )));
 
         //get the coordinates

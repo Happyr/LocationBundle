@@ -82,7 +82,7 @@ class LocationManager
 
             //create
             $object = new $entityNamespace($name, $slug, $countryCode);
-            if  (isset($options['conditions'])) {
+            if (isset($options['conditions'])) {
                 foreach ($options['conditions'] as $cName => $cValue) {
                     $setter = 'set'.ucfirst($cName);
                     $object->$setter($cValue);
@@ -96,7 +96,7 @@ class LocationManager
     /**
      * Return an object by slug.
      *
-     * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
+     * @param string $entity      must be safe. Don't let the user affect this one. Example "City", "Region"
      * @param string $slug
      * @param string $countryCode 2 digit country code, UPPERCASE
      *
@@ -119,7 +119,7 @@ class LocationManager
      * Return an object by name
      * This function slugifys the name and runs findOneObjectBySlug.
      *
-     * @param string $entity must be safe. Don't let the user affect this one. Example "City", "Region"
+     * @param string $entity      must be safe. Don't let the user affect this one. Example "City", "Region"
      * @param string $name
      * @param string $countryCode 2 digit country code, UPPERCASE
      *
@@ -132,7 +132,7 @@ class LocationManager
             return;
         }
 
-        if ($entity=='Country') {
+        if ($entity == 'Country') {
             $conditions = array('slug' => $name);
         } else {
             $conditions = array('name' => $name, 'country' => $countryCode);

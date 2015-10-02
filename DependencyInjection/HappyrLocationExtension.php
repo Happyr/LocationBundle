@@ -28,6 +28,5 @@ class HappyrLocationExtension extends Extension
 
         $container->getDefinition('happyr.location.location_type')
             ->replaceArgument(1, new Reference($config['geocoder_service']));
-
     }
 }

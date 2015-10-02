@@ -64,13 +64,13 @@ class GeocodedResult
      *
      * @return GeocodedResult
      */
-    static function createFromArray($input)
+    public static function createFromArray($input)
     {
         $defaults = self::getResultParts();
 
         $array = array_merge($defaults, $input);
 
-        $result = new GeocodedResult();
+        $result = new self();
         $result
             ->setCountry($array['country'])
             ->setCountryCode($array['countryCode'])
@@ -88,10 +88,9 @@ class GeocodedResult
     }
 
     /**
-     *
      * @return array
      */
-    static function getResultParts()
+    public static function getResultParts()
     {
         $defaults = [
             'country' => null,

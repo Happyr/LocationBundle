@@ -1,7 +1,8 @@
 Happyr LocationBundle
 =====================
 
-A Symfony2 Bundle to handle location in Sweden, Norway and Denmark.
+A Symfony2 Bundle to handle locations. This provided a Locaiton object with differnet parts to clearly identify a location.
+
 
 
 ## Installation

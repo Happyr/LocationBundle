@@ -47,7 +47,6 @@ class GeocodeLocationString
         $submittedData = $location->getLocation();
         $result = $this->geocoder->geocode($submittedData);
 
-
         $this->ls->addResultToLocation($result, $location);
 
         return $location;
