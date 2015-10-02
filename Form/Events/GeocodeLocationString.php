@@ -37,7 +37,7 @@ class GeocodeLocationString
      *
      * @param FormEvent $event
      *
-     * @return mixed
+     * @return bool
      */
     public function geocodeLocation(FormEvent $event)
     {
@@ -47,8 +47,15 @@ class GeocodeLocationString
         $submittedData = $location->getLocation();
         $result = $this->geocoder->geocode($submittedData);
 
+        if (!$result || $result->getLng() == null) {
+            $location->clear();
+            $location->setLocation($submittedData);
+
+            return false;
+        }
+
         $this->ls->addResultToLocation($result, $location);
 
-        return $location;
+        return true;
     }
 }
