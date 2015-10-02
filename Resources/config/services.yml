@@ -1,22 +1,15 @@
 
 services:
 
-  happyr.location.geocoder:
-    alias: bazinga_geocoder.geocoder
-
   happyr.location.location_manager:
     class: Happyr\LocationBundle\Manager\LocationManager
     arguments: [@doctrine.orm.entity_manager, @happyr.slugify.slugifier]
 
   happyr.location.location_type:
     class: Happyr\LocationBundle\Form\Type\LocationType
-    arguments: [@happyr.location.location_manager, @happyr.location.geocoder, @happyr.location.service ]
+    arguments: [@happyr.location.location_manager, ~, @happyr.location.service ]
     tags:
       - { name: form.type, alias: location }
-
-  happyr.location.geocoder.excessive:
-    class: Happyr\LocationBundle\Service\ExcessiveGeocoder
-    arguments: [@bazinga_geocoder.geocoder]
 
   happyr.location.service:
     class: Happyr\LocationBundle\Service\LocationService

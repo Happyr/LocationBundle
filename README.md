@@ -41,11 +41,4 @@ public function buildForm(FormBuilderInterface $builder, array $options)
                 ));
     }
 ```
-    
-If you want to have the address name in the same language as the country the address is located 
-you should use the ExcessiveGeocoder. Ie, Russian addresses will be in Russian and not in English. 
 
-``` yaml
-happyr_location:
-  enable_excessive_geocoder: true
-```

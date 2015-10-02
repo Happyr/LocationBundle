@@ -19,8 +19,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('happyr_location');
 
         $rootNode->children()
-            ->scalarNode('geocoder_service')->defaultNull()->end()
-            ->booleanNode('enable_excessive_geocoder')->defaultFalse()->end()
+            ->scalarNode('geocoder_service')->cannotBeEmpty()->end()
             ->end();
 
         return $treeBuilder;

@@ -1,6 +1,0 @@
-regions:
-  - { name: Nordjylland, slug: nordjylland }
-  - { name: Midtjylland, slug: midtjylland }
-  - { name: Syddanmark, slug: syddanmark }
-  - { name: Hovedstaden, slug: hovedstaden }
-  - { name: Sjælland, slug: sjaelland }

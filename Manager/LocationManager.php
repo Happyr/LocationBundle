@@ -48,7 +48,7 @@ class LocationManager
      *
      * @return mixed
      */
-    public function getObject($entity, $name, $countryCode)
+    public function getObject($entity, $name, $countryCode, $options = array())
     {
         $this->isValidEntity($entity);
 
@@ -60,19 +60,16 @@ class LocationManager
         $name = $this->beautifyName($name);
 
         /*
-         * The slugifier removes words like "is", "at" etc.. that's why we just strlower the country codes..
+         * The slugifier removes words like "is", "at" etc.. that's why we just strtoupper the country codes..
          */
         if ($entity == 'HappyrLocationBundle:Country') {
-            $slug = strtolower($name);
+            $slug = strtoupper($name);
             $countryCode = null;
         } else {
             $slug = $this->slugifier->slugify($name);
         }
-        $conditions = array('slug' => $slug);
 
-        if ($countryCode !== null) {
-            $conditions['country'] = $countryCode;
-        }
+        $conditions = $this->prepareConditions($countryCode, $options, $slug);
 
         //fetch object
         $object = $this->em->getRepository($entity)->findOneBy($conditions);
@@ -85,6 +82,12 @@ class LocationManager
 
             //create
             $object = new $entityNamespace($name, $slug, $countryCode);
+            if  (isset($options['conditions'])) {
+                foreach ($options['conditions'] as $cName => $cValue) {
+                    $setter = 'set'.ucfirst($cName);
+                    $object->$setter($cValue);
+                }
+            }
         }
 
         return $object;
@@ -141,49 +144,6 @@ class LocationManager
     }
 
     /**
-     * Special case to handle Swedish Kommun that sometimes are post-fixed with "s? Kommun" and some times not
-     *
-     * @param string $name
-     * @param string $countryCode 2 digit country code, UPPERCASE
-     *
-     * @return Object|void
-     */
-    public function findOneMunicipalityByName($name, $countryCode)
-    {
-        if (empty($name)) {
-            return;
-        }
-
-        if (!preg_match('|.*?s? Kommun|sim', $name)) {
-            return $this->findOneObjectByName('Municipality', $name, $countryCode);
-        }
-
-        //If it ends if "* Kommun"
-        if (null === $mun = $this->findOneObjectByName('Municipality', substr($name, 0, -7), $countryCode)) {
-            $mun = $this->findOneObjectByName('Municipality', substr($name, 0, -8), $countryCode);
-        }
-
-        return $mun;
-    }
-
-    /**
-     * Rename a object.
-     *
-     * @param string    $entity    must be safe. Don't let the user affect this one. Example "City", "Region"
-     * @param Component $component
-     * @param String    $name
-     */
-    public function renameObject($entity, Component $component, $name)
-    {
-        $name = $this->beautifyName($name);
-        $component->setName($name);
-        $component->setSlug($this->slugifier->slugify($name));
-
-        $this->em->persist($component);
-        $this->em->flush();
-    }
-
-    /**
      * Remove a Location object.
      *
      * @param Component $component
@@ -192,28 +152,6 @@ class LocationManager
     {
         $this->em->remove($component);
         $this->em->flush();
-    }
-
-    /**
-     * Merge two Location Objects into one.
-     * This will move all Location's references from $copy to $org
-     * This will remove the copy Object.
-     *
-     * @param String    $databaseName The $databaseName will be inserted in a query. Must be safe
-     * @param Component $org
-     * @param Component $copy
-     */
-    public function mergeObjects($databaseName, Component $org, Component $copy)
-    {
-        $this->em->createQuery(
-            'UPDATE EastitLegoLocationBundle:Location e SET e.'
-            .$databaseName.'=:org_id WHERE e.'.$databaseName.'=:copy_id'
-        )
-            ->setParameter('org_id', $org->getId())
-            ->setParameter('copy_id', $copy->getId())
-            ->execute();
-
-        $this->removeObject($copy);
     }
 
     /**
@@ -243,5 +181,27 @@ class LocationManager
                 )
             );
         }
+    }
+
+    /**
+     * @param $countryCode
+     * @param $options
+     * @param $slug
+     *
+     * @return array
+     */
+    private function prepareConditions($countryCode, $options, $slug)
+    {
+        $conditions = array('slug' => $slug);
+
+        if ($countryCode !== null) {
+            $conditions['country'] = $countryCode;
+        }
+
+        if (isset($options['conditions'])) {
+            $conditions = array_merge($conditions, $options['conditions']);
+        }
+
+        return $conditions;
     }
 }

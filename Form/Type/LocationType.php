@@ -2,11 +2,11 @@
 
 namespace Happyr\LocationBundle\Form\Type;
 
-use Geocoder\GeocoderInterface;
 use Happyr\LocationBundle\Entity\Location;
 use Happyr\LocationBundle\Form\DataTransformer\CountryTransformer;
 use Happyr\LocationBundle\Form\DataTransformer\ComponentToStringTransformer;
 use Happyr\LocationBundle\Form\Events\GeocodeLocationString;
+use Happyr\LocationBundle\Geocoder\GeocoderInterface;
 use Happyr\LocationBundle\Manager\LocationManager;
 use Happyr\LocationBundle\Service\LocationService;
 use Symfony\Component\Form\AbstractType;
@@ -14,7 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @author Tobias Nyholm
@@ -32,14 +32,14 @@ class LocationType extends AbstractType
     protected $locationService;
 
     /**
-     * @var \Geocoder\GeocoderInterface geocoder
+     * @var GeocoderInterface
      */
     protected $geocoder;
 
     /**
-     * @param LocationManager   $lm
+     * @param LocationManager $lm
      * @param GeocoderInterface $geocoder
-     * @param LocationService   $ls
+     * @param LocationService $ls
      */
     public function __construct(LocationManager $lm, GeocoderInterface $geocoder, LocationService $ls)
     {
@@ -61,11 +61,11 @@ class LocationType extends AbstractType
     }
 
     /**
-     * Set the options.
+     * Configures the options for this type.
      *
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver The resolver for the options.
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
