@@ -178,7 +178,7 @@ class LocationType extends AbstractType
             $this->addLocation($builder, $options);
         } else {
             $eventListener = new GeocodeLocationString($this->locationService, $this->geocoder);
-            $builder->addEventListener(FormEvents::SUBMIT, array($eventListener, 'getCoordinates'));
+            $builder->addEventListener(FormEvents::SUBMIT, array($eventListener, 'addCoordinates'));
         }
 
         if ($options['components']['country']) {

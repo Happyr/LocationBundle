@@ -58,4 +58,31 @@ class GeocodeLocationString
 
         return true;
     }
+
+    /**
+     * Add the coordinates to this location.
+     *
+     * @param FormEvent $event
+     *
+     * @return Location
+     */
+    public function addCoordinates(FormEvent $event)
+    {
+        /** @var Location $location */
+        $location = $event->getData();
+
+        $result = $this->geocoder->geocode(sprintf(
+            '%s, %s, %s, %s, %s',
+            $location->getAddress(),
+            $location->getMunicipality(),
+            $location->getCity(),
+            $location->getRegion(),
+            $location->getCountry()
+        ));
+
+        $location->setLat($result->getLat());
+        $location->setLng($result->getLng());
+
+        return $location;
+    }
 }
