@@ -253,6 +253,9 @@ class BaseLocation
      */
     public function setLat($lat)
     {
+        if (empty($lat)) {
+            $lat = 0;
+        }
         $this->lat = $lat;
 
         return $this;
@@ -273,6 +276,9 @@ class BaseLocation
      */
     public function setLng($lng)
     {
+        if (empty($lng)) {
+            $lng = 0;
+        }
         $this->lng = $lng;
 
         return $this;
