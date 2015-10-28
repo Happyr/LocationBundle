@@ -55,9 +55,10 @@ class LocationManager
         if ($entity == 'HappyrLocationBundle:Country') {
             $name = strtoupper($name);
             $countryCode = null;
+            $conditions = array('slug' => $name);
+        } else {
+            $conditions = $this->prepareConditions($countryCode, $options, $name);
         }
-
-        $conditions = $this->prepareConditions($countryCode, $options, $name);
 
         //fetch object
         $object = $this->em->getRepository($entity)->findOneBy($conditions);
@@ -181,14 +182,10 @@ class LocationManager
      */
     private function prepareConditions($countryCode, $options, $name)
     {
-        if ($countryCode === null) {
-            // This is a country
-            $conditions = array('slug' => $name);
-        } else {
-            $conditions = array(
-                'name' => $name,
-                'country' => $countryCode,
-            );
+        $conditions = array('name' => $name,);
+
+        if ($countryCode !== null) {
+            $conditions['country'] = $countryCode;
         }
 
         if (isset($options['conditions'])) {
