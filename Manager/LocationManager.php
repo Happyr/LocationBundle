@@ -181,10 +181,15 @@ class LocationManager
      */
     private function prepareConditions($countryCode, $options, $name)
     {
-        $conditions = array('name' => $name);
 
-        if ($countryCode !== null) {
-            $conditions['country'] = $countryCode;
+        if ($countryCode === null) {
+            // This is a country
+            $conditions = array('slug' => $name);
+        } else {
+            $conditions = array(
+                'name' => $name,
+                'country' => $countryCode,
+            );
         }
 
         if (isset($options['conditions'])) {
