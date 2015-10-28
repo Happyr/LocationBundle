@@ -9,8 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * A region is the like "State", "Län" or "Bundesland"
  *
- * @ORM\Table(name="LocationRegion", uniqueConstraints={
- *     @ORM\UniqueConstraint(name="region_slug_index", columns={"slug", "country"})})
+ * @ORM\Table(name="LocationRegion")
  *
  * @ORM\Entity(repositoryClass="Happyr\LocationBundle\Entity\ComponentRepository")
  */

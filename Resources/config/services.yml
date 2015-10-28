@@ -3,7 +3,7 @@ services:
 
   happyr.location.location_manager:
     class: Happyr\LocationBundle\Manager\LocationManager
-    arguments: [@doctrine.orm.entity_manager, @happyr.slugify.slugifier]
+    arguments: [@doctrine.orm.entity_manager]
 
   happyr.location.location_type:
     class: Happyr\LocationBundle\Form\Type\LocationType

@@ -36,10 +36,9 @@ abstract class Component
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=64, nullable=true)
      *
      * @Assert\Length(max=64)
-     * @Assert\NotBlank()
      */
     protected $slug;
 

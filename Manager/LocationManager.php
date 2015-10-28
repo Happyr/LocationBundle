@@ -2,9 +2,9 @@
 
 namespace Happyr\LocationBundle\Manager;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManager;
 use Happyr\LocationBundle\Entity\Component;
-use HappyR\SlugifyBundle\Services\SlugifyService;
 
 /**
  * All the other manager extends this class but the are not accessed by the service container.
@@ -20,23 +20,16 @@ class LocationManager
     protected $em;
 
     /**
-     * @var \HappyR\SlugifyBundle\Services\SlugifyService slugifier
-     */
-    protected $slugifier;
-
-    /**
      * @var string typePrefix
      */
     protected $typePrefix = 'HappyrLocationBundle:';
 
     /**
      * @param EntityManager  $em
-     * @param SlugifyService $slugifier
      */
-    public function __construct(EntityManager $em, SlugifyService $slugifier)
+    public function __construct(EntityManager $em)
     {
         $this->em = $em;
-        $this->slugifier = $slugifier;
     }
 
     /**
@@ -59,17 +52,12 @@ class LocationManager
         $entity = $this->typePrefix.$entity;
         $name = $this->beautifyName($name);
 
-        /*
-         * The slugifier removes words like "is", "at" etc.. that's why we just strtoupper the country codes..
-         */
         if ($entity == 'HappyrLocationBundle:Country') {
-            $slug = strtoupper($name);
+            $name = strtoupper($name);
             $countryCode = null;
-        } else {
-            $slug = $this->slugifier->slugify($name);
         }
 
-        $conditions = $this->prepareConditions($countryCode, $options, $slug);
+        $conditions = $this->prepareConditions($countryCode, $options, $name);
 
         //fetch object
         $object = $this->em->getRepository($entity)->findOneBy($conditions);
@@ -79,6 +67,8 @@ class LocationManager
             // Assert: this will never be Country
             $entityName = explode(':', $entity);
             $entityNamespace = 'Happyr\LocationBundle\Entity\\'.$entityName[1];
+
+            $slug = $this->slugify($name);
 
             //create
             $object = new $entityNamespace($name, $slug, $countryCode);
@@ -117,7 +107,6 @@ class LocationManager
 
     /**
      * Return an object by name
-     * This function slugifys the name and runs findOneObjectBySlug.
      *
      * @param string $entity      must be safe. Don't let the user affect this one. Example "City", "Region"
      * @param string $name
@@ -186,13 +175,13 @@ class LocationManager
     /**
      * @param $countryCode
      * @param $options
-     * @param $slug
+     * @param $name
      *
      * @return array
      */
-    private function prepareConditions($countryCode, $options, $slug)
+    private function prepareConditions($countryCode, $options, $name)
     {
-        $conditions = array('slug' => $slug);
+        $conditions = array('name' => $name);
 
         if ($countryCode !== null) {
             $conditions['country'] = $countryCode;
@@ -203,5 +192,17 @@ class LocationManager
         }
 
         return $conditions;
+    }
+
+    /**
+     * @param string $string
+     *
+     * @return string
+     */
+    protected function slugify($string)
+    {
+        $slugify = new Slugify();
+
+        return $slugify->slugify($string);
     }
 }

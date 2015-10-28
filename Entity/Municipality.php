@@ -9,8 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * This is the area you dived a region in
  *
- * @ORM\Table(name="LocationMunicipality", uniqueConstraints={
- *     @ORM\UniqueConstraint(name="muni_slug_index", columns={"slug", "country"})})
+ * @ORM\Table(name="LocationMunicipality")
  * @ORM\Entity(repositoryClass="Happyr\LocationBundle\Entity\ComponentRepository")
  */
 class Municipality extends Component
