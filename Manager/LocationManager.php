@@ -25,7 +25,7 @@ class LocationManager
     protected $typePrefix = 'HappyrLocationBundle:';
 
     /**
-     * @param EntityManager  $em
+     * @param EntityManager $em
      */
     public function __construct(EntityManager $em)
     {
@@ -106,7 +106,7 @@ class LocationManager
     }
 
     /**
-     * Return an object by name
+     * Return an object by name.
      *
      * @param string $entity      must be safe. Don't let the user affect this one. Example "City", "Region"
      * @param string $name
@@ -181,7 +181,6 @@ class LocationManager
      */
     private function prepareConditions($countryCode, $options, $name)
     {
-
         if ($countryCode === null) {
             // This is a country
             $conditions = array('slug' => $name);
