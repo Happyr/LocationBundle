@@ -4,6 +4,7 @@ namespace Happyr\LocationBundle\Manager;
 
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Happyr\LocationBundle\Entity\Component;
 
 /**
@@ -15,7 +16,7 @@ use Happyr\LocationBundle\Entity\Component;
 class LocationManager
 {
     /**
-     * @var \Doctrine\ORM\EntityManager em
+     * @var EntityManagerInterface
      */
     protected $em;
 
@@ -25,9 +26,9 @@ class LocationManager
     protected $typePrefix = 'HappyrLocationBundle:';
 
     /**
-     * @param EntityManager $em
+     * @param EntityManagerInterface $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }

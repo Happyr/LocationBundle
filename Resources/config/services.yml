@@ -3,14 +3,14 @@ services:
 
   happyr.location.location_manager:
     class: Happyr\LocationBundle\Manager\LocationManager
-    arguments: [@doctrine.orm.entity_manager]
+    arguments: ["@doctrine.orm.entity_manager"]
 
   happyr.location.location_type:
     class: Happyr\LocationBundle\Form\Type\LocationType
-    arguments: [@happyr.location.location_manager, ~, @happyr.location.service ]
+    arguments: ["@happyr.location.location_manager", ~, "@happyr.location.service" ]
     tags:
       - { name: form.type, alias: location }
 
   happyr.location.service:
     class: Happyr\LocationBundle\Service\LocationService
-    arguments: [@happyr.location.location_manager]
+    arguments: ["@happyr.location.location_manager"]
