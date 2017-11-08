@@ -10,6 +10,8 @@ use Happyr\LocationBundle\Geocoder\GeocoderInterface;
 use Happyr\LocationBundle\Manager\LocationManager;
 use Happyr\LocationBundle\Service\LocationService;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -183,7 +185,7 @@ class LocationType extends AbstractType
 
         if ($options['components']['country']) {
             $builder->add(
-                $builder->create('country', 'country', $options['field']['country'])
+                $builder->create('country', CountryType::class, $options['field']['country'])
                     ->addModelTransformer(new CountryTransformer())
                     ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'Country'))
             );
@@ -191,29 +193,29 @@ class LocationType extends AbstractType
 
         if ($options['components']['city']) {
             $builder->add(
-                $builder->create('city', 'text', $options['field']['city'])
+                $builder->create('city', TextType::class, $options['field']['city'])
                     ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'City'))
             );
         }
 
         if ($options['components']['municipality']) {
             $builder->add(
-                $builder->create('municipality', 'text', $options['field']['municipality'])
+                $builder->create('municipality', TextType::class, $options['field']['municipality'])
                     ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'Municipality'))
             );
         }
 
         if ($options['components']['address']) {
-            $builder->add('address', 'text', $options['field']['address']);
+            $builder->add('address', TextType::class, $options['field']['address']);
         }
 
         if ($options['components']['zipCode']) {
-            $builder->add('zipCode', 'text', $options['field']['zipCode']);
+            $builder->add('zipCode', TextType::class, $options['field']['zipCode']);
         }
 
         if ($options['components']['region']) {
             $builder->add(
-                $builder->create('region', 'text', $options['field']['region'])
+                $builder->create('region', TextType::class, $options['field']['region'])
                     ->addModelTransformer(new ComponentToStringTransformer($this->lm, 'Region'))
             );
         }
@@ -225,7 +227,7 @@ class LocationType extends AbstractType
      */
     protected function addLocation(FormBuilderInterface &$builder, array &$options)
     {
-        $locationForm = $builder->create('location', 'text', $options['field']['location']);
+        $locationForm = $builder->create('location', TextType::class, $options['field']['location']);
 
         /*
          * if we should geocode the location string
@@ -261,13 +263,5 @@ class LocationType extends AbstractType
     public function getName()
     {
         return 'location';
-    }
-
-    /**
-     * @return null|string|\Symfony\Component\Form\FormTypeInterface
-     */
-    public function getParent()
-    {
-        return 'form';
     }
 }
