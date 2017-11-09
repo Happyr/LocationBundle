@@ -264,12 +264,4 @@ class LocationType extends AbstractType
     {
         return 'location';
     }
-
-    /**
-     * @return null|string|\Symfony\Component\Form\FormTypeInterface
-     */
-    public function getParent()
-    {
-        return 'form';
-    }
 }
