@@ -31,7 +31,7 @@ class BaseLocation
     protected $location = '';
 
     /**
-     * @var \Happyr\LocationBundle\Entity\Country country
+     * @var Country|null
      *
      * @ORM\ManyToOne(targetEntity="Happyr\LocationBundle\Entity\Country", cascade={"persist"})
      * @Assert\Type(type="Happyr\LocationBundle\Entity\Country", message="happyr.location.form.error.country")
@@ -39,7 +39,7 @@ class BaseLocation
     protected $country;
 
     /**
-     * @var \Happyr\LocationBundle\Entity\City city
+     * @var City|null city
      *
      * @ORM\ManyToOne(targetEntity="Happyr\LocationBundle\Entity\City", cascade={"persist"})
      * @Assert\Type(type="Happyr\LocationBundle\Entity\City", message="happyr.location.form.error.city")
@@ -47,14 +47,14 @@ class BaseLocation
     protected $city;
 
     /**
-     * @var \Happyr\LocationBundle\Entity\Municipality municipality
+     * @var Municipality|null
      *
      * @ORM\ManyToOne(targetEntity="Happyr\LocationBundle\Entity\Municipality", cascade={"persist"})
      */
     protected $municipality;
 
     /**
-     * @var \Happyr\LocationBundle\Entity\Region region
+     * @var Region|null region
      *
      * @ORM\ManyToOne(targetEntity="Happyr\LocationBundle\Entity\Region", cascade={"persist"})
      */
@@ -207,7 +207,7 @@ class BaseLocation
     }
 
     /**
-     * @param \Happyr\LocationBundle\Entity\City $city
+     * @param City|null $city
      *
      * @return $this
      */
@@ -219,7 +219,7 @@ class BaseLocation
     }
 
     /**
-     * @return \Happyr\LocationBundle\Entity\City
+     * @return City|null
      */
     public function getCity()
     {
@@ -227,7 +227,7 @@ class BaseLocation
     }
 
     /**
-     * @param \Happyr\LocationBundle\Entity\Country $country
+     * @param Country|null $country
      *
      * @return $this
      */
@@ -239,7 +239,7 @@ class BaseLocation
     }
 
     /**
-     * @return \Happyr\LocationBundle\Entity\Country
+     * @return Country|null
      */
     public function getCountry()
     {
@@ -301,7 +301,7 @@ class BaseLocation
     }
 
     /**
-     * @param \Happyr\LocationBundle\Entity\Municipality $municipality
+     * @param Municipality|null $municipality
      *
      * @return $this
      */
@@ -313,7 +313,7 @@ class BaseLocation
     }
 
     /**
-     * @return \Happyr\LocationBundle\Entity\Municipality
+     * @return Municipality|null
      */
     public function getMunicipality()
     {
@@ -321,7 +321,7 @@ class BaseLocation
     }
 
     /**
-     * @param \Happyr\LocationBundle\Entity\Region $region
+     * @param Region|null $region
      *
      * @return $this
      */
@@ -333,7 +333,7 @@ class BaseLocation
     }
 
     /**
-     * @return \Happyr\LocationBundle\Entity\Region
+     * @return Region|null
      */
     public function getRegion()
     {
