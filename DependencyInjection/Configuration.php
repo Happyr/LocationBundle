@@ -15,8 +15,13 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('happyr_location');
+        $treeBuilder = new TreeBuilder('happyr_location');
+        if (\method_exists(TreeBuilder::class, 'getRootNode')) {
+            $rootNode = $treeBuilder->getRootNode();
+        } else {
+            // Symfony < 4.2 code
+            $rootNode = $treeBuilder->root('happyr_location');
+        }
 
         $rootNode->children()
             ->scalarNode('geocoder_service')->isRequired()->cannotBeEmpty()->end()
